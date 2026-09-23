@@ -1,0 +1,98 @@
+*{
+    font-family: Lato, sans-serif;
+    font-size: 24;
+    font-weight: bold;
+}
+
+.h1{
+    font-size: 48;
+}
+
+.h2{
+    font-size: 40;
+}
+
+.h3{
+    font-size: 32;
+}
+
+.caption{
+    font-size: 16;
+}
+
+.caption.regular{
+    font-weight: normal;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../images/wallpaper_login.jpg');
+    background-size: cover;
+}
+
+.button {
+    width: 370px;
+    height: 38px;
+    border-radius: 8;
+    border-color: #9C2C0B;
+}
+
+
+.button.login {
+    background-color: #9C2C0B;
+    color: #F1DCB1;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.button.login:active {
+    color:rgb(0, 0, 0);
+}
+
+.button.login:hover{
+    background-color: #C54620;
+    border-color: #C54620;
+}
+
+
+.inputUser {
+    width: 370px;
+    height: 38px;
+    background-color: rgb(241, 220, 177);
+    border: 3px solid #A4936F;
+    color:#A4936F;
+}
+
+.inputUser:focus {
+    outline: none;
+    border: 2px solid #311E14;
+    color:#311E14;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(241, 220, 177);
+    border-radius: 10px;
+    padding: 50px;
+}
+
+.formButtonsContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #311E14;
+}
+
+.logoSize {
+    width: 300px;
+    height: auto;
+}
