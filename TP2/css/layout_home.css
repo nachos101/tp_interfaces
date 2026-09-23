@@ -1,0 +1,272 @@
+/* =========================================================
+   TOKENS
+   ========================================================= */
+:root {
+  --bg: #1b1511;
+  --bg-header: #F1DCB1;
+  --surface: #2c231c;
+  --text: #f3e9d8;
+  --text-muted: #b9a88f;
+  --footer-bg: #f1dcae;
+  --footer-text: #2b1e14;
+  --accent: #e0892b;
+  --avatar: #e04a8f;
+
+  --font: "Lato", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --content-max: 1280px;
+  --gutter: clamp(12px, 3vw, 32px);
+  /* Margen lateral que alinea todo con un "contenedor" de ancho máximo,
+     pero dejando que los carruseles lleguen hasta el borde de la pantalla.
+     El % se resuelve contra el ancho del padre de quien lo usa. */
+  --inset: max(var(--gutter), (100% - var(--content-max)) / 2);
+
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.miniLogo {
+  width: 60px;
+  height: auto;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+
+  /* GRID: esqueleto de la página. El footer queda abajo
+     aunque haya poco contenido. */
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   HEADER  (FLEX: una sola fila de elementos)
+   ========================================================= */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg-header);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px var(--inset);
+}
+
+.logo {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--surface);
+  text-decoration: none;
+  font-weight: 900;
+}
+
+.search {
+  flex: 1 1 320px;
+  max-width: 520px;
+  margin-inline: auto; /* lo centra entre logo y acciones */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--text);
+  color: var(--footer-text);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 0.9rem;
+  color: inherit;
+}
+
+.search input:focus {
+  outline: none;
+}
+
+.search:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.header-actions {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--avatar);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* =========================================================
+   MAIN  (vacío: solo el fondo; el 1fr del body lo estira)
+   ========================================================= */
+.home {
+  min-width: 0;
+}
+
+/* =========================================================
+   FOOTER  (GRID con áreas + FLEX para redes)
+   ========================================================= */
+.site-footer {
+  background: var(--footer-bg);
+  color: var(--footer-text);
+}
+
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "links social"
+    "links brand";
+  gap: 24px 48px;
+  padding: 32px var(--inset);
+}
+
+.footer-links {
+  grid-area: links;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 24px 32px;
+}
+
+.footer-col h3 {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+}
+
+.footer-col ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+}
+
+.footer-col a {
+  text-decoration: none;
+}
+
+.footer-col a:hover {
+  text-decoration: underline;
+}
+
+.footer-social {
+  grid-area: social;
+  justify-self: end;
+  display: flex;
+  gap: 10px;
+}
+
+.social-link {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--footer-text);
+  color: var(--footer-bg);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.footer-brand {
+  grid-area: brand;
+  justify-self: end;
+  align-self: end;
+  font-weight: 900;
+  font-size: 1.4rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 640px) {
+  /* El buscador baja a una segunda fila a lo ancho */
+  .site-header__inner {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .search {
+    order: 3;
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .header-actions {
+    margin-left: auto;
+  }
+
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "brand"
+      "links"
+      "social";
+  }
+
+  .footer-social,
+  .footer-brand {
+    justify-self: start;
+  }
+}
