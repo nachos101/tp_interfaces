@@ -26,6 +26,7 @@ caption.regular{
     font-weight: normal;
 }
 
+
 .body {
     display: flex;
     flex-direction: column;
@@ -72,13 +73,7 @@ caption.regular{
 }
 
 .form{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #F1DCB1;
-    border-radius: 10px;
-    padding: 50px;
+
 }
 
 .formButtonsContent{
@@ -94,3 +89,24 @@ caption.regular{
     height: auto;
     margin: 0 auto 10px;
 } 
+
+/* login-register design */
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #F1DCB1;
+    border-radius: 10px;
+    padding: 50px;
+}
+
+.linkCaption{
+    display: block;
+    text-align: right;
+    font-size: 0.85rem;
+    margin-top: 6px;
+    color: #2b1d0c;
+    text-decoration: none;
+    font-weight: bold;
+}

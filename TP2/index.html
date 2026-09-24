@@ -8,19 +8,18 @@
 </head>
 <body class="body">
     <section class="formContainer">
-        <div><img class="logoSize" src="images/logo.png"></div> 
+        <img class="logoSize" src="images/logo.png" alt="Palabras One Game con un sobrero de paja por encima.">
         <h1>Inicia Sesión</h1>
             <form class="form">
-                <div class="formButtonsContent">
-                    Nombre de Usuario
-                    <br><input class="inputUser" type="text" name="name" id="name"></br>
-                    Contraseña
-                    <br><input class="inputUser" type="password" name="password" id="password"></br>
-                    </br>
-                    <input type="button" value="Iniciar Sesión" class="button login">
-                </div>
+                <label for="name">Nombre de Usuario</label>
+                <br><input class="inputUser" type="text" name="name" id="name" placeholder="luffy147"></br>
+                <label for="password">Contraseña</label>
+                <br><input class="inputUser" type="password" name="password" id="password" placeholder="******"></br>
+                </br>
+                <a href="/recuperar-password" class="captionLink"><caption>Olvidé mi contraseña</caption></a>
+            </br>
+                <input type="button" value="Iniciar Sesión" class="button login">
             </form>
-        </div>
     </section>
 
     <bdo src="js/script.js"></script>    
