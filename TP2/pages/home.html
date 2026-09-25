@@ -9,24 +9,446 @@
 <body>
 <header class="site-header">
     <div class="site-header__inner">
-      <button class="icon-btn" type="button" aria-label="Abrir menú"><svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52" fill="none">
+      <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52" fill="none">
   <path d="M39.5332 48H13.1338V43.5996H39.5332V48ZM13.1338 43.5996H8.7334V39.2002H13.1338V43.5996ZM43.9336 43.5996H39.5332V39.2002H43.9336V43.5996ZM8.7334 39.2002H4.33301V12.7998H8.7334V39.2002ZM48.333 39.2002H43.9336V12.7998H48.333V39.2002ZM37.333 37H15.333V32.5996H37.333V37ZM37.333 28.2002H15.333V23.7998H37.333V28.2002ZM37.333 19.4004H15.333V15H37.333V19.4004ZM13.1338 12.7998H8.7334V8.40039H13.1338V12.7998ZM43.9336 12.7998H39.5332V8.40039H43.9336V12.7998ZM39.5332 8.40039H13.1338V4H39.5332V8.40039Z" fill="#4F2D1C"/>
-</svg></button>
+</svg>
       <a class="miniLogo" href="#" aria-label="Inicio"><img src="../images/strawhat_logo.png"></a>
  
       <form class="search" role="search">
-        <span aria-hidden="true">🔍</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33" fill="none">
+  <path d="M23.3333 20.4167H20.4167V23.3333H23.3333V20.4167ZM23.3333 20.4167H26.25V5.83333H23.3333V20.4167ZM2.91667 23.3333H5.83333V20.4167H2.91667V23.3333ZM0 20.4167H2.91667V5.83333H0V20.4167ZM5.83333 26.25H20.4167V23.3333H5.83333V26.25ZM5.83333 17.5H8.75V8.75H5.83333V17.5ZM8.75 20.4167H17.5V17.5H8.75V20.4167ZM20.4167 29.1667H23.3333V26.25H20.4167V29.1667ZM23.3333 32.0833H29.1667V29.1667H23.3333V32.0833ZM2.91667 5.83333H5.83333V2.91667H2.91667V5.83333ZM29.1667 29.1667H32.0833V23.3333H29.1667V29.1667ZM8.75 8.75H17.5V5.83333H8.75V8.75ZM17.5 17.5H20.4167V8.75H17.5V17.5ZM26.25 23.3333H29.1667V20.4167H26.25V23.3333ZM5.83333 2.91667H20.4167V0H5.83333V2.91667ZM20.4167 5.83333H23.3333V2.91667H20.4167V5.83333Z" fill="#4F2D1C"/>
+</svg>
         <input type="search" placeholder="¿A qué quieres jugar?" aria-label="Buscar juegos">
       </form>
  
       <div class="header-actions">
-        <a class="avatar" href="#" aria-label="Mi perfil">S</a>
+        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="51" viewBox="0 0 44 51" fill="none">
+  <path d="M6.73579 34.2964H37.0468V41.1557H43.7826V50.35H0V41.1557H6.73579V34.2964ZM6.73579 24.0075V6.85928H13.4716V0H30.311V6.85928H37.0468V24.0075H30.311V30.8667H13.4716V24.0075H6.73579Z" fill="#4F2D1C"/>
+  <path d="M9 37H34V44H41V47H3V44H9V37Z" fill="#F1DCB1"/>
+  <path d="M10 21V10L16 10V3L28 3.00002V10H34V21H27V28H16V21H10Z" fill="#F1DCB1"/>
+</svg>
       </div>
     </div>
   </header>
+  
+  <!-- Main -->
+    <main class="home">
+    <section class="featured" aria-labelledby="t-destacados">
+      <h2 class="section-title" id="t-destacados">Destacados de la semana</h2>
+      <ul class="featured__track">
+          <li class="featured__slide">
+            <a class="featured__link" href="#" aria-label="Juego destacado 1"><!-- <img src="..." alt=""> --></a>
+          </li>
+          <li class="featured__slide">
+            <a class="featured__link" href="#" aria-label="Juego destacado 2"><!-- <img src="..." alt=""> --></a>
+          </li>
+          <li class="featured__slide">
+            <a class="featured__link" href="#" aria-label="Juego destacado 3"><!-- <img src="..." alt=""> --></a>
+          </li>
+          <li class="featured__slide">
+            <a class="featured__link" href="#" aria-label="Juego destacado 4"><!-- <img src="..." alt=""> --></a>
+          </li>
+      </ul>
+    </section>
  
-  <main class="home"></main>
+      <section class="shelf" aria-labelledby="t-recomendados">
+        <h2 class="section-title" id="t-recomendados">Recomendado según lo que juegas</h2>
+        <ul class="shelf__track">
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+        </ul>
+      </section>
  
+      <section class="shelf" aria-labelledby="t-accion">
+        <h2 class="section-title" id="t-accion">Acción</h2>
+        <ul class="shelf__track">
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+ 
+      <section class="shelf" aria-labelledby="t-militares">
+        <h2 class="section-title" id="t-militares">Militares</h2>
+        <ul class="shelf__track">
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+ 
+      <section class="shelf" aria-labelledby="t-cocina">
+        <h2 class="section-title" id="t-cocina">Cocina</h2>
+        <ul class="shelf__track">
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+ 
+      <section class="shelf" aria-labelledby="t-deportes">
+        <h2 class="section-title" id="t-deportes">Deportes</h2>
+        <ul class="shelf__track">
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+ 
+      <section class="shelf" aria-labelledby="t-arcade">
+        <h2 class="section-title" id="t-arcade">Arcade</h2>
+        <ul class="shelf__track">
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+  </main>
+  
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="site-footer__inner">
       <nav class="footer-links" aria-label="Pie de página">
@@ -66,14 +488,29 @@
  
       <div class="footer-social">
         <!-- Reemplazá el texto por tus íconos SVG -->
-        <a class="social-link" href="#" aria-label="Instagram">IG</a>
-        <a class="social-link" href="#" aria-label="YouTube">YT</a>
-        <a class="social-link" href="#" aria-label="LinkedIn">in</a>
-        <a class="social-link" href="#" aria-label="X">X</a>
-        <a class="social-link" href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70" fill="none">
+  <path d="M35 25.8877C29.9824 25.8877 25.8877 29.9824 25.8877 35C25.8877 40.0176 29.9824 44.1123 35 44.1123C40.0175 44.1123 44.1123 40.0176 44.1123 35C44.1123 29.9824 40.0175 25.8877 35 25.8877ZM62.33 35C62.33 31.2266 62.3642 27.4873 62.1523 23.7207C61.9404 19.3457 60.9423 15.4629 57.7431 12.2637C54.5371 9.05762 50.6611 8.06641 46.2861 7.85449C42.5127 7.64258 38.7734 7.67676 35.0068 7.67676C31.2334 7.67676 27.4941 7.64258 23.7275 7.85449C19.3525 8.06641 15.4697 9.06445 12.2705 12.2637C9.06441 15.4697 8.0732 19.3457 7.86129 23.7207C7.64937 27.4941 7.68355 31.2334 7.68355 35C7.68355 38.7666 7.64937 42.5127 7.86129 46.2793C8.0732 50.6543 9.07125 54.5371 12.2705 57.7363C15.4765 60.9424 19.3525 61.9336 23.7275 62.1455C27.5009 62.3574 31.2402 62.3232 35.0068 62.3232C38.7802 62.3232 42.5195 62.3574 46.2861 62.1455C50.6611 61.9336 54.5439 60.9355 57.7431 57.7363C60.9492 54.5303 61.9404 50.6543 62.1523 46.2793C62.3711 42.5127 62.33 38.7734 62.33 35ZM35 49.0205C27.2412 49.0205 20.9795 42.7588 20.9795 35C20.9795 27.2412 27.2412 20.9795 35 20.9795C42.7587 20.9795 49.0205 27.2412 49.0205 35C49.0205 42.7588 42.7587 49.0205 35 49.0205ZM49.5947 23.6797C47.7832 23.6797 46.3203 22.2168 46.3203 20.4053C46.3203 18.5938 47.7832 17.1309 49.5947 17.1309C51.4062 17.1309 52.8691 18.5938 52.8691 20.4053C52.8696 20.8354 52.7853 21.2615 52.6209 21.659C52.4566 22.0565 52.2154 22.4177 51.9112 22.7218C51.6071 23.026 51.2459 23.2672 50.8484 23.4315C50.4509 23.5959 50.0248 23.6802 49.5947 23.6797Z" fill="black"/>
+</svg></a>
+        <a href="#" aria-label="YouTube"><svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70" fill="none">
+  <path d="M64.3467 20.2412C63.998 18.9426 63.3144 17.7584 62.3642 16.8071C61.4141 15.8557 60.2307 15.1706 58.9326 14.8203C54.1543 13.5352 35 13.5352 35 13.5352C35 13.5352 15.8457 13.5352 11.0674 14.8135C9.76869 15.1626 8.58474 15.8474 7.63441 16.7989C6.68409 17.7504 6.00085 18.9352 5.65332 20.2344C4.375 25.0195 4.375 35 4.375 35C4.375 35 4.375 44.9805 5.65332 49.7588C6.35742 52.3975 8.43555 54.4756 11.0674 55.1797C15.8457 56.4648 35 56.4648 35 56.4648C35 56.4648 54.1543 56.4648 58.9326 55.1797C61.5713 54.4756 63.6426 52.3975 64.3467 49.7588C65.625 44.9805 65.625 35 65.625 35C65.625 35 65.625 25.0195 64.3467 20.2412ZM28.916 44.1602V25.8398L44.7754 34.9316L28.916 44.1602Z" fill="black"/>
+</svg></a>
+        <a  href="#" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70" fill="none">
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M2.91663 8.2775C2.91817 6.85619 3.48347 5.49354 4.48848 4.48852C5.4935 3.48351 6.85615 2.91821 8.27746 2.91667H61.7166C62.4212 2.91552 63.1191 3.05335 63.7704 3.32228C64.4216 3.59121 65.0134 3.98595 65.5119 4.4839C66.0104 4.98185 66.4058 5.57324 66.6754 6.2242C66.9451 6.87516 67.0837 7.57291 67.0833 8.2775V61.7167C67.0833 63.1395 66.5183 64.5041 65.5125 65.5104C64.5066 66.5168 63.1424 67.0826 61.7195 67.0833H8.27746C6.85565 67.0818 5.49255 66.5161 4.48745 65.5104C3.48235 64.5048 2.9174 63.1414 2.91663 61.7196V8.2775ZM28.315 27.3817H37.0037V31.745C38.2579 29.2367 41.4662 26.9792 46.2875 26.9792C55.5304 26.9792 57.7208 31.9754 57.7208 41.1425V58.1233H48.367V43.2308C48.367 38.01 47.1129 35.0642 43.9279 35.0642C39.5091 35.0642 37.6716 38.2404 37.6716 43.2308V58.1233H28.315V27.3817ZM12.2733 57.7238H21.63V26.9792H12.2733V57.7238ZM22.9687 16.9517C22.9863 17.7528 22.8438 18.5494 22.5494 19.2947C22.255 20.04 21.8147 20.7189 21.2544 21.2918C20.694 21.8646 20.0249 22.3197 19.2863 22.6304C18.5477 22.9412 17.7544 23.1012 16.9531 23.1012C16.1518 23.1012 15.3585 22.9412 14.6199 22.6304C13.8813 22.3197 13.2121 21.8646 12.6518 21.2918C12.0914 20.7189 11.6511 20.04 11.3568 19.2947C11.0624 18.5494 10.9198 17.7528 10.9375 16.9517C10.9721 15.3792 11.6211 13.8827 12.7455 12.7828C13.8698 11.6829 15.3802 11.0671 16.9531 11.0671C18.526 11.0671 20.0363 11.6829 21.1607 12.7828C22.2851 13.8827 22.9341 15.3792 22.9687 16.9517Z" fill="black"/>
+</svg></a>
+        <a  href="#" aria-label="X"><svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70" fill="none">
+  <path d="M55.125 3.28125H65.8613L42.4113 30.1525L70 66.7188H48.4006L31.4825 44.5375L12.1231 66.7188H1.3825L26.4644 37.975L0 3.28125H22.1506L37.4412 23.5506L55.125 3.28125ZM51.3625 60.2787H57.3125L18.9131 9.38438H12.5344L51.3625 60.2787Z" fill="black"/>
+</svg></a>
+        <a  href="#" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70" fill="none">
+  <mask id="mask0_574_642" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="70" height="70">
+    <path d="M0 0H70V70H0V0Z" fill="white"/>
+  </mask>
+  <g mask="url(#mask0_574_642)">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 35.1954C0 52.5992 12.6379 67.0658 29.1667 70V44.7213H20.4167V35H29.1667V27.2213C29.1667 18.4713 34.8046 13.6121 42.7788 13.6121C45.3046 13.6121 48.0288 14 50.5546 14.3879V23.3333H46.0833C41.8046 23.3333 40.8333 25.4713 40.8333 28.1954V35H50.1667L48.6121 44.7213H40.8333V70C57.3621 67.0658 70 52.5992 70 35.1954C70 15.8375 54.25 0 35 0C15.75 0 0 15.8375 0 35.1954Z" fill="black"/>
+  </g>
+</svg></a>
       </div>
  
-      <a class="footer-brand" href="#">One Game</a>
+      <a class="footer-brand" href="#"><img src="../images/logo-footer.png" alt=""></a>
     </div>
   </footer>
 </body>
