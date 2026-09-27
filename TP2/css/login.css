@@ -1,0 +1,162 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic);
+@import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+/* login-register design */
+
+.formContainer{
+    /*border box para quitar espacios innecesarios*/
+    box-sizing: border-box;
+    width: 600px;
+    height: auto;
+    border-radius: 50px;
+    background: #F1DCB1;
+    padding: 16px 50px;
+ 
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* flex start para que empiece arriba del todo */
+    justify-content: flex-start; 
+}
+
+.logoContainer{
+    /* porcentaje porque el contenedor del form es fijo */
+    width:80%;
+    height: auto;
+}
+
+.logoContainer img{
+    /* ancho del 100% para que ocupe todo el espacio del contenedor */
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.socialLogin {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    margin-bottom: 32px;
+}
+
+
+/*form e inputs*/
+.form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.field {
+    width: 80%;
+    max-width: 370px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el label y el input/wrapper horizontalmente */
+    gap: 8px; /* Separación entre el label y el input */
+}
+
+.form input{
+    width: 100%; /* toma el 100% de su padre field */
+    height: 38px;
+    background-color:#F1DCB1;
+    border: 3px solid #A4936F;
+    border-radius: 8px;
+    color:#A4936F;
+    font-size: 24px;
+    box-sizing: border-box;
+}
+
+.form input:focus {
+    outline: none;
+    border: 2px solid #311E14;
+    color:#311E14;
+}
+
+/* link olvide la contraseña */
+.linkCaption {
+    align-self: flex-end; /* Lo empuja a la derecha */
+    margin-top: 4px;
+}
+
+/* contenedor especial para el input contraseña con la foto del ojo*/
+.input-wrapper {
+    position: relative; /* Permite posicionar el botón del ojo adentro */
+    width: 100%; 
+}
+
+
+/* botones */
+.eye-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);/*mueve el ojo al cento horizontal exacto del input*/
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.eye-btn img {
+    width: 29px; /* Ajusta el tamaño del icono del ojo */
+    height: auto;
+}
+
+.button.login:active {
+    color:#000;
+}
+
+.button.login:hover{
+    background-color: #C54620;
+    border-color: #C54620;
+}
+
+.button.app{
+    text-align: center;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: 'Inter';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    gap: 10px;
+}
+
+.button.app.google{
+    color: var(--button-general-text, #121212);
+    background: #FFF;
+    border: 1px solid #e0e0e0;
+}
+
+.button.app.google:hover{
+    background-color: #ABABAB;
+}
+
+.button.app.google:active{
+    background-color: #C9C9C9;
+}
+
+.button.app.facebook{
+    color: var(--button-blue-text, #FFF);
+    border: 1px solid #e0e0e0;
+    background: #4285F4;
+}
+
+.button.app.facebook:hover{
+    background-color: #124EB0;
+}
+
+.button.app.facebook:active{
+    background-color: #124EB0;
+}
+
+/* divisor */
+hr{
+    width: 370px;
+    height: 2px;
+    background-color: #000;
+    border: 0px;
+}
