@@ -13,7 +13,7 @@ h3{
     font-size: 32px;
 }
 
-h1, h2, h3, h4, h5, h6{
+h1, h2, h3{
     margin: 0;
 }
 
@@ -39,15 +39,21 @@ h1, h2, h3, h4, h5, h6{
     font-size: 24px;
     color: #311E14;
     background-image: url('../images/wallpaper_login.png');
-    background-size: cover;
+    background-size:contain;
     
-    display: flex;
+/*     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
     margin: 0;
-    padding: 0;
+    padding: 0; */
+
+    margin: 0;
+    min-height: 100vh;
+    padding: 40px 20px; /* Esto da 40px de espacio libre arriba y abajo para que no toque los bordes */
+    box-sizing: border-box;
+    display: flex;
 
 }
 
