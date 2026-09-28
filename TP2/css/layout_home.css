@@ -1,7 +1,12 @@
+/* Fuente: el @import tiene que ir SIEMPRE primero, fuera de cualquier regla */
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+
 /* =========================================================
    TOKENS
    ========================================================= */
 :root {
+  --font: "Lato", system-ui, -apple-system, "Segoe UI", sans-serif;
+
   --bg: #1b1511;
   --bg-header: #F1DCB1;
   --surface: #2c231c;
@@ -12,7 +17,6 @@
   --accent: #e0892b;
   --avatar: #e04a8f;
 
-  --font-family: "Lato";
   --content-max: 1280px;
   --gutter: clamp(12px, 3vw, 32px);
   /* Margen lateral que alinea todo con un "contenedor" de ancho máximo,
@@ -20,6 +24,9 @@
      El % se resuelve contra el ancho del padre de quien lo usa. */
   --inset: max(var(--gutter), (100% - var(--content-max)) / 2);
 
+  --card-size: clamp(104px, 13vw, 150px);
+  --radius-card: 8px;
+  --radius-hero: 14px;
 }
 
 *,
@@ -146,7 +153,7 @@ a {
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: var(--text);
+  color: var(--footer-text); /* oscuro, para que se vea sobre el header crema */
   font-size: 1.2rem;
   cursor: pointer;
 }
@@ -161,14 +168,14 @@ a {
   padding-block: 20px 48px;
   min-width: 0; /* evita que los carruseles ensanchen la página */
 }
- 
+
 .section-title {
   margin: 0 0 10px;
   padding-inline: var(--inset);
   font-size: clamp(0.95rem, 1.4vw, 1.15rem);
   font-weight: 700;
 }
- 
+
 /* =========================================================
    DESTACADOS  (GRID horizontal + scroll-snap, slide centrada)
    ========================================================= */
@@ -176,20 +183,20 @@ a {
   container-type: inline-size; /* habilita las unidades cqi */
   min-width: 0;
 }
- 
+
 .featured__track {
   --slide: min(78cqi, 900px);
   position: relative; /* referencia para offsetLeft en el script */
- 
+
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: var(--slide);
   gap: clamp(8px, 2cqi, 20px);
- 
+
   /* El padding deja asomar las slides vecinas a los costados */
   padding-inline: calc((100cqi - var(--slide)) / 2);
   padding-block: 4px 10px;
- 
+
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   overscroll-behavior-x: contain;
@@ -197,11 +204,68 @@ a {
   list-style: none;
   margin: 0;
 }
- 
+
+/* Oculta la barra de scroll: ahora se navega con las flechas */
+.featured__track {
+  scrollbar-width: none;
+}
+
+.featured__track::-webkit-scrollbar {
+  display: none;
+}
+
 .featured__slide {
   scroll-snap-align: center;
 }
- 
+
+/* Contenedor de referencia para ubicar las flechas sobre el carrusel */
+.featured__viewport {
+  position: relative;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 2;
+
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(90 58 38 / 0.85);
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.4);
+  transition: background 0.2s, opacity 0.2s, scale 0.2s;
+}
+
+.carousel-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.carousel-btn:hover {
+  background: var(--accent);
+  scale: 1.08;
+}
+
+/* En el primer y último juego la flecha correspondiente desaparece */
+.carousel-btn:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.carousel-btn--prev {
+  left: var(--inset);
+}
+
+.carousel-btn--next {
+  right: var(--inset);
+}
+
 .featured__link {
   display: block;
   aspect-ratio: 16 / 7;
@@ -209,31 +273,31 @@ a {
   overflow: hidden;
   background: var(--surface);
 }
- 
+
 .featured__link img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
- 
+
 /* =========================================================
    FILAS DE JUEGOS  (GRID con auto-flow column = carrusel)
    ========================================================= */
 .shelf {
   min-width: 0;
 }
- 
+
 .shelf__track {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: var(--card-size);
   gap: 12px;
- 
+
   /* Primera card alineada con el título; el resto sangra hasta el borde */
   padding-inline: var(--inset);
   scroll-padding-inline: var(--inset);
   padding-block: 4px 10px;
- 
+
   overflow-x: auto;
   scroll-snap-type: x proximity;
   overscroll-behavior-x: contain;
@@ -241,11 +305,37 @@ a {
   list-style: none;
   margin: 0;
 }
- 
+
 .shelf__track > li {
   scroll-snap-align: start;
 }
- 
+
+/* Oculta la barra de scroll: se navega con las flechas */
+.shelf__track {
+  scrollbar-width: none;
+}
+
+.shelf__track::-webkit-scrollbar {
+  display: none;
+}
+
+.shelf__viewport {
+  position: relative;
+}
+
+/* Flechas centradas sobre las imágenes (no sobre los nombres) */
+.shelf__viewport .carousel-btn {
+  top: calc(4px + var(--card-size) / 2);
+}
+
+.shelf__viewport .carousel-btn--prev {
+  left: max(4px, var(--inset) - 18px);
+}
+
+.shelf__viewport .carousel-btn--next {
+  right: max(4px, var(--inset) - 18px);
+}
+
 /* CARD  (FLEX en columna: imagen + nombre) */
 .card {
   display: flex;
@@ -253,20 +343,20 @@ a {
   gap: 6px;
   text-decoration: none;
 }
- 
+
 .card__thumb {
   aspect-ratio: 1;
   border-radius: var(--radius-card);
   overflow: hidden;
   background: var(--surface);
 }
- 
+
 .card__thumb img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
- 
+
 .card__name {
   font-size: 0.8rem;
   color: var(--text-muted);
@@ -274,7 +364,7 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
 }
- 
+
 .card:hover .card__name {
   color: var(--text);
 }
@@ -363,8 +453,6 @@ a {
   height: auto;
 }
 
-
-
 /* =========================================================
    RESPONSIVE
    ========================================================= */
@@ -398,13 +486,19 @@ a {
     justify-self: start;
   }
 
-  
+  .carousel-btn {
+    width: 36px;
+    height: 36px;
+  }
 }
 
+/* =========================================================
+   LOADER  (barra de carga con porcentaje animado)
+   ========================================================= */
 @property --p {
   syntax: '<integer>';
   initial-value: 0;
-  inherits: true; /* ahora los hijos (barra y texto) leen el valor */
+  inherits: true; /* los hijos (barra y texto) leen el valor */
 }
 
 .loader {
@@ -415,7 +509,7 @@ a {
   place-content: center;
   justify-items: center;
   gap: 1rem;
-  background: #111;
+  background: var(--surface);
   color: #fff;
   animation:
     avance 5s linear forwards,
@@ -433,13 +527,13 @@ a {
 .relleno {
   height: 100%;
   width: calc(var(--p) * 1%);
-  background-color: #0af;
+  background-color: #7B5A4A;
   /* rayas diagonales que se mueven */
   background-image: linear-gradient(
     45deg,
-    rgba(255,255,255,.25) 25%, transparent 25%,
-    transparent 50%, rgba(255,255,255,.25) 50%,
-    rgba(255,255,255,.25) 75%, transparent 75%
+    rgba(255, 255, 255, .25) 25%, transparent 25%,
+    transparent 50%, rgba(255, 255, 255, .25) 50%,
+    rgba(255, 255, 255, .25) 75%, transparent 75%
   );
   background-size: 1rem 1rem;
   animation: rayas 0.6s linear infinite;
@@ -448,8 +542,25 @@ a {
 .porcentaje {
   counter-reset: p var(--p);
 }
-.porcentaje::after { content: counter(p) '%'; }
+
+.porcentaje::after {
+  content: counter(p) '%';
+}
 
 @keyframes avance  { to { --p: 100; } }
 @keyframes rayas   { from { background-position: 1rem 0; } to { background-position: 0 0; } }
 @keyframes ocultar { to { opacity: 0; visibility: hidden; } }
+
+ul.navbar {
+    width: 8%;
+    margin: 0;
+    padding: 0%;
+    display: none;
+    flex-direction: column;
+    background-color: var(--bg-header);
+    color: var(--footer-text);
+}
+
+ul.navbar.show {
+    display: flex;
+}

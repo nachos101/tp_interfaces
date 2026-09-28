@@ -13,7 +13,7 @@
   </div>
 <header class="site-header">
     <div class="site-header__inner">
-      <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52" fill="none">
+      <svg  id="menu-toggle" xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52" fill="none">
   <path d="M39.5332 48H13.1338V43.5996H39.5332V48ZM13.1338 43.5996H8.7334V39.2002H13.1338V43.5996ZM43.9336 43.5996H39.5332V39.2002H43.9336V43.5996ZM8.7334 39.2002H4.33301V12.7998H8.7334V39.2002ZM48.333 39.2002H43.9336V12.7998H48.333V39.2002ZM37.333 37H15.333V32.5996H37.333V37ZM37.333 28.2002H15.333V23.7998H37.333V28.2002ZM37.333 19.4004H15.333V15H37.333V19.4004ZM13.1338 12.7998H8.7334V8.40039H13.1338V12.7998ZM43.9336 12.7998H39.5332V8.40039H43.9336V12.7998ZM39.5332 8.40039H13.1338V4H39.5332V8.40039Z" fill="#4F2D1C"/>
 </svg>
       <a class="miniLogo" href="#" aria-label="Inicio"><img src="../images/strawhat_logo.png"></a>
@@ -34,13 +34,27 @@
       </div>
     </div>
   </header>
-  
+  <ul class="navbar">
+    <li>Inicio</li>
+    <li>Explorar</li>
+    <li>Biblioteca</li>
+    <li>Configuración</li>
+  </ul>
   <!-- Main -->
-    <main class="home">
-    <section class="featured" aria-labelledby="t-destacados">
-      <h2 class="section-title" id="t-destacados">Destacados de la semana</h2>
-      <ul class="featured__track">
-          <li class="featured__slide">
+  <main class="home">
+  <section class="featured" aria-labelledby="t-destacados">
+    <h2 class="section-title" id="t-destacados">Destacados de la semana</h2>
+
+    <div class="featured__viewport">
+    <button class="carousel-btn carousel-btn--prev" type="button" aria-label="Juego anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
+
+    <ul class="featured__track">
+      <li class="featured__slide">
             <a class="featured__link" href="#" aria-label="Juego destacado 1"><!-- <img src="..." alt=""> --></a>
           </li>
           <li class="featured__slide">
@@ -52,15 +66,103 @@
           <li class="featured__slide">
             <a class="featured__link" href="#" aria-label="Juego destacado 4"><!-- <img src="..." alt=""> --></a>
           </li>
-      </ul>
-    </section>
+    </ul>
+
+    <button class="carousel-btn carousel-btn--next" type="button" aria-label="Juego siguiente">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
+  </div>
+</section>
  
+<section class="shelf" aria-labelledby="t-recomendados">
+  <h2 class="section-title" id="t-recomendados">Recomendado según lo que juegas</h2>
+
+  <div class="shelf__viewport">
+    <button class="carousel-btn carousel-btn--prev" type="button" aria-label="Juegos anteriores">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
+
+    <ul class="shelf__track">
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="#">
+              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__name">Nombre</span>
+            </a>
+          </li>
+    </ul>
+
+    <button class="carousel-btn carousel-btn--next" type="button" aria-label="Más juegos">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
+  </div>
+</section>      
+
       <section class="shelf" aria-labelledby="t-recomendados">
-        <h2 class="section-title" id="t-recomendados">Recomendado según lo que juegas</h2>
-        <ul class="shelf__track">
-          <li>
+  <h2 class="section-title" id="t-recomendados">Acción</h2>
+
+  <div class="shelf__viewport">
+    <button class="carousel-btn carousel-btn--prev" type="button" aria-label="Juegos anteriores">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
+
+    <ul class="shelf__track">
+      <li>
             <a class="card" href="#">
-              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__thumb"><img src="../images/gameCard.png" alt=""></span>
               <span class="card__name">Nombre</span>
             </a>
           </li>
@@ -118,15 +220,31 @@
               <span class="card__name">Nombre</span>
             </a>
           </li>
-        </ul>
-      </section>
- 
-      <section class="shelf" aria-labelledby="t-accion">
-        <h2 class="section-title" id="t-accion">Acción</h2>
-        <ul class="shelf__track">
-          <li>
+    </ul>
+
+    <button class="carousel-btn carousel-btn--next" type="button" aria-label="Más juegos">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
+  </div>
+</section>
+      <section class="shelf" aria-labelledby="t-recomendados">
+  <h2 class="section-title" id="t-recomendados">Militares</h2>
+
+  <div class="shelf__viewport">
+    <button class="carousel-btn carousel-btn--prev" type="button" aria-label="Juegos anteriores">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
+
+    <ul class="shelf__track">
+      <li>
             <a class="card" href="#">
-              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__thumb"><img src="../images/gameCard.png" alt=""></span>
               <span class="card__name">Nombre</span>
             </a>
           </li>
@@ -184,15 +302,32 @@
               <span class="card__name">Nombre</span>
             </a>
           </li>
-        </ul>
-      </section>
- 
-      <section class="shelf" aria-labelledby="t-militares">
-        <h2 class="section-title" id="t-militares">Militares</h2>
-        <ul class="shelf__track">
-          <li>
+
+    </ul>
+
+    <button class="carousel-btn carousel-btn--next" type="button" aria-label="Más juegos">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
+  </div>
+</section>
+<section class="shelf" aria-labelledby="t-recomendados">
+  <h2 class="section-title" id="t-recomendados">Cocina</h2>
+
+  <div class="shelf__viewport">
+    <button class="carousel-btn carousel-btn--prev" type="button" aria-label="Juegos anteriores">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
+
+    <ul class="shelf__track">
+      <li>
             <a class="card" href="#">
-              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__thumb"><img src="../images/gameCard.png" alt=""></span>
               <span class="card__name">Nombre</span>
             </a>
           </li>
@@ -250,15 +385,32 @@
               <span class="card__name">Nombre</span>
             </a>
           </li>
-        </ul>
-      </section>
- 
-      <section class="shelf" aria-labelledby="t-cocina">
-        <h2 class="section-title" id="t-cocina">Cocina</h2>
-        <ul class="shelf__track">
-          <li>
+
+    </ul>
+
+    <button class="carousel-btn carousel-btn--next" type="button" aria-label="Más juegos">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
+  </div>
+</section> 
+      <section class="shelf" aria-labelledby="t-recomendados">
+  <h2 class="section-title" id="t-recomendados">Deporte</h2>
+
+  <div class="shelf__viewport">
+    <button class="carousel-btn carousel-btn--prev" type="button" aria-label="Juegos anteriores">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
+
+    <ul class="shelf__track">
+     <li>
             <a class="card" href="#">
-              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__thumb"><img src="../images/gameCard.png" alt=""></span>
               <span class="card__name">Nombre</span>
             </a>
           </li>
@@ -316,15 +468,32 @@
               <span class="card__name">Nombre</span>
             </a>
           </li>
-        </ul>
-      </section>
- 
-      <section class="shelf" aria-labelledby="t-deportes">
-        <h2 class="section-title" id="t-deportes">Deportes</h2>
-        <ul class="shelf__track">
-          <li>
+
+    </ul>
+
+    <button class="carousel-btn carousel-btn--next" type="button" aria-label="Más juegos">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
+  </div>
+</section>
+      <section class="shelf" aria-labelledby="t-recomendados">
+  <h2 class="section-title" id="t-recomendados">Arcade</h2>
+
+  <div class="shelf__viewport">
+    <button class="carousel-btn carousel-btn--prev" type="button" aria-label="Juegos anteriores">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
+
+    <ul class="shelf__track">
+      <li>
             <a class="card" href="#">
-              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
+              <span class="card__thumb"><img src="../images/gameCard.png" alt=""></span>
               <span class="card__name">Nombre</span>
             </a>
           </li>
@@ -382,74 +551,17 @@
               <span class="card__name">Nombre</span>
             </a>
           </li>
-        </ul>
-      </section>
- 
-      <section class="shelf" aria-labelledby="t-arcade">
-        <h2 class="section-title" id="t-arcade">Arcade</h2>
-        <ul class="shelf__track">
-          <li>
-            <a class="card" href="#">
-              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
-              <span class="card__name">Nombre</span>
-            </a>
-          </li>
-          <li>
-            <a class="card" href="#">
-              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
-              <span class="card__name">Nombre</span>
-            </a>
-          </li>
-          <li>
-            <a class="card" href="#">
-              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
-              <span class="card__name">Nombre</span>
-            </a>
-          </li>
-          <li>
-            <a class="card" href="#">
-              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
-              <span class="card__name">Nombre</span>
-            </a>
-          </li>
-          <li>
-            <a class="card" href="#">
-              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
-              <span class="card__name">Nombre</span>
-            </a>
-          </li>
-          <li>
-            <a class="card" href="#">
-              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
-              <span class="card__name">Nombre</span>
-            </a>
-          </li>
-          <li>
-            <a class="card" href="#">
-              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
-              <span class="card__name">Nombre</span>
-            </a>
-          </li>
-          <li>
-            <a class="card" href="#">
-              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
-              <span class="card__name">Nombre</span>
-            </a>
-          </li>
-          <li>
-            <a class="card" href="#">
-              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
-              <span class="card__name">Nombre</span>
-            </a>
-          </li>
-          <li>
-            <a class="card" href="#">
-              <span class="card__thumb"><!-- <img src="..." alt=""> --></span>
-              <span class="card__name">Nombre</span>
-            </a>
-          </li>
-        </ul>
-      </section>
+
+    </ul>
+
+    <button class="carousel-btn carousel-btn--next" type="button" aria-label="Más juegos">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
+  </div>
+</section>
   </main>
   
   <!-- Footer -->
@@ -518,5 +630,6 @@
     </div>
   </footer>
   <script src="../js/script.js"></script>
+  <script src="../js/carruseles.js"></script>
 </body>
 </html>
