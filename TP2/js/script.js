@@ -1,11 +1,16 @@
 "use strict";
 
-let btn = document.getElementById("myButton");
+document.addEventListener("DOMContentLoaded", () => {
+    const loginBtn = document.querySelector(".button.login");
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
 
-function sendText(){
-    let input = document.getElementById("myInput").value;
-    let output = document.getElementById("myOutput");
-    output.value = input;
-}
-
-btn.addEventListener("click", sendText);     
+    if (loginBtn && usernameInput && passwordInput) {
+        loginBtn.addEventListener("click", (e) => {
+            if (usernameInput.value.trim() !== "" && passwordInput.value.trim() !== "") {
+                e.preventDefault();
+                window.location.href = "pages/home.html";
+            }
+        });
+    }
+});

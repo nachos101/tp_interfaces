@@ -14,7 +14,7 @@
             <img src="images/logo.png" alt="Palabras One Game con un sobrero de paja por encima.">
         </div>
         <h1>Inicia Sesión</h1>
-        <form class="form">
+        <form id="loginForm" class="form">
             <div class="field">
                 <label for="username">Nombre de usuario</label>
                 <input type="text" id="username" placeholder="luffy147">
@@ -29,7 +29,8 @@
                 </div>
                 <a href="#" class="linkCaption"><span class="link">Olvidé mi contraseña</span></a>
             </div>
-            <button class="button login">Iniciar Sesión</button>
+            <p id="error-message" class="error-text"></p>
+            <button class="button login" id="logbtn">Iniciar Sesión</button>
         </form>
 
         <hr>
@@ -67,6 +68,7 @@
     </section>
 
     <script src="js/script.js"></script>
+    <script src="js/login-register.js"></script>
 
 </body>
 </html>

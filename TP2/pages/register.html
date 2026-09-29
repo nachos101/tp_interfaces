@@ -14,7 +14,7 @@
             <img src="../images/logo.png" alt="Palabras One Game con un sobrero de paja por encima.">
         </div>
         <h1>Registrate</h1>
-        <form class="form">
+        <form class="form" id="registerForm">
             <div class="field">
                 <label for="name">Nombre*</label>
                 <input type="text" id="name" placeholder="Juancito" required >
@@ -23,6 +23,12 @@
                 <label for="surname">Apellido*</label>
                 <input type="text" id="surname" placeholder="Perez" required>
             </div>
+
+            <div class="field">
+                <label for="Rusername">Nombre de usuario</label>
+                <input type="text" id="Rusername" placeholder="luffy147">
+            </div>
+
             <div class="field">
                 <label for="dof">Fecha de nacimiento*</label>
                 <input type="date" id="dof" placeholder="dd-mm-aaaa" required>
@@ -55,7 +61,11 @@
             <div class="captcha">
                 <div class="captchaLeft">
                     <!-- Este div actuará como el checkbox y cambiará de clase con JS -->
-                    <div class="captchaCheckbox" id="captchaBox"></div>
+                    <div class="captchaCheckbox" id="captchaBox">
+                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#009E5F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>  
+                    </div>
                     <span class="textCaption regular">I'm not a robot</span>
                 </div>
                 
@@ -71,6 +81,8 @@
                     </svg>
                 </div>
             </div>
+
+            <p id="register-error" class="error-text"></p>
 
             <button class="button login">Registrarme</button>
         </form>
@@ -106,8 +118,8 @@
         <div> 
             <a href="../index.html" class="linkCaption">Ya tienes una cuenta en One Game? <span class="link">Inicia sesión aquí</span> </a>
         </div>
-
-
+    
     </section>    
+    <script src="../js/login-register.js"></script>
 </body>
 </html>
