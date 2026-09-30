@@ -218,6 +218,13 @@ a {
   scroll-snap-align: center;
 }
 
+/* Mensaje si la API falla (lo inserta juegos.js) */
+.api-error {
+  padding: 48px 16px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
 /* Contenedor de referencia para ubicar las flechas sobre el carrusel */
 .featured__viewport {
   position: relative;
@@ -278,6 +285,31 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* EFECTO DE FOCO: las slides de los costados se achican y oscurecen;
+   la del centro (.is-active, la marca el JS) se ve completa. */
+.featured__track.con-foco .featured__link {
+  scale: 0.9;
+  filter: brightness(0.5);
+  transition: scale 0.45s ease, filter 0.45s ease;
+}
+
+.featured__track.con-foco .is-active .featured__link {
+  scale: 1;
+  filter: none;
+}
+
+/* Quien tenga "reducir movimiento" activado ve el cambio sin animación */
+@media (prefers-reduced-motion: reduce) {
+  .featured__track.con-foco .featured__link {
+    transition: none;
+  }
+}
+
+/* Juego fijo (Hello Kitty): encuadre más arriba para que no se corte el título */
+.featured__slide--inicio img {
+  object-position: center 15%;
 }
 
 /* =========================================================
@@ -525,7 +557,7 @@ a {
 
 .relleno {
   height: 100%;
-  width: calc(var(--p) * 1%);
+  width: calc(var(--p, 0) * 1%); /* 0 hasta que el JS defina --p */
   background-color: #8F7163;
   /* rayas diagonales que se mueven */
   background-image: linear-gradient(
