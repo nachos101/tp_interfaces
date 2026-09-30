@@ -76,6 +76,14 @@
     color:#311E14;
 }
 
+.form input.successMode{
+    border-color: #009E5F;
+    color: #009E5F;
+    background-color: #f0fdf4;
+    transition: all 0.3s ease;
+}
+
+
 /* link olvide la contraseña */
 .linkCaption {
     align-self: flex-end; /* Lo empuja a la derecha */
@@ -201,21 +209,90 @@
     border: none;
     cursor: pointer;
     padding: 0;
+    /* Usamos flex para centrar el SVG adentro del botón de forma perfecta */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.eye-btn img {
-    width: 29px; /* Ajusta el tamaño del icono del ojo */
-    height: auto;
+.eye-btn.open{
+    display: none;
 }
 
-.button.login:active {
-    color:#000;
+.eye-btn svg {
+    width: 29px;
+    height: 29px;
+    display: block; /* Quita el comportamiento de texto que causa el desnivel */
 }
 
+.button.login {
+    /*relative y overfow hidden: el boton actua como una caja con limites
+    estrictos. Index:1 asegura que el texto quede siempre arriba.  */
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: all .4s;
+}
+
+/* fondo normal del boton*/
+.button.login::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #9C2C0B;
+    border-radius: 8px;
+    /* lo envia al fondo absoluto */
+    z-index: -2;
+}
+
+/* capa animada
+index -1 se ubica entre el fondo y el texto. Nace pegada a la izq(left:0)
+y con un ancho de cero (width: 0%) */
+.button.login::before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%; 
+    height: 100%;
+    background-color: #731A00; /*color de hover*/
+    transition: all .4s;
+    border-radius: 8px;
+    z-index: -1;
+}
+
+/* disparador de la animacion */
 .button.login:hover{
-    background-color: #C54620;
-    border-color: #C54620;
+    color: #F1DCB1;
 }
+
+.button.login:hover::before {
+    width: 100%; /* La capa crece hasta llenar el botón */
+}
+
+/* Cambia el color del fondo cuando el botón es clickeado */
+.button.login:active::after,
+.button.login:active::before {
+    background-color: #C54620; 
+    transition: none; /*cambio instantáneo, sin animación */
+}
+
+/* Estado de éxito para el botón animado */
+.button.login.success-btn {
+    color: #FFF; 
+}
+
+/* Forzamos que ambas capas de fondo pasen a ser verdes */
+.button.login.success-btn::after,
+.button.login.success-btn::before {
+    background-color: #009E5F;
+    transition: all 0.3s ease;
+}
+
+/* botones google y facebook */
 
 .button.app{
     text-align: center;

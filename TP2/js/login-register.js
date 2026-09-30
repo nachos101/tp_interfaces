@@ -1,11 +1,36 @@
-//LOGICA PAG DE LOGIN
+//LOGICA OJO DE PASSWORDS
+// Seleccionamos todos los contenedores de los inputs de contraseña
+const passwordWrappers = document.querySelectorAll('.input-wrapper');
 
-const loginForm = document.querySelector('.form');
+passwordWrappers.forEach(wrapper => {
+    // Buscamos los elementos solo dentro de este contenedor específico
+    const passwordInput = wrapper.querySelector('input');
+    const closedEyeBtn = wrapper.querySelector('.eye-btn:not(.open)'); 
+    const openEyeBtn = wrapper.querySelector('.eye-btn.open');
+
+    if (closedEyeBtn && openEyeBtn) {
+        // Evento para mostrar la contraseña (click en ojo cerrado)
+        closedEyeBtn.addEventListener('click', () => {
+            passwordInput.type = 'text'; // Cambia el input a texto visible
+            closedEyeBtn.style.display = 'none'; // Oculta ojo cerrado
+            openEyeBtn.style.display = 'block'; // Muestra ojo abierto
+        });
+
+        // Evento para ocultar la contraseña (click en ojo abierto)
+        openEyeBtn.addEventListener('click', () => {
+            passwordInput.type = 'password'; // Devuelve el input a modo oculto
+            openEyeBtn.style.display = 'none'; // Oculta ojo abierto
+            closedEyeBtn.style.display = 'block'; // Muestra ojo cerrado
+        });
+    }
+});
+//LOGICA PAG DE LOGIN
+const loginForm = document.getElementById('loginForm');
 
 // Solo ejecutamos esto si estamos en la página que tiene el loginForm
 if (loginForm) {
     loginForm.addEventListener('submit', function(evento) {
-        let errorMessage = document.querySelector("#error-message");
+        let errorMessage = document.getElementById('error-message');
         
         // Evita el comportamiento por defecto (recargar la página)
         evento.preventDefault();
@@ -92,7 +117,22 @@ if (registerForm) {
 
             // Si está todo perfecto, ocultamos el error y redirigimos
             errorMessage.style.display = 'none';
-            window.location.href = 'home.html';
+
+            // 1. Seleccionamos todos los inputs del formulario y los pintamos de verde
+            const allInputs = registerForm.querySelectorAll('input');
+            allInputs.forEach(input => {
+                input.classList.add('successMode');
+            });
+
+            // 2. Cambiamos el botón para dar más feedback
+            const submitBtn = registerForm.querySelector('button.login');
+            submitBtn.textContent = '¡Éxito!';
+            submitBtn.classList.add('success-btn'); // Aplicamos la clase que cambia las capas
+
+            // 3. Retrasamos la redirección 1.2 segundos para que se vea el efecto
+            setTimeout(() => {
+                window.location.href = 'home.html';
+            }, 1200);  
             
         } else {
             // Feedback si falta algún dato
