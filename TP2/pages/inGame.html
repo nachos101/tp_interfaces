@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>En juego</title>
+	<link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/layout_home.css">
+    <link rel="stylesheet" href="../css/inGame.css">
+    
+</head>
+<body>
+    <header class="site-header">
+        <div class="site-header__inner">
+            <nav class="menuButton">
+                <svg  id="menu-toggle" xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52" fill="none">
+                    <path d="M39.5332 48H13.1338V43.5996H39.5332V48ZM13.1338 43.5996H8.7334V39.2002H13.1338V43.5996ZM43.9336 43.5996H39.5332V39.2002H43.9336V43.5996ZM8.7334 39.2002H4.33301V12.7998H8.7334V39.2002ZM48.333 39.2002H43.9336V12.7998H48.333V39.2002ZM37.333 37H15.333V32.5996H37.333V37ZM37.333 28.2002H15.333V23.7998H37.333V28.2002ZM37.333 19.4004H15.333V15H37.333V19.4004ZM13.1338 12.7998H8.7334V8.40039H13.1338V12.7998ZM43.9336 12.7998H39.5332V8.40039H43.9336V12.7998ZM39.5332 8.40039H13.1338V4H39.5332V8.40039Z" fill="#4F2D1C"/>
+                </svg>
+                <ul class="navbar">
+                    <li>Inicio</li>
+                    <li>Explorar</li>
+                    <li>Biblioteca</li>
+                    <li>Configuración</li>
+                </ul>
+            </nav>
+        
+            <a href="home.html" class="miniLogo">
+                <svg width="100" height="68" viewBox="0 0 100 68" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <rect width="100" height="68" fill="url(#pattern0_315_100)"/>
+                    <defs>
+                    <pattern id="pattern0_315_100" patternContentUnits="objectBoundingBox" width="1" height="1">
+                    <use xlink:href="#image0_315_100" transform="matrix(0.0088612 0 0 0.0129179 -0.351202 -0.773936)"/>
+                    </pattern>
+                    <image id="image0_315_100" width="192" height="192" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAcIUlEQVR4Xu3deZQc1X0v8O+9VdXVe8+MZkaaGUlo0A42GCwJbLzEKzHYx4QQEjvJcWw/Ow42EDvYJHESJ3F88nzs45f3bOIXP7xAgncDwTgOPBsIxjYCsRjEIglJIAlJs/ZML9Vdy703f1RXT3VPd0/PIjw9+n3OAc1UV/V0V9/fvb/7q6UBQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEkJWE1S8gS+eb116SchTjTEEyKAYFAEoxKRVTSimlAKngL5eAqvwsJSCFFAqarqT6g3/9RbHmicmSoQA4RW659m2pL/xg7w95PLWGQVkAMwAoQAkoKP/nGQzKDw9AMf/XsmIsIYv5kcvPzlz+l///aSu8Plkaev0CsjTyLjOnjx09uwfoFZVlWuXf4Pew8GPBzwAwBYzltnSZACgATgEKgCVw26fenS4LaFwKD4xpTLrOcUvvPm/HRplIrRIAFErZOUfb/EgRcY0HvwoAWqGcV9F0d9fN7329bUSiphKu50pu6Mp1f//r/5UPbU4WYM4PhbT2g7/8ndTNv5j8hs0i65kSeQZmSCnsvFT47ife8lrGmA6Anzj0ONKGrN+8xuQvxhGtzYxQBhMfPSh/njE0F4xHoKTjlK1VtieevmzA/sB1P3qcRoZFoBFgkbKWZxz4r5++PqmwKrz8OICBz71dAoBwHaQHYhDlqfAqsyQMMesD8QBt5Jf3vc6r/B6kSAVgMPsbL4uAUqNFqd/fpIVv/sWVKduVmhJCQuOm9Dwx4sbO6OlfpaLCEE7EUQBYxIlAuJ4CwIXrVHMapao/NiS4rM4PNOmv6xpRmQZUPBEPVlNO0WKrE3EoM9P35ct3uoYZMZQnhALjOqR43/d2F4KVSWuUArXpluuvSP7jrb/6Dis5W5hSFhgzlVKIFq3MvXf+bX9ltXALl97B+2paPGOyZRBwoUHafl9vP5sHyzkAgCnNDK8WkO+446nnIjorMsAA4CjGEsIwDr5r2Lzyr+99mkqnbaARoE2Wo3QxOnFufHpyKFgmARQAxDVXorbxQ7gOD9KWoOG3avyMSUgNYAkF5hkAgGD7pLBnVoT/oXkAL44e25KseQSw0t0pa/2Q/wRkThQAc7j9M+9N50seHy1hYMerX+Zp5bJf1QGYG4vDKFkAoAnX760badXwA+F1glFAS0cAAKIyEgQ8AK4RxQXDgx4AVqkcKQBMy/SUUqlU/Kvveq1MRAz+ezfdMxXeltSiFKiFWz/9R+l/eyh7w9ToxCuiCYPd+NHf3AZ/n9W06HRpX/jXgPRKublbfkV9ehROh/J7xqpzgrAx11+mhUaIohb1PnWg9IirEEl3de19Szp39VXff2C6ugKpQSNAC9OWy0eeP/aqyScf2djd34N092/LuObWrCNcB8XJXPV3xiQAyEpjnpUaNVM/SkhNAHEGLjRokgdpT40+Q/ofoGHAg/9hlgyDj+z+6QUAoHa+CrmIf4SZNEYB0MDN11+RthwWGbP1Nem+tKv6e8SagTUirrl6uKoT0GPp8K/VYn+jEaC+p5+LtL1qdajRKBAOCg+ALRXOHB60Dx0+rutAWWpm+kuXv0ozlfA+cNtDdOCsDqVAdW7++G+nP3vbk9+RY+Mv3/Hql4nPXnXpYLo7weOay62jT8IrzfT2AX3jb8AzaqejuluAOHTPvBp7I4xJMM/wRwRLwX42P2tOEKYDckozYXKGgxa8f37i8NGnnx81WE/3E783HH3XX9/7NJVIQ2gEqFN0lcHL9pbI9OSQVi4DgIxrLheuU9P4wz15feMPKMXn3ePXU4pDaY3OHmrMA3iXsAEB9As3ErOKG5O5LEqplFNU3IRfuCIVFAB1lCcVFBz4qUzTHF6LdlV/rs/NAT8owqlRo5GjXZV5BZjpVzebVYfqCf/4gScADqVsmg3MRgFQjzMNDDr3G75CXQAwJv3GP3h+eHFjlXVMWQRO7oMoTy1oNAi2YQBi53ZXq0PWQxOhtWYEE+IKv2rFmAE2c6Yd8VEA1PEcz1MqNJNtoVnqE6g+Xls4WjBZSYVYQlWDolF1qI5/nYGC8FynXP/g6Y4CoOI7f/aORN6GeVKk15dPFpOl0GOtDnL9OoRHEZv7odqoQoRKHFsAPFdqeqpv6P9cmjgR59L+Hz98lIIBVAUCAHzrustSN9937OYXHtlz4fZztqubbvhwf1xzmXAdbp/cV83fgwmtHksDg+fPOQIEdLcAHH90wSlQvVkT6wbVoaBnKxlRGG4ZBc0UH/r2zyZOFiy755zz775ijfeRP737idM+CGgEAFAWitvc3JRUWDM2NgI0mfwuReNdSrMCISRIi2JutY1r5YLVnwSQSGWGbTUdvvDstEUBAEBJpZiSRcxUfubcL6YsVnP7ZiOB7voVR1MWYWPpAih4nnaeLzw/iCTiHooWZ0o5YIxqQmjjgz4dMA6GypVbqEwa69XU/Us54OTM+T96s3To+KMAABuLK4MuIb8ixLUYGKf0FxQAAAAFzjHHfKi+t/VKuWpJtFHj193CkuX8p4Cc4+2eNpblp/OSY4wBbM59ERyQCvNKOehuofpfINGdhBbtarjNqSK4hKhUhZrwRzelJDV/H40AABTjXLGau5E0FO7Ng5SIMVmt8Pgr+etMh9YJa7Rs0eIM5vlpmEgDlmp6+nRY5S5dp73We+k0wZQUDBDNjlc16sXDE9Egv2+nYbezzqLEm/ftTtFiNgAwxhilQABOkxHga1e/I+0opjGlpMYBxhk0xsA45xqkyEa61m/eqCfL8V3o7YrClEWIUJtvp9E2WqfRsl+njZvW+t1+lPfIZNfqr/7Wa0YY03QhlZRCKikVpBBKgnFdSvknd+9e8dcVr/hu4MYPv6PrR4fUP5VL7hZIaYExAwzMf+sKAOSGwXT/+y85d8tgJsIA8PAVXsukejMv+ftHZ6VArhHFScuVUSgclhF567h8erysJlT4RnQKClLY4FrM5PLJC+TEx//iZyv7vkMrfgQolF28eOjoDn3fU2fXPwb4JcrVb9iFwcxOuaY3wsNXePmpz/LqxefCReOpjOGWMWz4b6bsurx44Jlzxg8fb9oA3M3buye79cZPtoI0e/8d74b3vCljlT0+WeRrNAY14t9TqnrrzQiA7potZnpCPZaGV8otuxSmHcEJc43UnSUqgmV155QKAFof52CpnsG/v+i8kZgG9+P3P7Yi06EVGQD/6z1v7fv+PfvuOHr0hXXrE3Htpne9tt983TqOUCO3pcIf3fEwMDoZ2tLXiWlPoNkI0IAGANHBHvnjS3ZykzPYUsHkTLOlkiZn29/7zfvvO1KwxMDm7U/8+QUv//3/ufvJbP2TdLoVGQCOVNLOrFptHH1hSAJwigV0RWcuHAcAGNGZDRoIlzk7cSRol+eBm5wh5pZhAIAAYgAfLbooF6w1KQDCMHMOX5nzxY4PgG9cc0mm5IELAcnAGBeeM80S/Vv7spq6cLPsMyOyrz+hK/hdXlD9jkJC1/05QAOdl/wvUvicoeDnHS/f5GRLZd3oy7BkKtL7hYsvLHNd0xmD5Bq4qUnxwVt/2dGpUUcHwL/+6aVdP9jPv1QuedsgRREAZ1DO8IDq+shlm9emDckB8Fils5e2B276b1naHlyTAyussbeaA9Rp+b57ogbef+76CABMILLlGyPye2Pl5LgCNKaUC86jUR1Pff5tO6677sd7Zg6Bd5iODoBcSfCxIyd2lvc+uiXIfF0Aqy/cjHUX75Sm5kIpPnN1V5xBMf9wl8OqKVCjRsDDB7pOR4JL9Bl+A9HKeZ57Zu85o8emEdyl1AOgn/WKruwa3vakYznqyAC45ZqLUznLM8ZkdFBID1OAcBhEUkFzABw6MoHpktD6Z5+j1rJBs3Q3tFxnzvO40Kq3TmnGNaL+Gdxus2PeM4LjCB6qF9eLKfjVM1QqRRnhMmH2D37hkleiO6p57731oY5LhzpuYvOtj72990s/OvCdkf37tg2eoRvf/uJnegbOXM1ULovx/Xt5POY3gLkqOY6M4J1/fzfY4fFqKfAwgHMB3PX1dyPCl9dlkC01uCKsXkEz8bs33oUc/EacqizX+3vwrct2wZi5cGYWwSWkVr09e0BOWQ4+fMu94yeVKq85c+Pjv7M18YfX/viJ1jt+mem4EcBWGje7+tb3qH2DZs+ZACBVLgvhOjweU6EvoWje0zfSBcitAFKDPRw4RSetnQKMSagW/Vj4A84k4pIXLWgA4ok4t4qND/IKLmuOJGuSw5QzAVKppvEpcMkHuvt7jk8i0tXzoqPc5i9kmeq4AHD8E3ltzFy9xSv/AWid4jST7l2DoeEBDgBdqTiO5hTShn8Pnr5E25PKl8TsOr8G1eK+ECcqN9CdcBmGo2v5BPMbfU5NNv3wg8Yf3H8ImKmeAQBmRhoOwAGgM6VKimvN869lqtk+WLaUFjHBeAz+zl/0DrcBbB4ewFWXvgkDmSROTBfwxdvvRyE/gQ3rhvDHbxlAf9KfTP+6caGh9KvGc5RG6U9BM/Fvh47h0JEsUrEuvJpvAWJAVln4eXk/TsJq2gAEl4hvS1WrZgFpe8jvGYM+M0JwAFxpehpa06dbtjruBWvKsyslz4bmm7oEFaKBTBKD6RgA4IlHDmE6Nw4AyMTWInxjn/k+/0KFT8EO/l5wQ6xGjV1HbS1fB1Aquzh0JIunDx/HGcijp/fl/oMtEpXw83BTrymrMibB/cNlgeqLVEKUlJSzX9gy1zEB8LUPvTmTsyXPS6OnbMayxwFk/BGABfft8Se+i2+c8f5kNQCmSwIDvV21K2DuSfZiMBa6Ie4cgg+wVHdk26/2OIhrXEYBnkPrG0MHz9M8mfIDsVHsHAewXjfzQud9X3j7TiOpw/vg7Q+3/oPLREcEwM0feduqb9zx1A+PHD2y/rUXbOZ3fe6aVcmeP5Aql+W5/T/nxdmn8yzYoG7gFhEDhrdj9KSNq6/6D+ytNB4TgMQqvHJHF/7xfTtO2fxAFRnKz2bhFGZXZupPc/YAHHU1XP/d+zFSmdQ68Cs9m5Nr8fbYK/g7ey8Kb9KQBz/nj29LVb+mqVUAegAGDMm/ffE5cI2oLEv15uu+e/fuZ3LKXT809Oxn37D9t66/95lT10sskY4IgLLHNA/6hozCQN6TyE9ZSOiebHSv/qUSqdTKE8Mp9B3OV8cVCxNI6j0AWqdDrR5rJJzyVG+CW2ns4Q8p6KGDVEUHEIXCqv4uTB+2qgmKgD/RbUWgeQNo1fjDdIDrbhn5shuJrBroy+SOw2O6VRK82VMvKx3xIj2lFIMqyyaVn1NpU04i3u03+ECfGUHO5UChJh+uo7U1QgRfhRSUMrmpV3P9QFDJaWYCEayNrIKbrF1vlTmrdl+jvp4UmCtwI0k/3VKomY9IBDGplOWpxRcoXgodEQBC+juTzzT61p/QPLR6on7DxBUAgNqGNDFi49u3PoExu/mcr+BJ3Hj1eS1HgnaqOq4Rxed/thcA0B2LIlvy06Lwzz1aNwYn+nB27Ax/45AelahftChSEzC3BYfR/O8vM+sqQmDMFC2n2stHRwSAxmaqDS+liOtibaMQKUicHDmBPdlJNDqpugwgD0CPvb7hZDkIiqCnZzmn5eTz3ueOoa9+Yci6JHB27Ix5N/ZWKVBLcea/hyJDJBmFNzMKBI2eyQ658daC3v9Lji3Nvgyf4x9odCx01LWxFhyOYVTnAo2k0HgHGkDDwAgEX67hWdMAZldwAP8SxkAfgBiAyMy3xVc5TY7mtktv9Aba4I9qHZHltLTAt/+SY4CS8DutYK836JpbC1IRpThMrYx//5u3+g/wGD7x5Vuw+8EDiMJvbDaAs7p7cE2ia9YosBYc/9C1GuhaXbM8bNS1sfPKr7UMhEbCf0mlexHNjeOTvb8bWlrHP3TRsC1OsiLuLD1eMxnOFy2ctWktPnnxVqyJvwyAfwPdViNQK06hDG3mVVcnPbIzMqDOCABNYwCYISvztnR3Qi7Ft04EJ7yNFWcmqxxACX4a00qrkQHw5w95+CNBfaQGs/jg37DwxFTkxhH+noKFmi5a1b8TjBcJUYbh+u87aPxOoQyzeppca8E5SJFkFCznSAAQbjEiAYBraWZEms2xl5WOCICEwezM+nUPaKvXbC2mzMizz2fPGsxEAECmY2kevn8/MHcVA5hZx99GQ+/AAM7eIZHU/eUFT6LbZphwARRmT0HqR4VGzk0BPZWSaTum3ZkUZ5UZx4TdfnozyWYfHM8qC8ND3TD89lnVHYsikkhCSyg4hXK1qqOhUoWa6chrVCf0lgqqVvL5CYGEcDGqpWRm247dq4eZqykvm4kUliJ2T7nOGKcAfPH9b0rnyoKhZ2j90Qn39vKJ58/s7YqKj73vUtaX8Vtj8fDD9Zu1baw4u8PKuRw33fgwssdmUggAGOQRXBGLzxkEx+Y5d3/MPqt+EYC5KzmTrIhfyv2zAmZ4qBvv3tmPaF1+FIsa6H9lsmZZtfza4s5yQG3larrI5Kfve0oC0Pnwtj3npOXlys6PM13X/+z2X9KR4KV09Vd/mgOAr33iypF7Dp2wJx98CL3nbwEAaEYEwnWqtzNZiOCEt5qJcsHAMwbHeHayJoXY0d2D+tJoI3MFSJhjGOgpt27orUzYFl4sHIMGPxGXAAxHIoo+DBi1gWirEoBkTWOXEHM2/mC0dAplmJKj5HIczFkojU5iVWaofE4M09fd+XBH9PyBjgmAgCuZoYDKycpLJ5w21dfucwBW9/upTNFmCGacc/Xw7QSA08Y7mWTFlqNAVlmwoh6sAtDd3wMdQDZ0u5fge8QCQcozL5aqHqGOJKPVU6J13a96ScAQ7eSey0zHBQCkkvDnbUFFiAH+KGCu2Vq9ZjX83V7zES6T9iUEbvvz18Aq7gB4DJB+53Y0p/DFb+3B/gcPNCxNAsBI0cJ/Dm9vOVl2DAP78huQQ7r+oRr/MnYnUk3+jlO0sHHTWnzmwrOxJv6KmsdsqdD/yuTsU5rbPM2hqnLFWXBuUt35SAL+ZyClmqNHWIY6LgD8wyvMEDMFk+pO1wz/Ao7gW93re/J2hbfxSjmYmoRSDpjm/6m0YaDgSWQBRJvU4ZcyAbYAoMnfsQBYQiIhyohVqjoBziWAJJRem9610mydIO0JCfa7KQBA01NMb3p2xbLVcQEQ04WTXtW9B7susvRkJAJg88lxR6K2oih1ZHg86qcqCxkJwsLHDwIb1g1VK0aNFDwpR0/azVcAMGG6mCi6KKrZFZyws4YHAQDxBt9zbQmJoWQcQjNh89pqfvWcnQavvy2hC+xLLIZJ14UmbAjNlJqwUdaiiK3b/og+pFiiu/tgLDI9z6Hl16/1rGcZ+snfXc4OjLvd2YINkerfsP+5o3dqpdJq+D0SA6B6u6L42Psu5eHqUF3PVh8w89aoalTv6qv+A33drXP8cOmzmU9f5k/2m2lU1amaY2LbTH2150u7D6psqRyknAKAZg5tem64R3sbvPxYPBrRPvq9B6bDz9EJOm4EePOnblUAJgHg/157Gb/j0KTjPfsk55UGLQFs3LERAGRQHWoiGMLnHQiMSfQ1mZMGgabH0rgbeZzX+Fy3UARONs0bBIARAH3GppYflEpUeuq6xu7PZWa+VX6+KmmPdMoujmTHtBeOTQc7S5MA4mY/NiQjk3/1o4cKNRt2kFb7ddmLalBdqfjBk2s3AFJMA9AsW4hiai0DcJYlDJhwpB46WNbAvEaDZjlyIPzYlswqJILGuUDrPUBLR2A3uDgm4M98Zr+2Vq9z9sX1taTtyUgyiqkiQ1HTVNbMHPYG0wUoKEB5YDwRM/nzjImFDTHLREe/eAD43Hve2DuZd3XXLtsaA2MMIrJ6/dr79hz5off4w+uHdmwUX/+nj+qmLDZvDaipGoUrGS23aUWPpWEVy371aDFkCVE1d2o9r8pOXVWnkWlLyKvveMy1i5ae2vWqh3d1yyud4tSkVOBQSmq6zlMxzfvkXU92VN2/XkePAADw8ZvuGa9fdsOH+lipZLkFQBv0q0UyqBA1UpcmcQCyvjedL1GegqkBc59V1JrioVs7thCUbud6zYz55/AAqK/qhElAwC5aZgkAK5YzrItPffaBfa1n6x2o4wOgke4EF4Prh+4Z142yle7iuWxxe9MEyCf1EuPxWDr4vdoyWqROLbVqiIsNrnr+VWVBqtU65Qoa/3SRodT4SjMJAGUtqjI7L7w/KmFG4/GsGbE6PltoZEW+KQD48gffnJosejq6BtYey3q3lU68sAGV6kVllWpL6e2KsvA5RWELPaC21FoGTSWladfzE0J+/+hJefLFhkUbCUAzhzY+szluv9GV5bxhmsb1d+xu/w90kBU5AgDAn3zlJ3kA+Mo178S/P3rQE8/u1TDT+KssABe8YRfQIE1qUUF6yTVt/CEs58DmspraBEcF9LqfAQ2HjmT15w8fn71DKgyzT9+wjlt/ddfjZSw2j1vGVmwABKKalJFk4kFn87YCpCwhFAQKYEnGmIhG+wBssERdzZ4bsEoMkLPnD0t189y5qjHtkPDkdJEB/l2cUap9ymrkOMWCjCSSvOgy1b1u095jWiovpQJTykE1G1AuuJZUhvEch9fO9KOjrdgUKOx/v+d1iYLlceE4siZHZoxzMMnXnLHhgQMT35t68ldbeDot0KD6wz0dUvfAPR27zhtkf/yWAdaXELPWm5c2qjHtmLR1+fkH98uDucanS4RIb3RS63vdax67KMPeqQqTY7bwNC6lf8dVfxUFTWcxU5efuPuphV4o1jFW/AgAANfedH/L6sVXPrTqxdzIlOeNTmoYnWzZJbsAxtcwAAMyqLwsVHB2ZYtqTNvy5bxuj858gUUzOoBSSZpe0sv/zb1PuViKS+s62GkRAHNJxTXVP9j7s1z0gpySwgFYeKJc7RwrY4eSXWZ/zuVbW98XaE4SAJRfjWk3AuoP2kkAmEBEZbbu2J3vmy4qMJ1BCYCF1wvSGwHNSMUz6WfiRnZx0btCnBYpUDv+3wffmMoVPc1xPQWlACj/1k5KAUopKAUJcC6VQN/gGU8fc24vjR8Yhl9ZarcBz6ImFnUcSQq3qKW373rirIS4TBay456CzqAUYwB45dzZyqtTSinoOo8b3PvY7btbjoqnCxoBKj7wlXvaLvP9ywfeevz4ZLEwtedgw8pSuxa8YYgA0LuRu1vN4tQnf/LYnJMAUosCYAESJlPpTPzB/Jbt3OD6TKNTqvVRqNoRt37dRqNxeJ36x/3HlEwbOnsmotc/TNpBe22BbvjDixJZS0TcsicZ/DRJVVKlIGvyF6OaTcFfNPO/IMWq+xhYqNmzYBpSWYUxBiilGACpABi6ljK4c/1/PrKoXIoQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIISvffwNRFuz1mJWZfQAAAABJRU5ErkJggg=="/>
+                    </defs>
+                </svg>
+            </a> 
+
+            <form class="search" role="search">
+                <input type="search" placeholder="¿A qué quieres jugar?" aria-label="Buscar juegos">
+                <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33" fill="none">
+                    <path d="M23.3333 20.4167H20.4167V23.3333H23.3333V20.4167ZM23.3333 20.4167H26.25V5.83333H23.3333V20.4167ZM2.91667 23.3333H5.83333V20.4167H2.91667V23.3333ZM0 20.4167H2.91667V5.83333H0V20.4167ZM5.83333 26.25H20.4167V23.3333H5.83333V26.25ZM5.83333 17.5H8.75V8.75H5.83333V17.5ZM8.75 20.4167H17.5V17.5H8.75V20.4167ZM20.4167 29.1667H23.3333V26.25H20.4167V29.1667ZM23.3333 32.0833H29.1667V29.1667H23.3333V32.0833ZM2.91667 5.83333H5.83333V2.91667H2.91667V5.83333ZM29.1667 29.1667H32.0833V23.3333H29.1667V29.1667ZM8.75 8.75H17.5V5.83333H8.75V8.75ZM17.5 17.5H20.4167V8.75H17.5V17.5ZM26.25 23.3333H29.1667V20.4167H26.25V23.3333ZM5.83333 2.91667H20.4167V0H5.83333V2.91667ZM20.4167 5.83333H23.3333V2.91667H20.4167V5.83333Z" fill="#4F2D1C"/>
+                </svg>
+            </form>
+
+            <div class="header-actions">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="55" height="50" viewBox="0 0 55 50" fill="none">
+                        <path d="M20 42.5H22.5V47.5H20V50H15V47.5H12.5V42.5H15V40H20V42.5ZM47.5 42.5H50V47.5H47.5V50H42.5V47.5H40V42.5H42.5V40H47.5V42.5ZM7.5 2.5V0H0V5H7.5V12.5H10V25H12.5V35H15V37.5H47.5V32.5H17.5V27.5H47.5V25H50V17.5H52.5V10H55V2.5H7.5ZM47.5 10V17.5H45V22.5H15V12.5H12.5V7.5H50V10H47.5Z" fill="#4F2D1C"/>
+                    </svg>
+                </div>
+
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="44" height="51" viewBox="0 0 44 51" fill="none">
+                        <path d="M6.73579 34.2964H37.0468V41.1557H43.7826V50.35H0V41.1557H6.73579V34.2964ZM6.73579 24.0075V6.85928H13.4716V0H30.311V6.85928H37.0468V24.0075H30.311V30.8667H13.4716V24.0075H6.73579Z" fill="#4F2D1C"/>
+                        <path d="M9 37H34V44H41V47H3V44H9V37Z" fill="#F1DCB1"/>
+                        <path d="M10 21V10L16 10V3L28 3.00002V10H34V21H27V28H16V21H10Z" fill="#F1DCB1"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-main">
+        <!-- CONTENEDOR FANTASMA: Solo sirve para que el JS no tire error -->
+        <div class="featured" style="display: none;" aria-hidden="true">
+            <ul class="featured__track"></ul>
+        </div>
+
+        <nav aria-label="breadcrumb" class="breadcrumbs">
+            <ol>
+                <li><a href="home.html">Inicio</a></li>
+                <li>Explorar</li>
+                <li aria-current="page">Hello Kitty Peg Solitaire</li>>
+            </ol>
+        </nav>
+        <section class="gameScreen">
+            <div class="gameScreen__viewport">
+                <!-- Aquí va el iframe o canvas del juego. Usamos una imagen de placeholder -->
+                <img src="../images/inGameHK.jpg" alt="Hello Kitty Peg Solitaire" class="gameScreen__img">
+            </div>
+            
+            <div class="gameScreen__toolbar">
+                <h2 class="gameScreen__title">Hello Kitty Peg Solitaire</h2>
+                <div class="gameScreen__actions">
+                    <div class="share-wrapper">
+                    <button class="icon-btn" id="btn-compartir" title="Compartir">
+                                <svg width="51" height="50" viewBox="0 0 51 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19.8214 2.14276C20.2477 2.14276 20.6565 2.31209 20.9578 2.61348C21.2592 2.91488 21.4286 3.32366 21.4286 3.74991C21.4286 4.17615 21.2592 4.58493 20.9578 4.88633C20.6565 5.18773 20.2477 5.35705 19.8214 5.35705H9.10714C7.54426 5.35705 6.04539 5.9779 4.94026 7.08303C3.83514 8.18815 3.21429 9.68702 3.21429 11.2499V40.1785C3.21429 41.7414 3.83514 43.2402 4.94026 44.3454C6.04539 45.4505 7.54426 46.0713 9.10714 46.0713H38.0357C39.5986 46.0713 41.0975 45.4505 42.2026 44.3454C43.3077 43.2402 43.9286 41.7414 43.9286 40.1785V29.4642C43.9286 29.038 44.0979 28.6292 44.3993 28.3278C44.7007 28.0264 45.1095 27.8571 45.5357 27.8571C45.962 27.8571 46.3707 28.0264 46.6721 28.3278C46.9735 28.6292 47.1429 29.038 47.1429 29.4642V40.1785C47.1429 42.5938 46.1834 44.9103 44.4754 46.6182C42.7675 48.3261 40.4511 49.2856 38.0357 49.2856H9.10714C6.69178 49.2856 4.37534 48.3261 2.66742 46.6182C0.9595 44.9103 0 42.5938 0 40.1785V11.2499C0 8.83454 0.9595 6.5181 2.66742 4.81018C4.37534 3.10226 6.69178 2.14276 9.10714 2.14276H19.8214ZM30.9193 0.154191C31.1943 0.0241624 31.5006 -0.0251302 31.8026 0.0120443C32.1045 0.0492187 32.3897 0.171333 32.625 0.364191L50.3036 14.8285C50.4807 14.9733 50.6248 15.1542 50.7263 15.3592C50.8279 15.5642 50.8845 15.7884 50.8924 16.017C50.9003 16.2457 50.8593 16.4733 50.7722 16.6848C50.6851 16.8963 50.5538 17.0868 50.3871 17.2435L32.7086 33.8506C32.48 34.0657 32.1935 34.2092 31.8843 34.2633C31.5751 34.3174 31.2569 34.2799 30.9688 34.1552C30.6808 34.0306 30.4356 33.8243 30.2634 33.5619C30.0912 33.2994 29.9997 32.9923 30 32.6785V24.6642C27.5014 24.7413 24.7221 25.0692 21.7414 26.3828C18.3471 27.8785 14.5629 30.7135 10.6843 36.1906L9.90857 37.3199C9.71723 37.6069 9.43864 37.8247 9.11398 37.9411C8.78933 38.0575 8.43583 38.0664 8.10572 37.9665C7.77561 37.8665 7.48641 37.6631 7.28087 37.3861C7.07532 37.1091 6.96432 36.7734 6.96429 36.4285C6.96429 26.9871 9.83571 20.2285 14.4857 15.8399C18.7243 11.8435 24.2679 9.97705 30 9.68562V1.60705C29.9995 1.30232 30.0857 1.00374 30.2485 0.746122C30.4112 0.488505 30.6439 0.284614 30.9193 0.154191Z" fill="#9C2C0B"/>
+                            </svg>
+                        </button>
+                        <div class="share-popup" id="popup-compartir">
+                            <span class="share-title">Compartir vía</span>
+                        
+                            <div class="share-icons">
+                                <button>
+                                    <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18.5 0C8.28183 0 0 8.28337 0 18.5C0 28.7166 8.28183 37 18.5 37C28.7166 37 37 28.7166 37 18.5C37 8.28337 28.7166 0 18.5 0ZM18.7158 29.3194C12.7527 29.3194 7.92417 24.4786 7.92417 18.5C7.92417 12.5214 12.7527 7.68058 18.7158 7.68058C21.6296 7.68058 24.0654 8.75513 25.9339 10.5003L22.8907 13.5497V13.5435C21.7575 12.4613 20.3207 11.9063 18.7158 11.9063C15.1546 11.9063 12.2609 14.9218 12.2609 18.4938C12.2609 22.0628 15.1546 25.0875 18.7158 25.0875C21.9472 25.0875 24.1456 23.2345 24.5988 20.6907H18.7158V16.4712H28.8677C29.0054 17.1947 29.0748 17.9522 29.0758 18.7436C29.0758 24.9257 24.9488 29.3194 18.7158 29.3194Z" fill="black"/>
+                                    </svg>
+                                </button>
+
+                                <button>
+                                    <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0 18.6033C0 27.8024 6.68004 35.4491 15.4167 37V23.6384H10.7917V18.5H15.4167V14.3884C15.4167 9.76338 18.3967 7.19496 22.6116 7.19496C23.9467 7.19496 25.3866 7.4 26.7217 7.60504V12.3333H24.3583C22.0967 12.3333 21.5833 13.4634 21.5833 14.9033V18.5H26.5167L25.695 23.6384H21.5833V37C30.32 35.4491 37 27.8024 37 18.6033C37 8.37125 28.675 0 18.5 0C8.325 0 0 8.37125 0 18.6033Z" fill="black"/>
+                                    </svg>
+                                </button>
+
+                                <button>
+                                    <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M2.09091 0H39.7273V2.09091H41.8182V31.3636H39.7273V33.4545H8.36364V35.5455H6.27273V37.6364H4.18182V39.7273H2.09091V41.8182H0V2.09091H2.09091V0ZM4.18182 4.18182V31.3636H6.27273V29.2727H37.6364V4.18182H4.18182ZM8.36364 10.4545H33.4545V14.6364H8.36364V10.4545ZM8.36364 18.8182H27.1818V23H8.36364V18.8182Z" fill="#664333"/>
+                                    </svg>
+                                </button>
+                                <button>
+                                    <svg width="46" height="38" viewBox="0 0 46 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M43.8006 4.38438H46V32.8469H43.8006V4.38438ZM41.6156 32.8469H43.8006V35.0463H41.6156V32.8469ZM41.6156 2.185H43.8006V4.38438H41.6156V2.185ZM39.4306 6.56937H41.6156V10.9537H39.4306V6.56937ZM4.38438 35.0463H41.6156V37.2313H4.38438V35.0463ZM37.2313 28.4769H39.4306V30.6619H37.2313V28.4769ZM37.2313 10.9537H39.4306V13.1387H37.2313V10.9537ZM35.0462 26.2775H37.2313V28.4769H35.0462V26.2775ZM35.0462 13.1387H37.2313V15.3237H35.0462V13.1387ZM32.8469 24.0925H35.0462V26.2775H32.8469V24.0925ZM32.8469 15.3237H35.0462V17.5231H32.8469V15.3237ZM30.6619 21.9075H32.8469V24.0925H30.6619V21.9075ZM30.6619 17.5231H32.8469V19.7081H30.6619V17.5231ZM26.2775 19.7081H30.6619V21.9075H26.2775V19.7081ZM19.7081 21.9075H26.2775V24.0925H19.7081V21.9075ZM15.3237 19.7081H19.7081V21.9075H15.3237V19.7081ZM13.1388 21.9075H15.3237V24.0925H13.1388V21.9075ZM13.1388 17.5231H15.3237V19.7081H13.1388V17.5231ZM10.9537 24.0925H13.1388V26.2775H10.9537V24.0925ZM10.9537 15.3237H13.1388V17.5231H10.9537V15.3237ZM8.75438 26.2775H10.9537V28.4769H8.75438V26.2775ZM8.75438 13.1387H10.9537V15.3237H8.75438V13.1387ZM6.56938 28.4769H8.75438V30.6619H6.56938V28.4769ZM6.56938 10.9537H8.75438V13.1387H6.56938V10.9537ZM4.38438 0H41.6156V2.185H4.38438V0ZM4.38438 6.56937H6.56938V10.9537H4.38438V6.56937ZM2.185 32.8469H4.38438V35.0463H2.185V32.8469ZM2.185 2.185H4.38438V4.38438H2.185V2.185ZM0 4.38438H2.185V32.8469H0V4.38438Z" fill="#664333"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="opinion-btn">
+                        <button class="icon-btn" title="Me gusta">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="60" viewBox="0 0 80 60" fill="none">
+                                <path d="M0 15C0 6.71573 6.71573 0 15 0H80V60H15C6.71573 60 0 53.2843 0 45V15Z" fill="#9C2C0B"/>
+                                <path d="M57.694 26.8V24.95H44.9668V21.25H46.7849V13.85H44.9668V12H41.3304V13.85H39.5122V19.4H37.694V23.1H35.8758V24.95H34.0577V26.8H32.2395V43.45H34.0577V45.3H35.8758V47.15H39.5122V49H52.2395V47.15H54.0577V41.6H55.8758V36.05H57.694V30.5H59.5122V26.8H57.694ZM52.2395 36.05V41.6H50.4213V45.3H41.3304V43.45H37.694V41.6H35.8758V28.65H37.694V26.8H39.5122V24.95H41.3304V26.8H43.1486V28.65H54.0577V36.05H52.2395ZM28.6031 24.95V49H21.3304V47.15H19.5122V26.8H21.3304V24.95H28.6031Z" fill="#F1DCB1"/>
+                            </svg>                    
+                        </button>
+                        <button class="icon-btn" title="No me gusta">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="60" viewBox="0 0 80 60" fill="none">
+                                <path d="M0 0H65C73.2843 0 80 6.71573 80 15V45C80 53.2843 73.2843 60 65 60H0V0Z" fill="#9C2C0B"/>
+                                <path d="M50.9091 12V35.4H58.1818V33.6H60V13.8H58.1818V12H50.9091ZM21.8182 30V24.6H23.6364V19.2H25.4545V13.8H27.2727V12H40V13.8H43.6364V15.6H45.4545V17.4H47.2727V33.6H45.4545V35.4H43.6364V37.2H41.8182V40.8H40V46.2H38.1818V48H34.5455V46.2H32.7273V39H34.5455V35.4H21.8182V33.6H20V30H21.8182ZM25.4545 31.8H36.3636V33.6H38.1818V35.4H40V33.6H41.8182V31.8H43.6364V19.2H41.8182V17.4H38.1818V15.6H29.0909V19.2H27.2727V24.6H25.4545V31.8Z" fill="#F1DCB1"/>
+                            </svg>                    
+                        </button>
+                    </div>
+                    <button class="button small-btn">Controles</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="gameDescription">
+            <p class="description__text">¡El clásico juego de mesa de lógica llega con todo el encanto del universo Sanrio!
+                 Pon a prueba tu ingenio en este relajante y desafiante rompecabezas donde cada movimiento cuenta. 
+                 Selecciona un personaje y salta por encima de un vecino hacia un espacio vacío contiguo (en horizontal o vertical).
+                 La ficha sobre la que saltes saldrá del tablero. ¡Continúa hasta que quede una sola ficha! Idealmente ubicada en el agujero
+                 central exacto donde comenzó el espacio vacío. Si la partida concluye y quedan dos o más piezas aisladas que no pueden saltarse entre sí,
+                 el jugador ha perdido.</p>
+            
+            <h3 class="description__subtitle">Controles Hello Kitty: PEG Solitaire</h3>
+            <p class="description__text">Juega de manera muy simple, usa el click izquierdo de tu mouse para mover las piezas del tablero.</p>
+
+            <h3 class="description__subtitle">Imágenes del juego</h3>
+            <div class="placeholder-carousel">
+                <section class="shelf" aria-labelledby="t-recomendados">
+                    <div class="shelf__viewport">
+                        <button class="carousel-btn carousel-btn--prev" type="button" aria-label="Juegos anteriores">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M15 18l-6-6 6-6"/>
+                        </svg>
+                        </button>
+
+                        <ul class="gallery-track">
+                            <!-- Foto 1 -->
+                            <li>
+                                <div class="card__thumb">
+                                    <img src="../images/tablero.png" alt="Captura de juego 1">
+                                </div>
+                            </li>
+                            
+                            <!-- Foto 2 -->
+                            <li>
+                                <div class="card__thumb">
+                                    <img src="../images/win.png" alt="Captura de juego 2">
+                                </div>
+                            </li>
+
+                            <!-- Foto 3 -->
+                            <li>
+                                <div class="card__thumb">
+                                    <img src="../images/video.png" alt="Captura de juego 3">
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="card__thumb">
+                                    <img src="../images/jugando.png" alt="Captura de juego 3">
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="card__thumb">
+                                    <img src="../images/hkyamigos.png" alt="Captura de juego 3">
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <div class="card__thumb">
+                                    <img src="../images/cute.jpg" alt="Captura de juego 3">
+                                </div>
+                            </li>
+
+                        </ul>
+                        <button class="carousel-btn carousel-btn--next" type="button" aria-label="Más juegos">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M9 18l6-6-6-6"/>
+                        </svg>
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <section class="comments">
+            <h3 class="comments__subtitle">Deja tu comentario</h3>
+            <div class="comment-form">
+                <div class="comment-avatar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="44" height="51" viewBox="0 0 44 51" fill="none">
+                        <path d="M6.73579 34.2964H37.0468V41.1557H43.7826V50.35H0V41.1557H6.73579V34.2964ZM6.73579 24.0075V6.85928H13.4716V0H30.311V6.85928H37.0468V24.0075H30.311V30.8667H13.4716V24.0075H6.73579Z" fill="#4F2D1C"/>
+                        <path d="M9 37H34V44H41V47H3V44H9V37Z" fill="#F1DCB1"/>
+                        <path d="M10 21V10L16 10V3L28 3.00002V10H34V21H27V28H16V21H10Z" fill="#F1DCB1"/>
+                    </svg>
+                </div>
+                <div class="comment-input-group">
+                    <input type="text" placeholder="¿Qué te pareció el juego?">
+                    <button class="button small-btn">Publicar</button>
+                </div>
+            </div>
+
+            <h3 class="comments__subtitle">Últimos comentarios</h3>
+            <div class="comments-list">
+                <!-- Comentario 1 -->
+                <div class="comment-item">
+                    <div class="comment-avatar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="51" viewBox="0 0 44 51" fill="none">
+                            <path d="M6.73579 34.2964H37.0468V41.1557H43.7826V50.35H0V41.1557H6.73579V34.2964ZM6.73579 24.0075V6.85928H13.4716V0H30.311V6.85928H37.0468V24.0075H30.311V30.8667H13.4716V24.0075H6.73579Z" fill="#4F2D1C"/>
+                            <path d="M9 37H34V44H41V47H3V44H9V37Z" fill="#F1DCB1"/>
+                            <path d="M10 21V10L16 10V3L28 3.00002V10H34V21H27V28H16V21H10Z" fill="#F1DCB1"/>
+                        </svg>
+                    </div>
+                    <div class="comment-content">
+                        <strong>HelloKittyFan</strong>
+                        <p>Nunca me divertí tanto con un juego de este estilo.</p>
+                    </div>
+                </div>
+                <!-- Comentario 2 -->
+                <div class="comment-item">
+                    <div class="comment-avatar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="51" viewBox="0 0 44 51" fill="none">
+                            <path d="M6.73579 34.2964H37.0468V41.1557H43.7826V50.35H0V41.1557H6.73579V34.2964ZM6.73579 24.0075V6.85928H13.4716V0H30.311V6.85928H37.0468V24.0075H30.311V30.8667H13.4716V24.0075H6.73579Z" fill="#4F2D1C"/>
+                            <path d="M9 37H34V44H41V47H3V44H9V37Z" fill="#F1DCB1"/>
+                            <path d="M10 21V10L16 10V3L28 3.00002V10H34V21H27V28H16V21H10Z" fill="#F1DCB1"/>
+                        </svg>
+                    </div>
+                    <div class="comment-content">
+                        <strong>PepeGamer23</strong>
+                        <p>Muy bonito, se ve re lindo todo adorable.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="verticalCaroussel shelf">
+            <p class="vertical-title">Basado en lo que juegas</>
+            
+            <div class="vertical__viewport" style="position: relative; padding-block: 24px;">
+                <!-- Flecha Arriba -->
+                <button class="carousel-btn carousel-btn--up" type="button" aria-label="Subir">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+                </button>
+
+                <ul class="shelf__track vertical-track" data-genre="Action">
+                    <!-- La API pone los juegos acá -->
+                </ul>
+
+                <!-- Flecha Abajo -->
+                <button class="carousel-btn carousel-btn--down" type="button" aria-label="Bajar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+            </div>
+        </section>
+    </main>
+  
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <nav class="footer-links" aria-label="Pie de página">
+        <div class="footer-col">
+          <h3>Ayuda</h3>
+          <ul>
+            <li><a href="#">Preguntas frecuentes</a></li>
+            <li><a href="#">Métodos de pago</a></li>
+            <li><a href="#">Políticas de privacidad</a></li>
+            <li><a href="#">Soporte</a></li>
+            <li><a href="#">Accesibilidad</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Nosotros</h3>
+          <ul>
+            <li><a href="#">Quiénes somos</a></li>
+            <li><a href="#">Trabajá con nosotros</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Contacto</h3>
+          <ul>
+            <li><a href="#">contacto@onegame.com</a></li>
+            <li>Tandil, Buenos Aires</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Idiomas</h3>
+          <ul>
+            <li><a href="#">Español</a></li>
+            <li><a href="#">English</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70" fill="none">
+            <path d="M35 25.8877C29.9824 25.8877 25.8877 29.9824 25.8877 35C25.8877 40.0176 29.9824 44.1123 35 44.1123C40.0175 44.1123 44.1123 40.0176 44.1123 35C44.1123 29.9824 40.0175 25.8877 35 25.8877ZM62.33 35C62.33 31.2266 62.3642 27.4873 62.1523 23.7207C61.9404 19.3457 60.9423 15.4629 57.7431 12.2637C54.5371 9.05762 50.6611 8.06641 46.2861 7.85449C42.5127 7.64258 38.7734 7.67676 35.0068 7.67676C31.2334 7.67676 27.4941 7.64258 23.7275 7.85449C19.3525 8.06641 15.4697 9.06445 12.2705 12.2637C9.06441 15.4697 8.0732 19.3457 7.86129 23.7207C7.64937 27.4941 7.68355 31.2334 7.68355 35C7.68355 38.7666 7.64937 42.5127 7.86129 46.2793C8.0732 50.6543 9.07125 54.5371 12.2705 57.7363C15.4765 60.9424 19.3525 61.9336 23.7275 62.1455C27.5009 62.3574 31.2402 62.3232 35.0068 62.3232C38.7802 62.3232 42.5195 62.3574 46.2861 62.1455C50.6611 61.9336 54.5439 60.9355 57.7431 57.7363C60.9492 54.5303 61.9404 50.6543 62.1523 46.2793C62.3711 42.5127 62.33 38.7734 62.33 35ZM35 49.0205C27.2412 49.0205 20.9795 42.7588 20.9795 35C20.9795 27.2412 27.2412 20.9795 35 20.9795C42.7587 20.9795 49.0205 27.2412 49.0205 35C49.0205 42.7588 42.7587 49.0205 35 49.0205ZM49.5947 23.6797C47.7832 23.6797 46.3203 22.2168 46.3203 20.4053C46.3203 18.5938 47.7832 17.1309 49.5947 17.1309C51.4062 17.1309 52.8691 18.5938 52.8691 20.4053C52.8696 20.8354 52.7853 21.2615 52.6209 21.659C52.4566 22.0565 52.2154 22.4177 51.9112 22.7218C51.6071 23.026 51.2459 23.2672 50.8484 23.4315C50.4509 23.5959 50.0248 23.6802 49.5947 23.6797Z" fill="black"/>
+            </svg></a>
+            
+        <a href="#" aria-label="YouTube"><svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70" fill="none">
+            <path d="M64.3467 20.2412C63.998 18.9426 63.3144 17.7584 62.3642 16.8071C61.4141 15.8557 60.2307 15.1706 58.9326 14.8203C54.1543 13.5352 35 13.5352 35 13.5352C35 13.5352 15.8457 13.5352 11.0674 14.8135C9.76869 15.1626 8.58474 15.8474 7.63441 16.7989C6.68409 17.7504 6.00085 18.9352 5.65332 20.2344C4.375 25.0195 4.375 35 4.375 35C4.375 35 4.375 44.9805 5.65332 49.7588C6.35742 52.3975 8.43555 54.4756 11.0674 55.1797C15.8457 56.4648 35 56.4648 35 56.4648C35 56.4648 54.1543 56.4648 58.9326 55.1797C61.5713 54.4756 63.6426 52.3975 64.3467 49.7588C65.625 44.9805 65.625 35 65.625 35C65.625 35 65.625 25.0195 64.3467 20.2412ZM28.916 44.1602V25.8398L44.7754 34.9316L28.916 44.1602Z" fill="black"/>
+        </svg></a>
+            
+        <a  href="#" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M2.91663 8.2775C2.91817 6.85619 3.48347 5.49354 4.48848 4.48852C5.4935 3.48351 6.85615 2.91821 8.27746 2.91667H61.7166C62.4212 2.91552 63.1191 3.05335 63.7704 3.32228C64.4216 3.59121 65.0134 3.98595 65.5119 4.4839C66.0104 4.98185 66.4058 5.57324 66.6754 6.2242C66.9451 6.87516 67.0837 7.57291 67.0833 8.2775V61.7167C67.0833 63.1395 66.5183 64.5041 65.5125 65.5104C64.5066 66.5168 63.1424 67.0826 61.7195 67.0833H8.27746C6.85565 67.0818 5.49255 66.5161 4.48745 65.5104C3.48235 64.5048 2.9174 63.1414 2.91663 61.7196V8.2775ZM28.315 27.3817H37.0037V31.745C38.2579 29.2367 41.4662 26.9792 46.2875 26.9792C55.5304 26.9792 57.7208 31.9754 57.7208 41.1425V58.1233H48.367V43.2308C48.367 38.01 47.1129 35.0642 43.9279 35.0642C39.5091 35.0642 37.6716 38.2404 37.6716 43.2308V58.1233H28.315V27.3817ZM12.2733 57.7238H21.63V26.9792H12.2733V57.7238ZM22.9687 16.9517C22.9863 17.7528 22.8438 18.5494 22.5494 19.2947C22.255 20.04 21.8147 20.7189 21.2544 21.2918C20.694 21.8646 20.0249 22.3197 19.2863 22.6304C18.5477 22.9412 17.7544 23.1012 16.9531 23.1012C16.1518 23.1012 15.3585 22.9412 14.6199 22.6304C13.8813 22.3197 13.2121 21.8646 12.6518 21.2918C12.0914 20.7189 11.6511 20.04 11.3568 19.2947C11.0624 18.5494 10.9198 17.7528 10.9375 16.9517C10.9721 15.3792 11.6211 13.8827 12.7455 12.7828C13.8698 11.6829 15.3802 11.0671 16.9531 11.0671C18.526 11.0671 20.0363 11.6829 21.1607 12.7828C22.2851 13.8827 22.9341 15.3792 22.9687 16.9517Z" fill="black"/>
+        </svg></a>
+                
+        <a  href="#" aria-label="X"><svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70" fill="none">
+            <path d="M55.125 3.28125H65.8613L42.4113 30.1525L70 66.7188H48.4006L31.4825 44.5375L12.1231 66.7188H1.3825L26.4644 37.975L0 3.28125H22.1506L37.4412 23.5506L55.125 3.28125ZM51.3625 60.2787H57.3125L18.9131 9.38438H12.5344L51.3625 60.2787Z" fill="black"/>
+        </svg></a>
+        
+        <a  href="#" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70" fill="none">
+            <mask id="mask0_574_642" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="70" height="70">
+                <path d="M0 0H70V70H0V0Z" fill="white"/>
+            </mask>
+            <g mask="url(#mask0_574_642)">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M0 35.1954C0 52.5992 12.6379 67.0658 29.1667 70V44.7213H20.4167V35H29.1667V27.2213C29.1667 18.4713 34.8046 13.6121 42.7788 13.6121C45.3046 13.6121 48.0288 14 50.5546 14.3879V23.3333H46.0833C41.8046 23.3333 40.8333 25.4713 40.8333 28.1954V35H50.1667L48.6121 44.7213H40.8333V70C57.3621 67.0658 70 52.5992 70 35.1954C70 15.8375 54.25 0 35 0C15.75 0 0 15.8375 0 35.1954Z" fill="black"/>
+            </g>
+        </svg></a>
+      </div>
+ 
+      <a class="footer-brand" href="#"><img src="../images/logo-footer.png" alt=""></a>
+    </div>
+  </footer>
+
+    <script src="../js/script.js"></script> 
+    <script src="../js/api_games.js"></script>
+    <script src="../js/inGame.js"></script>
+    <script src="../js/carruseles.js"></script>
+
+</body>
+</html>

@@ -106,4 +106,35 @@ document.querySelectorAll(".shelf").forEach((shelf) => {
   updateButtons();
 });
 
+// ---------- Carruseles Verticales ----------
+document.querySelectorAll(".verticalCaroussel").forEach((vertical) => {
+    const track = vertical.querySelector(".vertical-track");
+    const btnUp = vertical.querySelector(".carousel-btn--up");
+    const btnDown = vertical.querySelector(".carousel-btn--down");
+    
+    if (!track || !btnUp || !btnDown) return;
+
+    // Deshabilita la flecha si llegamos al tope o al fondo
+    const updateButtonsVertical = () => {
+        const max = track.scrollHeight - track.clientHeight;
+        btnUp.disabled = track.scrollTop <= 1;
+        btnDown.disabled = track.scrollTop >= max - 1;
+    };
+
+    // Al hacer clic, scrollea 300px hacia arriba o abajo
+    btnUp.addEventListener("click", () => {
+        track.scrollBy({ top: -300, behavior: "smooth" });
+    });
+    
+    btnDown.addEventListener("click", () => {
+        track.scrollBy({ top: 300, behavior: "smooth" });
+    });
+
+    track.addEventListener("scroll", updateButtonsVertical, { passive: true });
+    window.addEventListener("resize", updateButtonsVertical);
+    
+    // Un pequeño delay para dejar que la API dibuje las cards primero
+    setTimeout(updateButtonsVertical, 300);
+});
+
 } // fin de iniciarCarruseles

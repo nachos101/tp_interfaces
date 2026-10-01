@@ -1,54 +1,84 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic);
+@import url("https://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic");
 
-/* generales */
-h1{
-    font-size: 48px;
+/* =========================================================
+   GENERALES Y TEXTOS
+   ========================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* Fundamental para que los paddings no rompan los anchos */
 }
 
-h2{
-    font-size: 40px;
-}
+h1 { font-size: 48px; margin: 0; }
+h2 { font-size: 40px; margin: 0; }
+h3 { font-size: 32px; margin: 0; }
 
-h3{
-    font-size: 32px;
-}
-
-h1, h2, h3{
-    margin: 0;
-}
-
-.textCaption{
+.textCaption {
     font-size: 16px;
     font-weight: bold;
     margin: 0;
 }
 
-.textCaption.regular{
+.textCaption.regular {
     font-weight: normal;
 }
 
-.link{
+.link {
     text-decoration: underline;
     font-weight: 900;
     margin: 0;
 }
 
-.body {
-    font-family: 'Lato';
+.breadcrumbs{
+    
+}
+
+/* este queda en general, se usa en el login, register y footer */
+.linkCaption {
+    font-size: 16px;
+    display: block;
+    text-align: right;
+    margin-top: 6px;
+    color: #2b1d0c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+
+/* =========================================================
+   BODY BASE (Aplica a todas las páginas)
+   ========================================================= */
+body {
+    font-family: 'Lato', sans-serif;
     font-weight: bold;
     font-size: 24px;
     color: #311E14;
-    background-image: url('../images/wallpaper_login.png');
-    background-size:contain;
-
     margin: 0;
     min-height: 100vh;
-    padding: 40px 20px; /* Esto da 40px de espacio libre arriba y abajo para que no toque los bordes */
-    box-sizing: border-box;
-    display: flex;
-
+    background-color: #1b1511; /* Color de fondo por defecto */
 }
 
+/* =========================================================
+   LAYOUTS (Estructuras específicas para cada página)
+   ========================================================= */
+.layout-login {
+    background-image: url('../images/wallpaper_login.png');
+    background-size: contain;
+    padding: 40px 20px; 
+    display: flex;
+}
+
+.layout-home {
+    background-size: cover; 
+    color: #f3e9d8; 
+    display: grid;
+    grid-template-rows: auto 1fr auto; 
+}
+
+/* =========================================================
+   BOTONES
+   ========================================================= */
 .button {
     width: 370px;
     height: 38px;
@@ -63,14 +93,278 @@ h1, h2, h3{
     justify-content: center;
 }
 
-/* este queda en general, se usa en el login, register y footer */
-.linkCaption{
-    font-size: 16px;
-    font-weight: bold;
-    display: block;
-    text-align: right;
-    margin-top: 6px;
-    color: #2b1d0c;
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #F1DCB1; 
+}
+
+.site-header__inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: 20px 14px;
+}
+
+/* Contenedor del menú */
+.menuButton {
+    position: relative; /* Necesario para que la lista flote justo debajo de este botón */
+    display: inline-block;
+}
+
+/* El ícono SVG */
+#menu-toggle {
+    cursor: pointer; /* Cambia la flechita por la manito al pasar el mouse */
+}
+
+/* La lista desplegable */
+ul.navbar {
+    position: absolute;
+    top: 60px; /* Lo empuja hacia abajo del SVG. Ajusta este número si queda muy pegado o separado */
+    left: 0; /* Lo alinea a la derecha */
+    width: max-content; /* El ancho se adapta al texto más largo */
+    min-width: 160px;
+    margin: 0;
+    padding: 8px 0;
+    display: none; /* Oculto por defecto */
+    flex-direction: column;
+    background-color: #F1DCB1; /* El color crema de tu header */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra para que despegue del fondo */
+    list-style: none; /* Le quita los puntos a la lista */
+    z-index: 100; /* Asegura que quede por encima de los carruseles */
+}
+
+/* Clase que inyecta JS para mostrarlo */
+ul.navbar.show {
+    display: flex;
+}
+
+/* Estilo de los links individuales */
+ul.navbar li {
+    padding: 12px 20px;
+    color: #311E14;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+/* Efecto hover al pasar por cada opción */
+ul.navbar li:hover {
+    background-color: #e0892b; /* Tu color de acento naranja */
+    color: #fff;
+}
+
+.miniLogo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+}
+
+.miniLogo svg{
+    height: 100%;
+    width: auto;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.miniLogo:hover svg {
+    transform: scale(1.15); 
+    /* Agrega una sombra extra. Los valores son: eje-X, eje-Y, desenfoque, color */
+    /* El truco: 4 sombras blancas sólidas para hacer el borde + 1 sombra oscura al final (d/i,ar/ab,desenfoque,color)*/
+    filter:
+        drop-shadow(1px 0px 0px #FFFFFF) 
+        drop-shadow(-1px 0px 0px #FFFFFF) 
+        drop-shadow(0px 2px 0px #FFFFFF) 
+        drop-shadow(0px 8px 8px rgba(60, 20, 10, 0.6));
+}
+
+.search {
+    flex: 1 1 320px;
+    max-width: 520px;
+    margin-inline: auto; 
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #f3e9d8; 
+    color: #2b1e14; 
+}
+
+.search input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    font-size: 0.9rem;
+    color: inherit;
+}
+
+.search input:focus { outline: none; }
+
+.search:focus-within {
+    outline: 2px solid #e0892b; 
+    outline-offset: 2px;
+}
+
+.icon {
+  width: 55px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.header-actions {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.site-footer {
+    background: #f1dcae; 
+    color: #2b1e14; 
+}
+
+.site-footer__inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        "links social"
+        "links brand";
+    gap: 24px 48px;
+    padding: 32px max(clamp(12px, 3vw, 32px), (100% - 1280px) / 2);
+}
+
+.footer-links {
+    grid-area: links;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 24px 32px;
+}
+
+.footer-col h3 { margin: 0 0 8px; font-size: 0.95rem; }
+
+.footer-col ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.85rem;
+}
+
+.footer-col a { text-decoration: none; }
+.footer-col a:hover { text-decoration: underline; }
+
+.footer-social {
+    grid-area: social;
+    justify-self: end;
+    display: flex;
+    gap: 10px;
+}
+
+.social-link {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #2b1e14; 
+    color: #f1dcae; 
+    font-size: 0.7rem;
+    font-weight: 700;
     text-decoration: none;
-    font-weight: bold;
+}
+
+.footer-brand {
+    grid-area: brand;
+    justify-self: end;
+    align-self: end;
+    font-weight: 900;
+    font-size: 1.4rem;
+    color: #e0892b; 
+    text-decoration: none;
+}
+
+.footer-brand img {
+    display: block;
+    width: 180px;
+    height: auto;
+}
+
+@media (max-width: 640px) {
+  /* 1. HEADER: Permitimos que los elementos salten de línea */
+  .site-header__inner {
+    flex-wrap: wrap;
+    padding: 12px 16px; /* Achicamos el margen lateral para aprovechar espacio */
+    row-gap: 16px; /* Espacio vertical entre la primera y la segunda fila */
+  }
+
+  /* 2. ÍCONOS DERECHOS: Se quedan arriba a la derecha */
+  .header-actions {
+    order: 2; /* Los ponemos como segundo elemento visual */
+    margin-left: auto; /* Empuja hacia el borde derecho */
+  }
+
+  /* 3. BUSCADOR: Salta abajo y ocupa toda la pantalla */
+  .search {
+    order: 3; /* Lo enviamos al final de la cola */
+    flex: 1 1 100%; /* Magia pura: Ocupa el 100% sí o sí, obligando el salto de línea */
+    max-width: none; /* Anulamos el límite máximo que tenía en PC */
+    margin: 0; /* Limpiamos márgenes raros */
+  }
+
+  /* 4. MENÚ DESPLEGABLE (Responsive) */
+  ul.navbar {
+    width: calc(100vw - 32px); /* Ocupa el ancho de la pantalla menos los márgenes */
+    top: 60px;
+    left: 16px; /* Lo despegamos un poquito del borde para que quede centrado */
+  }
+
+  ul.navbar li {
+    padding: 18px 24px; /* Botones más altos (fat-finger friendly) */
+    font-size: 18px;
+    border-bottom: 1px solid rgba(49, 30, 20, 0.1); /* Separador sutil */
+  }
+
+  ul.navbar li:last-child {
+    border-bottom: none; /* Le quitamos el separador al último */
+  }
+
+  /* 5. FOOTER: Apilamos todo verticalmente */
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "brand"
+      "links"
+      "social";
+    gap: 32px;
+  }
+  
+  .footer-social,
+  .footer-brand {
+    justify-self: start; /* Alineamos a la izquierda para que se lea mejor en celular */
+    }
 }

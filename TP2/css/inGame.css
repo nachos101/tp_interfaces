@@ -1,0 +1,447 @@
+.breadcrumbs {
+    padding: 16px 0; 
+    font-size: 24px; 
+    margin-bottom: 16px;
+}
+
+.breadcrumbs ol {
+    list-style: none; /* Quitamos los números */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /* Si en celular queda muy largo, salta a la línea de abajo */
+    gap: 8px; /* Separación general */
+}
+
+.breadcrumbs li {
+    display: flex;
+    align-items: center;
+    color: #b9a88f; 
+}
+
+/* El truco mágico: Agrega un "/" automáticamente entre cada enlace, excepto al final */
+.breadcrumbs li:not(:last-child)::after {
+    content: '>'; 
+    margin-left: 8px;
+    color: #b9a88f;
+    font-weight: normal;
+}
+
+.breadcrumbs a {
+    color: #b9a88f;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+/* Efecto al pasar el mouse */
+.breadcrumbs a:hover {
+    color: #e0892b; 
+    text-decoration: underline;
+}
+
+/* Estilo para la página actual (el último paso) */
+.breadcrumbs li[aria-current="page"] {
+    color: #f3e9d8; 
+    font-weight: 700;
+}
+
+/* =========================================================
+   ESTRUCTURA DE LA PÁGINA DE JUEGO (GRID)
+   ========================================================= */
+.page-main {
+    display: grid;
+    /* La grilla tiene 2 columnas: la izquierda ocupa todo el espacio que sobra (1fr) y la derecha mide 300px fijos */
+    grid-template-columns: 1fr 300px; 
+    gap: 0px 32px; /* 24px vertical, 32px horizontal */
+    
+    /* El mismo margen lateral fluido que tiene tu cabecera */
+    padding: 0 max(clamp(12px, 3vw, 32px), (100% - 1280px) / 2) 64px;
+}
+
+.gameScreen,
+.gameDescription {
+    margin-bottom: 64px; 
+}
+
+.verticalCaroussel,
+.comments {
+    margin-bottom: 0;
+}
+
+/* Hacemos que estas 3 secciones ocupen las dos columnas de ancho completo (de punta a punta) */
+.breadcrumbs,
+.gameScreen,
+.gameDescription {
+    grid-column: 1 / -1; 
+}
+
+/* Comentarios a la izquierda, Carrusel vertical a la derecha */
+.comments { grid-column: 1 / 2; }
+.verticalCaroussel { grid-column: 2 / 3; }
+
+
+/* =========================================================
+   PANTALLA DEL JUEGO (.gameScreen)
+   ========================================================= */
+.gameScreen {
+    background: #F1DCB1; /* Tu color crema */
+    border-radius: 14px;
+    overflow: visible;
+}
+
+.gameScreen__viewport {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Mantiene proporción de pantalla ancha */
+    background: #2c231c;
+}
+
+.gameScreen__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gameScreen__toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.gameScreen__title {
+    color: #311E14;
+}
+
+.gameScreen__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.opinion-btn {
+    display: flex;
+    justify-content: flex-start; /* Hace que se apilen uno al lado del otro */
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 5px; 
+}
+
+.icon-btn {
+    border: none;
+    background: none;
+    width: 80px;
+    height: 60px;
+    cursor: pointer; /* Hace que aparezca la manito al pasar el mouse */
+}
+
+/* Modificador para botones chiquitos como el de "Controles" */
+.button.small-btn {
+    width: auto;
+    height: auto;
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 6px;
+}
+
+/* =========================
+   BOTÓN CONTROLES
+   ========================= */
+
+.small-btn {
+    background-color: #9C2C0B;
+    color: #F1DCB1;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.small-btn:hover {
+    background-color: #E64B2D;
+}
+
+.small-btn:active {
+    background-color: #7A220A;
+    transform: scale(0.97);
+}
+
+
+/* =========================================================
+   DESCRIPCIÓN (.gameDescription)
+   ========================================================= */
+.gameDescription {
+    background: #F1DCB1;
+    border-radius: 14px;
+    padding: 32px;
+    color: #311E14;
+}
+
+.description__subtitle {
+    font-size: 1.1rem;
+    margin-top: 32px;
+    margin-bottom: 12px;
+}
+
+.description__text {
+    font-size: 16px;
+    font-weight: normal; /* Sobrescribimos el negrita global del body */
+    line-height: 1.6;
+    margin: 0;
+}
+
+.placeholder-carousel {
+    height: auto; /* Dejamos que crezca según el tamaño de las fotos */
+    background: transparent; /* Quitamos el fondo marrón de prueba */
+    display: block;
+    margin: 16px 0;
+}
+
+/* =========================================================
+   POPUP DE COMPARTIR
+   ========================================================= */
+/* El contenedor padre debe ser relativo para anclar el popup */
+.share-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* El diseño del cartelito */
+.share-popup {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    top: 100%; /* Aparece justo abajo del botón */
+    left: 0;
+    margin-top: 12px;
+    
+    /* Colores según tu diseño */
+    background-color: #F1DCB1; 
+    border: 3px solid #5A3A22; 
+    border-radius: 8px;
+    padding: 16px 24px;
+    z-index: 100; /* Asegura que quede por encima de otros elementos */
+    min-width: 280px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Esta clase se la agregará el JavaScript para mostrarlo */
+.share-popup.is-visible {
+    display: block;
+}
+
+/* El texto "Compartir vía" */
+.share-title {
+    display: block;
+    text-align: center;
+    color: #4A2E15;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+/* Los 4 iconos agrupados */
+.share-icons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.share-icons button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.2s; /* Pequeño efecto al pasar el mouse */
+}
+
+.share-icons button:hover {
+    transform: scale(1.1);
+}
+
+.share-icons img {
+    width: 48px; 
+    height: auto;
+}
+
+/* =========================================================
+   CARRUSEL DE CAPTURAS DE PANTALLA 
+   ========================================================= */
+
+section.gameDescription ul.gallery-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: clamp(200px, 25vw, 260px); 
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Oculta la barra nativa */
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+section.gameDescription ul.gallery-track::-webkit-scrollbar {
+    display: none;
+}
+
+section.gameDescription ul.gallery-track div.card__thumb {
+    aspect-ratio: 16 / 9; 
+}
+
+/* =========================================================
+   COMENTARIOS (.comments)
+   ========================================================= */
+.comments {
+    background: #F1DCB1;
+    border-radius: 14px;
+    padding: 32px;
+    color: #311E14;
+}
+
+.comments__subtitle {
+    font-size: 1.1rem;
+    margin-top: 0;
+    margin-bottom: 24px;
+}
+
+.comment-form {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.comment-avatar {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+}
+
+.comment-input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.comment-input-group input {
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(49, 30, 20, 0.3);
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-family: inherit;
+    font-size: 16px;
+    color: inherit;
+}
+
+.comment-input-group input:focus {
+    outline: 2px solid #e0892b;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.comment-item {
+    display: flex;
+    gap: 16px;
+}
+
+.comment-content strong {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.comment-content p {
+    font-size: 15px;
+    font-weight: normal;
+    margin: 0;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(49, 30, 20, 0.1);
+}
+
+.comment-item:last-child p {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   CARRUSEL VERTICAL (API)
+   ========================================================= */
+
+/* Obligamos a la lista a ser una columna vertical */
+section.verticalCaroussel ul.vertical-track {
+    display: grid;
+    grid-template-columns: 1fr; /* Una sola columna que ocupa todo el ancho */
+    grid-auto-flow: row; /* Los elementos caen hacia abajo */
+    gap: 16px;
+    padding: 0;
+    margin: 0;
+    
+    /* Le damos una altura máxima y habilitamos el scroll vertical nativo */
+    max-height: 60vh;
+    overflow-y: auto; 
+    overflow-x: hidden;
+    scroll-snap-type: y proximity;
+}
+
+/* Las cards hacen "snap" (frenan prolijo) al hacer scroll vertical */
+section.verticalCaroussel ul.vertical-track > li {
+    scroll-snap-align: start;
+}
+
+/* Ocultamos la barra de scroll para que se vea como en la imagen de diseño */
+section.verticalCaroussel ul.vertical-track {
+    scrollbar-width: none; /* Firefox */
+}
+
+section.verticalCaroussel ul.vertical-track::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+}
+
+/* Nos aseguramos de que las cards de la API llenen bien el espacio */
+section.verticalCaroussel ul.vertical-track .card {
+    width: 100%;
+}
+
+/* Posicionamiento de las flechas verticales */
+.vertical__viewport .carousel-btn {
+    left: 50%;
+    translate: -50% 0; /* Centrado exacto horizontal */
+    top: auto; /* Anulamos el centrado vertical que traen del home */
+}
+
+.carousel-btn--up { 
+    top: -12px; 
+}
+
+.carousel-btn--down { 
+    bottom: -12px; 
+}
+
+/* Achica solo las cards de la columna derecha */
+section.verticalCaroussel ul.vertical-track .card {
+    max-width: 150px; /* Ajusta este valor (ej. 160px o 200px) según prefieras */
+    margin: 0 auto; /* Mantiene la tarjeta perfectamente centrada en su columna */
+}
+
+/* =========================================================
+   RESPONSIVE (Rompe la grilla a 1 sola columna en pantallas chicas)
+   ========================================================= */
+@media (max-width: 900px) {
+    .page-main {
+        grid-template-columns: 1fr; /* Pasa a 1 columna */
+    }
+    
+    .comments,
+    .verticalCaroussel {
+        grid-column: 1 / -1; /* Ocupan todo el ancho ahora */
+    }
+}

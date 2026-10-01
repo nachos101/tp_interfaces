@@ -1,23 +1,21 @@
 "use strict";
 
-//Menu Plegable
-document.querySelector("#menu-toggle").addEventListener("click", toggleMenu);
+// Seleccionamos el SVG y el menú
+const menuToggle = document.getElementById("menu-toggle");
+const navbar = document.querySelector(".navbar");
 
-function toggleMenu() {
-    document.querySelector(".navbar").classList.toggle("show");
+if (menuToggle && navbar) {
+    // 1. Abrir/Cerrar al tocar el SVG
+    menuToggle.addEventListener("click", function(evento) {
+        evento.stopPropagation(); // Evita que el clic interfiera con el documento
+        navbar.classList.toggle("show");
+    });
+
+    // 2. Cerrar el menú si se hace clic afuera de él
+    document.addEventListener("click", function(evento) {
+        // Si el clic NO fue en el SVG y NO fue dentro del menú...
+        if (!menuToggle.contains(evento.target) && !navbar.contains(evento.target)) {
+            navbar.classList.remove("show"); // Lo cerramos
+        }
+    });
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-    const loginBtn = document.querySelector(".button.login");
-    const usernameInput = document.getElementById("username");
-    const passwordInput = document.getElementById("password");
-
-    if (loginBtn && usernameInput && passwordInput) {
-        loginBtn.addEventListener("click", (e) => {
-            if (usernameInput.value.trim() !== "" && passwordInput.value.trim() !== "") {
-                e.preventDefault();
-                window.location.href = "pages/home.html";
-            }
-        });
-    }
-});
