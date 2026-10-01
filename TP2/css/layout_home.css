@@ -29,11 +29,6 @@
   box-sizing: border-box;
 }
 
-.miniLogo {
-  width: 60px;
-  height: auto;
-}
-
 body {
   margin: 0;
   font-family: var(--font);
