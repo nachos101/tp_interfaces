@@ -1,27 +1,19 @@
-/* Fuente: el @import tiene que ir SIEMPRE primero, fuera de cualquier regla */
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
-/* =========================================================
-   TOKENS
-   ========================================================= */
 :root {
   --font: "Lato", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  --bg: #1b1511;
+  --bg: #130B07;
   --bg-header: #F1DCB1;
   --surface: #2c231c;
-  --text: #f3e9d8;
+  --text: #F1DCB1;
   --text-muted: #b9a88f;
-  --footer-bg: #f1dcae;
-  --footer-text: #2b1e14;
-  --accent: #e0892b;
-  --avatar: #e04a8f;
+  --footer-bg: #F1DCB1;
+  --footer-text: #4F2D1C;
+  --accent: #9C2C0B;
 
   --content-max: 1280px;
   --gutter: clamp(12px, 3vw, 32px);
-  /* Margen lateral que alinea todo con un "contenedor" de ancho máximo,
-     pero dejando que los carruseles lleguen hasta el borde de la pantalla.
-     El % se resuelve contra el ancho del padre de quien lo usa. */
   --inset: max(var(--gutter), (100% - var(--content-max)) / 2);
 
   --card-size: clamp(104px, 13vw, 150px);
@@ -47,9 +39,6 @@ body {
   font-family: var(--font);
   background: var(--bg);
   color: var(--text);
-
-  /* GRID: esqueleto de la página. El footer queda abajo
-     aunque haya poco contenido. */
   min-height: 100dvh;
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -69,9 +58,7 @@ a {
   outline-offset: 2px;
 }
 
-/* =========================================================
-   HEADER  (FLEX: una sola fila de elementos)
-   ========================================================= */
+/* HEADER */
 .site-header {
   position: sticky;
   top: 0;
@@ -101,13 +88,14 @@ a {
 .search {
   flex: 1 1 320px;
   max-width: 520px;
-  margin-inline: auto; /* lo centra entre logo y acciones */
+  margin-inline: auto;
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 6px 14px;
   border-radius: 999px;
-  background: var(--text);
+  outline: 2px solid var(--footer-text);
+  background: #FFF3DC;
   color: var(--footer-text);
 }
 
@@ -126,8 +114,9 @@ a {
 }
 
 .search:focus-within {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--footer-text);
   outline-offset: 2px;
+  background: #D7C39A;
 }
 
 .header-actions {
@@ -155,20 +144,18 @@ a {
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: var(--footer-text); /* oscuro, para que se vea sobre el header crema */
+  color: var(--footer-text);
   font-size: 1.2rem;
   cursor: pointer;
 }
 
-/* =========================================================
-   MAIN  (GRID: apila secciones con un gap uniforme)
-   ========================================================= */
+/* MAIN */
 .home {
   display: grid;
   align-content: start;
   gap: clamp(20px, 3vw, 32px);
   padding-block: 20px 48px;
-  min-width: 0; /* evita que los carruseles ensanchen la página */
+  min-width: 0; 
 }
 
 .section-title {
@@ -178,24 +165,21 @@ a {
   font-weight: 700;
 }
 
-/* =========================================================
-   DESTACADOS  (GRID horizontal + scroll-snap, slide centrada)
-   ========================================================= */
+/* DESTACADOS */
 .featured {
-  container-type: inline-size; /* habilita las unidades cqi */
+  container-type: inline-size; 
   min-width: 0;
 }
 
 .featured__track {
   --slide: min(78cqi, 900px);
-  position: relative; /* referencia para offsetLeft en el script */
+  position: relative; 
 
   display: grid;
-  grid-auto-flow: column;
+  grid-auto-flow: column; 
   grid-auto-columns: var(--slide);
   gap: clamp(8px, 2cqi, 20px);
 
-  /* El padding deja asomar las slides vecinas a los costados */
   padding-inline: calc((100cqi - var(--slide)) / 2);
   padding-block: 4px 10px;
 
@@ -207,7 +191,6 @@ a {
   margin: 0;
 }
 
-/* Oculta la barra de scroll: ahora se navega con las flechas */
 .featured__track {
   scrollbar-width: none;
 }
@@ -222,19 +205,17 @@ a {
 
 
 
-/* Mensaje si la API falla (lo inserta juegos.js) */
+/* Mensaje si la API falla */
 .api-error {
   padding: 48px 16px;
   text-align: center;
   color: var(--text-muted);
 }
 
-/* Contenedor de referencia para ubicar las flechas sobre el carrusel */
 .featured__viewport {
   position: relative;
 }
 .featured__viewport:hover{
-/* boton_play */
 animation: kf_570_330_opacity_0 0.2s linear;
 
 @keyframes kf_570_330_opacity_0 {
@@ -271,7 +252,6 @@ animation: kf_570_330_opacity_0 0.2s linear;
   scale: 1.08;
 }
 
-/* En el primer y último juego la flecha correspondiente desaparece */
 .carousel-btn:disabled {
   opacity: 0;
   pointer-events: none;
@@ -299,8 +279,6 @@ animation: kf_570_330_opacity_0 0.2s linear;
   object-fit: cover;
 }
 
-/* EFECTO DE FOCO: las slides de los costados se achican y oscurecen;
-   la del centro (.is-active, la marca el JS) se ve completa. */
 .featured__track.con-foco .featured__link {
   scale: 0.9;
   filter: brightness(0.5);
@@ -312,21 +290,18 @@ animation: kf_570_330_opacity_0 0.2s linear;
   filter: none;
 }
 
-/* Quien tenga "reducir movimiento" activado ve el cambio sin animación */
 @media (prefers-reduced-motion: reduce) {
   .featured__track.con-foco .featured__link {
     transition: none;
   }
 }
 
-/* Juego fijo (Hello Kitty): encuadre más arriba para que no se corte el título */
+/* Juego fijo PEG Solitaire */
 .featured__slide--inicio img {
   object-position: center 15%;
 }
 
-/* =========================================================
-   FILAS DE JUEGOS  (GRID con auto-flow column = carrusel)
-   ========================================================= */
+/* Carrusel de juegos */
 .shelf {
   min-width: 0;
 }
@@ -337,7 +312,6 @@ animation: kf_570_330_opacity_0 0.2s linear;
   grid-auto-columns: var(--card-size);
   gap: 12px;
 
-  /* Primera card alineada con el título; el resto sangra hasta el borde */
   padding-inline: var(--inset);
   scroll-padding-inline: var(--inset);
   padding-block: 4px 10px;
@@ -354,7 +328,6 @@ animation: kf_570_330_opacity_0 0.2s linear;
   scroll-snap-align: start;
 }
 
-/* Oculta la barra de scroll: se navega con las flechas */
 .shelf__track {
   scrollbar-width: none;
 }
@@ -367,7 +340,7 @@ animation: kf_570_330_opacity_0 0.2s linear;
   position: relative;
 }
 
-/* Flechas centradas sobre las imágenes (no sobre los nombres) */
+/* Flechas del carrusel */
 .shelf__viewport .carousel-btn {
   top: calc(4px + var(--card-size) / 2);
 }
@@ -380,7 +353,7 @@ animation: kf_570_330_opacity_0 0.2s linear;
   right: max(4px, var(--inset) - 18px);
 }
 
-/* CARD  (FLEX en columna: imagen + nombre) */
+/* gameCard */
 .card {
   display: flex;
   flex-direction: column;
@@ -408,11 +381,10 @@ animation: kf_570_330_opacity_0 0.2s linear;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* Imagen y botón de play apilados en la misma celda del grid */
-/* Imagen y botón apilados en la misma celda del grid */
+
 .card__thumb {
   display: grid;
-  container-type: inline-size; /* el botón se escala según el ancho de la card */
+  container-type: inline-size;
 }
 
 .card__thumb > * {
@@ -423,10 +395,7 @@ animation: kf_570_330_opacity_0 0.2s linear;
   transition: filter 0.2s ease-out;
 }
 
-/* Botón "Jugar": invisible hasta el hover */
-/* =========================================================
-   BOTÓN "JUGAR" (compartido: cards y carrusel grande)
-   ========================================================= */
+/* Boton Jugar */
 .card__play,
 .featured__play {
   place-self: center;
@@ -446,7 +415,7 @@ animation: kf_570_330_opacity_0 0.2s linear;
   background: var(--play-hover);
 }
 
-/* ---------- Cards de las filas ---------- */
+/* Cards de las filas */
 .card__thumb {
   display: grid;
   grid-template: minmax(0, 1fr) / minmax(0, 1fr);
@@ -476,12 +445,12 @@ animation: kf_570_330_opacity_0 0.2s linear;
   scale: 1;
 }
 
-/* ---------- Carrusel grande (solo el juego del centro) ---------- */
+/* Carrusel grande (solo el juego del centro) */
 .featured__link {
   display: grid;
   grid-template: minmax(0, 1fr) / minmax(0, 1fr);
   container-type: inline-size;
-  text-decoration: none; /* sin esto, "Jugar" sale subrayado */
+  text-decoration: none;
 }
 
 .featured__link > * {
@@ -505,12 +474,8 @@ animation: kf_570_330_opacity_0 0.2s linear;
   scale: 1;
 }
 
-/* =========================================================
-   JUEGOS PREMIUM  (corona + precio + botón "Agregar al carrito")
-   ========================================================= */
-
-/* Corona + precio, abajo a la izquierda de la imagen.
-   Todo se mide en "em", así solo cambiando font-size se agranda en el carrusel grande. */
+/* JUEGOS PREMIUM */
+/* Corona + precio */
 .badge-premium {
   place-self: end start;
   display: flex;
@@ -518,8 +483,7 @@ animation: kf_570_330_opacity_0 0.2s linear;
   gap: 0.4em;
   margin: 0.7em;
   font-size: clamp(0.6rem, 7cqi, 0.8rem);
-  pointer-events: none; /* que no interfiera con el hover de la card */
-  /* Sin esto, en el hover la imagen (que tiene filter) se dibuja por encima del precio */
+  pointer-events: none; 
   position: relative;
 }
 
@@ -538,13 +502,12 @@ animation: kf_570_330_opacity_0 0.2s linear;
   box-shadow: 0 1px 4px rgb(0 0 0 / 0.4);
 }
 
-/* En el carrusel grande, todo el badge más grande */
 .featured__link .badge-premium {
   font-size: clamp(0.8rem, 2.2cqi, 1.25rem);
   margin: 1em;
 }
 
-/* Botón de los premium: color crema (como el precio) en vez de rojo */
+/* Boton de los premium */
 .es-premium .card__play,
 .es-premium .featured__play {
   display: flex;
@@ -575,36 +538,40 @@ animation: kf_570_330_opacity_0 0.2s linear;
   height: 1.2em;
 }
 
-/* =========================================================
-   FOOTER  (GRID con áreas + FLEX para redes)
-   ========================================================= */
+/* FOOTER  */
 .site-footer {
   background: var(--footer-bg);
   color: var(--footer-text);
 }
-
+ 
 .site-footer__inner {
   display: grid;
   grid-template-columns: 1fr auto;
-  grid-template-areas:
-    "links social"
-    "links brand";
-  gap: 24px 48px;
+  align-items: start;
+  gap: 32px 48px;
   padding: 32px var(--inset);
 }
-
+ 
+/* ---------- Columnas de links ---------- */
 .footer-links {
-  grid-area: links;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 24px 32px;
+  grid-template-columns: repeat(3, max-content);
+  gap: 24px clamp(24px, 4vw, 56px);
 }
-
+ 
 .footer-col h3 {
   margin: 0 0 8px;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
-
+ 
+/* "Idiomas" va debajo de "Contacto": separación entre las dos listas */
+.footer-col ul + h3 {
+  margin-top: 20px;
+}
+ 
 .footer-col ul {
   margin: 0;
   padding: 0;
@@ -612,58 +579,68 @@ animation: kf_570_330_opacity_0 0.2s linear;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 700;
 }
-
+ 
 .footer-col a {
   text-decoration: none;
 }
-
+ 
 .footer-col a:hover {
   text-decoration: underline;
 }
-
-.footer-social {
-  grid-area: social;
-  justify-self: end;
+ 
+/* ---------- Derecha: redes arriba, logo abajo ---------- */
+.footer-aside {
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
 }
-
-.social-link {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--footer-text);
-  color: var(--footer-bg);
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-decoration: none;
+ 
+.footer-social {
+  display: flex;
+  gap: 12px;
 }
-
-.footer-brand {
-  grid-area: brand;
-  justify-self: end;
-  align-self: end;
-  font-weight: 900;
-  font-size: 1.4rem;
-  color: var(--accent);
-  text-decoration: none;
+ 
+.footer-social a {
+  display: block;
+  color: #000; /* los SVG usan currentColor */
+  transition: color 0.2s;
 }
-
+ 
+.footer-social a:hover {
+  color: var(--play);
+}
+ 
+.footer-social svg {
+  display: block;
+  width: 26px;
+  height: 26px;
+}
+ 
 .footer-brand img {
   display: block;
   width: 180px;
   height: auto;
 }
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
+ 
+/* ---------- Barra marrón inferior ---------- */
+.site-footer__bottom {
+  background: #4F2D1C;
+  color: var(--text);
+  text-align: center;
+}
+ 
+.site-footer__bottom p {
+  margin: 0;
+  padding: 14px var(--inset);
+  font-size: 0.8rem;
+}
+ 
+/* RESPONSIVE */
 @media (max-width: 640px) {
-  /* El buscador baja a una segunda fila a lo ancho */
   .site-header__inner {
     flex-wrap: wrap;
     row-gap: 8px;
@@ -681,15 +658,21 @@ animation: kf_570_330_opacity_0 0.2s linear;
 
   .site-footer__inner {
     grid-template-columns: 1fr;
-    grid-template-areas:
-      "brand"
-      "links"
-      "social";
   }
-
-  .footer-social,
-  .footer-brand {
-    justify-self: start;
+ 
+  /* Links en 2 columnas que se acomodan solas */
+  .footer-links {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+ 
+  /* Redes y logo arriba, alineados a la izquierda */
+  .footer-aside {
+    order: -1;
+    align-items: flex-start;
+  }
+ 
+  .footer-brand img {
+    width: 140px;
   }
 
   .carousel-btn {
@@ -698,10 +681,7 @@ animation: kf_570_330_opacity_0 0.2s linear;
   }
 }
 
-/* =========================================================
-   LOADER  (barra de carga con porcentaje animado)
-   ========================================================= */
-
+/* Barra animada */
 
 .loader {
   position: fixed;
@@ -731,7 +711,7 @@ animation: kf_570_330_opacity_0 0.2s linear;
 
 .relleno {
   height: 100%;
-  width: calc(var(--p, 0) * 1%); /* 0 hasta que el JS defina --p */
+  width: calc(var(--p, 0) * 1%); 
   background-color: #8F7163;
   /* rayas diagonales que se mueven */
   background-image: linear-gradient(
@@ -744,21 +724,123 @@ animation: kf_570_330_opacity_0 0.2s linear;
   animation: rayas 0.6s linear infinite;
 }
 
-
-
 @keyframes rayas   { from { background-position: 1rem 0; } to { background-position: 0 0; } }
 
 
-ul.navbar {
-    width: 8%;
-    margin: 0;
-    padding: 0%;
-    display: none;
-    flex-direction: column;
-    background-color: var(--bg-header);
-    color: var(--footer-text);
+/* Menu hamburguesa */
+:root {
+  --menu-bg: #f1dcb1;
+  --menu-ink: #4f2d1c;
+  --menu-w: min(280px, 80vw);
 }
 
-ul.navbar.show {
-    display: flex;
+/* Botón hamburguesa (ahora es un <button>, no un SVG suelto) */
+.menu-toggle {
+  flex: none;
+  display: grid;
+  place-items: center;
+  padding: 2px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.menu-toggle svg {
+  display: block;
+}
+
+.menu-toggle:hover,
+.menu-toggle[aria-expanded="true"] {
+  background: rgb(79 45 28 / 0.12);
+}
+
+.menu-lateral {
+  position: fixed;
+  top: var(--header-h, 80px);
+  bottom: 0;
+  left: 0;
+  z-index: 9;
+  width: var(--menu-w);
+  overflow-y: auto;
+  background: var(--menu-bg);
+  color: var(--menu-ink);
+  border-right: 3px solid var(--menu-ink);
+  box-shadow: 4px 0 16px rgb(0 0 0 / 0.35);
+
+  translate: -100% 0;
+  visibility: hidden;
+  transition: translate 0.3s ease, visibility 0s 0.3s;
+}
+
+.menu-lateral.abierto {
+  translate: 0 0;
+  visibility: visible;
+  transition: translate 0.3s ease;
+}
+
+.menu-lateral ul {
+  margin: 0;
+  padding: 12px 0;
+  list-style: none;
+}
+
+.menu-lateral a {
+  display: block;
+  padding: 14px 24px;
+  border-bottom: 2px solid rgb(79 45 28 / 0.25);
+  color: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s, padding-left 0.2s;
+}
+
+.menu-lateral li:first-child a {
+  border-top: 2px solid rgb(79 45 28 / 0.25);
+}
+
+.menu-lateral a:hover {
+  background: rgb(79 45 28 / 0.12);
+  padding-left: 32px;
+}
+
+.menu-lateral a[aria-current="page"] {
+  background: var(--menu-ink);
+  color: var(--menu-bg);
+}
+
+.menu-lateral a:focus-visible {
+  outline: 3px solid var(--menu-ink);
+  outline-offset: -3px;
+}
+
+.menu-overlay {
+  position: fixed;
+  inset: var(--header-h, 80px) 0 0 0;
+  z-index: 8;
+  background: rgb(0 0 0 / 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0s 0.3s;
+}
+
+.menu-overlay.abierto {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s;
+}
+
+body.menu-abierto {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-lateral,
+  .menu-lateral.abierto,
+  .menu-overlay,
+  .menu-overlay.abierto {
+    transition: none;
+  }
 }
