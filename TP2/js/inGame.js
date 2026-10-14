@@ -28,38 +28,52 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
     
-    // --- 3. BOTÓN COMPARTIR (Corregido) ---
-    const btnCompartir = document.getElementById("btn-compartir");
-    const popupCompartir = document.getElementById("popup-compartir");
-
-    if (btnCompartir && popupCompartir) {
-        btnCompartir.addEventListener("click", (evento) => {
-            popupCompartir.classList.toggle("is-visible");
-            evento.stopPropagation(); 
-        });
-
-        document.addEventListener("click", (evento) => {
-            // Comprueba si el clic fue AFUERA del botón y del popup
-            if (!popupCompartir.contains(evento.target) && !btnCompartir.contains(evento.target)) {
-                popupCompartir.classList.remove("is-visible");
-            }
-        });
-    }
-
     // Lógica para los botones de Me Gusta / No Me Gusta
-    const botonesOpinion = document.querySelectorAll(".opinion-btn .icon-btn");
-    
-    botonesOpinion.forEach(boton => {
-        boton.addEventListener("click", () => {
-            // Alterna la clase que creamos en CSS para rellenar/vaciar el dedo
-            boton.classList.toggle("is-selected");
+    const btnLike = document.getElementById('btn-like');
+        const btnDislike = document.getElementById('btn-dislike');
+
+        // Función principal para manejar los clics
+        function handleOpinionClick(btnClickeado, elOtroBtn) {
+            // 1. Cambiamos el estado (si estaba apagado se prende, y viceversa)
+            btnClickeado.classList.toggle('active');
             
-            // Truco pro: desmarca el botón contrario automáticamente
-            botonesOpinion.forEach(otroBoton => {
-                if (otroBoton !== boton) {
-                    otroBoton.classList.remove("is-selected");
-                }
-            });
+            // 2. Si encendimos este botón, nos aseguramos de apagar el otro
+            if (btnClickeado.classList.contains('active')) {
+                elOtroBtn.classList.remove('active');
+            }
+
+            // 3. Reiniciamos y disparamos la animación de rebote
+            btnClickeado.classList.remove('pop-animation');
+            
+            // (Un pequeño truco técnico para que el navegador vuelva a lanzar la animación)
+            void btnClickeado.offsetWidth; 
+            
+            btnClickeado.classList.add('pop-animation');
+        }
+
+        // Le asignamos la función a los clics de cada botón
+        btnLike.addEventListener('click', () => handleOpinionClick(btnLike, btnDislike));
+        btnDislike.addEventListener('click', () => handleOpinionClick(btnDislike, btnLike));
+
+    
+        // Lógica para los corazones en los comentarios
+    const heartButtons = document.querySelectorAll('.heart-btn');
+
+    heartButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Encuentra el span con el contador dentro del mismo comentario
+            const likesCountElement = this.nextElementSibling;
+            let currentLikes = parseInt(likesCountElement.textContent);
+
+            if (this.classList.contains('active')) {
+                // Si ya está activo, lo desactiva y resta 1
+                this.classList.remove('active');
+                likesCountElement.textContent = currentLikes - 1;
+            } else {
+                // Si no está activo, lo activa y suma 1
+                this.classList.add('active');
+                likesCountElement.textContent = currentLikes + 1;
+            }
         });
     });
 });

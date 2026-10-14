@@ -13,7 +13,7 @@
     <span class="porcentaje"></span>
   </div> -->
   <header class="site-header">
-    <div class="site-header__inner">
+        <div class="site-header__inner">
             <button id="menu-toggle" class="menu-toggle" type="button"
                     aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-lateral">
                 <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52" fill="none" aria-hidden="true">
@@ -46,9 +46,9 @@
                         <path d="M20 42.5H22.5V47.5H20V50H15V47.5H12.5V42.5H15V40H20V42.5ZM47.5 42.5H50V47.5H47.5V50H42.5V47.5H40V42.5H42.5V40H47.5V42.5ZM7.5 2.5V0H0V5H7.5V12.5H10V25H12.5V35H15V37.5H47.5V32.5H17.5V27.5H47.5V25H50V17.5H52.5V10H55V2.5H7.5ZM47.5 10V17.5H45V22.5H15V12.5H12.5V7.5H50V10H47.5Z" fill="#4F2D1C"/>
                     </svg>
                 </div>
-
-                <div class="icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="44" height="51" viewBox="0 0 44 51" fill="none">
+                
+                <div class="icon menuButton">
+                    <svg id="user-toggle" xmlns="http://www.w3.org/2000/svg" width="44" height="51" viewBox="0 0 44 51" fill="none" style="cursor: pointer;">
                         <path d="M6.73579 34.2964H37.0468V41.1557H43.7826V50.35H0V41.1557H6.73579V34.2964ZM6.73579 24.0075V6.85928H13.4716V0H30.311V6.85928H37.0468V24.0075H30.311V30.8667H13.4716V24.0075H6.73579Z" fill="#4F2D1C"/>
                         <path d="M9 37H34V44H41V47H3V44H9V37Z" fill="#F1DCB1"/>
                         <path d="M10 21V10L16 10V3L28 3.00002V10H34V21H27V28H16V21H10Z" fill="#F1DCB1"/>
@@ -58,32 +58,42 @@
         </div>
     </header>
 
-  <!-- Menú lateral -->
-  <aside id="menu-lateral" class="menu-lateral" aria-label="Menú principal">
-    <nav>
-      <ul>
-        <li><a href="home.html" aria-current="page">Inicio</a></li>
-        <li><a href="#">Acción</a></li>
-        <li><a href="#">Aventura</a></li>
-        <li><a href="#">Militares</a></li>
-        <li><a href="#">Deportes</a></li>
-        <li><a href="#">RPG</a></li>
-        <li><a href="#">Simulación</a></li>
-        <li><a href="#">Estrategia</a></li>
-        <li><a href="#">Lucha</a></li>
-        <li><a href="#">Carreras</a></li>
-        <li><a href="#">Puzles</a></li>
-        <li><a href="#">Terror</a></li>
-        <li><a href="#">MOBA</a></li>
-        <li><a href="#">Sandbox</a></li>
-        <li><a href="#">Cartas</a></li>
-        <li><a href="#">Battle Royale</a></li>
-        <li><a href="#">Educativos</a></li>
-        <li><a href="#">Música</a></li>
-      </ul>
-    </nav>
-  </aside>
-  <div class="menu-overlay"></div>
+        <aside id="user-menu" class="user-menu" aria-label="Menú usuario">
+            <nav class="usernav">
+                <ul>
+                    <li><a href="../index.html">Log Out</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- ELEMENTO AGREGADO: Es obligatorio para que el JS funcione -->
+        <div class="user-overlay"></div>
+
+      <aside id="menu-lateral" class="menu-lateral" aria-label="Menú principal">
+        <nav>
+        <ul>
+            <li><a href="home.html" aria-current="page">Inicio</a></li>
+            <li><a href="#">Acción</a></li>
+            <li><a href="#">Aventura</a></li>
+            <li><a href="#">Militares</a></li>
+            <li><a href="#">Deportes</a></li>
+            <li><a href="#">RPG</a></li>
+            <li><a href="#">Simulación</a></li>
+            <li><a href="#">Estrategia</a></li>
+            <li><a href="#">Lucha</a></li>
+            <li><a href="#">Carreras</a></li>
+            <li><a href="#">Puzles</a></li>
+            <li><a href="#">Terror</a></li>
+            <li><a href="#">MOBA</a></li>
+            <li><a href="#">Sandbox</a></li>
+            <li><a href="#">Cartas</a></li>
+            <li><a href="#">Battle Royale</a></li>
+            <li><a href="#">Educativos</a></li>
+            <li><a href="#">Música</a></li>
+        </ul>
+        </nav>
+    </aside>
+    <div class="menu-overlay"></div>
   <!-- Main -->
   <main class="home">
   <section class="featured" aria-labelledby="t-destacados">

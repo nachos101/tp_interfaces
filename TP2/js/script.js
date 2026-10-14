@@ -49,6 +49,40 @@ if (menuBoton && menu && menuFondo) {
   }
 }
 
+const userBoton = document.querySelector("#user-toggle");
+const userMenu = document.querySelector("#user-menu");
+const userFondo = document.querySelector(".user-overlay");
+
+if (userBoton && userMenu && userFondo) {
+  function abrirUserMenu(abrir) {
+    userMenu.classList.toggle("abierto", abrir);
+    userFondo.classList.toggle("abierto", abrir);
+    document.body.classList.toggle("user-menu-abierto", abrir);
+    userBoton.setAttribute("aria-expanded", String(abrir));
+    userBoton.setAttribute("aria-label", abrir ? "Cerrar menú de usuario" : "Abrir menú de usuario");
+  }
+
+  userBoton.addEventListener("click", () => {
+    abrirUserMenu(!userMenu.classList.contains("abierto"));
+  });
+
+  userFondo.addEventListener("click", () => abrirUserMenu(false));
+
+  document.addEventListener("keydown", (evento) => {
+    if (evento.key === "Escape" && userMenu.classList.contains("abierto")) {
+      abrirUserMenu(false);
+      userBoton.focus();
+    }
+  });
+
+  if (header && typeof ResizeObserver !== "undefined") {
+    new ResizeObserver(() => {
+      document.documentElement.style.setProperty("--header-h", `${header.offsetHeight}px`);
+    }).observe(header);
+  }
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const loginBtn = document.querySelector(".button.login");
   const usernameInput = document.getElementById("username");

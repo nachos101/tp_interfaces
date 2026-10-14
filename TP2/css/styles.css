@@ -111,13 +111,13 @@ body {
 }
 
 /* Contenedor del menú */
-.menuButton {
+.menuButton, .icon.menu {
     position: relative; /* Necesario para que la lista flote justo debajo de este botón */
     display: inline-block;
 }
 
 /* El ícono SVG */
-#menu-toggle {
+#menu-toggle, #user-toggle {
     cursor: pointer; /* Cambia la flechita por la manito al pasar el mouse */
 }
 
@@ -153,10 +153,98 @@ ul.navbar li {
     transition: background-color 0.2s;
 }
 
-/* Efecto hover al pasar por cada opción */
-ul.navbar li:hover {
-    background-color: #e0892b; /* Tu color de acento naranja */
-    color: #fff;
+
+/* Forzar que el texto cambie a blanco si el usuario pasa el mouse por la fila */
+
+.user-menu ul {
+  margin: 0;
+  padding: 12px 0;
+  list-style: none;
+}
+
+.user-menu a {
+  display: block;
+  padding: 14px 24px;
+  border-bottom: 2px solid rgb(79 45 28 / 0.25);
+  color: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s, padding-left 0.2s;
+}
+
+.user-menu a[aria-current="page"] {
+  background: var(--menu-ink);
+  color: var(--menu-bg);
+}
+
+.user-menu a:focus-visible {
+  outline: 3px solid var(--menu-ink);
+  outline-offset: -3px;
+}
+
+.user-menu a:hover {
+  background: rgb(79 45 28 / 0.12);
+  padding-left: 32px;
+}
+
+/* Panel lateral derecho del usuario */
+.user-menu {
+    position: fixed;
+    top: var(--header-h, 70px); /* Se posiciona exactamente debajo del header */
+    right: -250px; /* Lo esconde completamente a la derecha fuera de la pantalla */
+    width: 220px;
+    height: auto; /* No ocupa todo el largo de la pantalla */
+    max-height: calc(100vh - var(--header-h, 70px));
+    background-color: #F1DCB1; /* El mismo color crema */
+    box-shadow: -4px 4px 12px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease; /* Animación de deslizamiento suave */
+    z-index: 100;
+}
+
+/* Cuando el JS inyecta la clase "abierto", se desliza hacia adentro */
+.user-menu.abierto {
+    right: 0; 
+}
+
+/* Estilos internos de la lista del usuario */
+.user-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.user-menu li {
+    transition: background-color 0.2s;
+}
+
+
+.user-menu li a {
+    display: block;
+    padding: 15px 20px;
+    color: #311E14;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+
+/* Capa de fondo oscura (Overlay) */
+.user-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 99; /* Por debajo del menú pero sobre la web */
+}
+
+.user-overlay.abierto {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .miniLogo {
@@ -233,6 +321,8 @@ ul.navbar li:hover {
     align-items: center;
     gap: 16px;
 }
+
+
 
 
 /* =========================================================

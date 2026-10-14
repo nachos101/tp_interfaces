@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>En juego</title>
+	<title>Blocka</title>
 	<link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/layout_home.css">
     <link rel="stylesheet" href="../css/inGame.css">
@@ -45,9 +45,9 @@
                         <path d="M20 42.5H22.5V47.5H20V50H15V47.5H12.5V42.5H15V40H20V42.5ZM47.5 42.5H50V47.5H47.5V50H42.5V47.5H40V42.5H42.5V40H47.5V42.5ZM7.5 2.5V0H0V5H7.5V12.5H10V25H12.5V35H15V37.5H47.5V32.5H17.5V27.5H47.5V25H50V17.5H52.5V10H55V2.5H7.5ZM47.5 10V17.5H45V22.5H15V12.5H12.5V7.5H50V10H47.5Z" fill="#4F2D1C"/>
                     </svg>
                 </div>
-
-                <div class="icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="44" height="51" viewBox="0 0 44 51" fill="none">
+                
+                <div class="icon menuButton">
+                    <svg id="user-toggle" xmlns="http://www.w3.org/2000/svg" width="44" height="51" viewBox="0 0 44 51" fill="none" style="cursor: pointer;">
                         <path d="M6.73579 34.2964H37.0468V41.1557H43.7826V50.35H0V41.1557H6.73579V34.2964ZM6.73579 24.0075V6.85928H13.4716V0H30.311V6.85928H37.0468V24.0075H30.311V30.8667H13.4716V24.0075H6.73579Z" fill="#4F2D1C"/>
                         <path d="M9 37H34V44H41V47H3V44H9V37Z" fill="#F1DCB1"/>
                         <path d="M10 21V10L16 10V3L28 3.00002V10H34V21H27V28H16V21H10Z" fill="#F1DCB1"/>
@@ -56,6 +56,18 @@
             </div>
         </div>
     </header>
+
+        <aside id="user-menu" class="user-menu" aria-label="Menú usuario">
+            <nav class="usernav">
+                <ul>
+                    <li><a href="../index.html">Log Out</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- ELEMENTO AGREGADO: Es obligatorio para que el JS funcione -->
+        <div class="user-overlay"></div>
+
       <aside id="menu-lateral" class="menu-lateral" aria-label="Menú principal">
         <nav>
         <ul>
@@ -81,7 +93,7 @@
         </nav>
     </aside>
     <div class="menu-overlay"></div>
-
+    
     <main class="page-main">
         <!-- CONTENEDOR FANTASMA: Solo sirve para que el JS no tire error -->
         <div class="featured" style="display: none;" aria-hidden="true">
@@ -91,8 +103,8 @@
         <nav aria-label="breadcrumb" class="breadcrumbs">
             <ol>
                 <li><a href="home.html">Inicio</a></li>
-                <li>Explorar</li>
-                <li aria-current="page">Hello Kitty Peg Solitaire</li>>
+                <li>Ingenio</li>
+                <li aria-current="page">Blocka</li>
             </ol>
         </nav>
         <section class="gameScreen">
@@ -142,59 +154,224 @@
             </div>
             
             <div class="gameScreen__toolbar">
-                <h2 class="gameScreen__title">Hello Kitty Peg Solitaire</h2>
+                <h3 class="gameScreen__title">Blocka</h3>
                 <div class="gameScreen__actions">
                     <div class="share-wrapper">
-                    <button class="icon-btn" id="btn-compartir" title="Compartir">
-                                <svg width="51" height="50" viewBox="0 0 51 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19.8214 2.14276C20.2477 2.14276 20.6565 2.31209 20.9578 2.61348C21.2592 2.91488 21.4286 3.32366 21.4286 3.74991C21.4286 4.17615 21.2592 4.58493 20.9578 4.88633C20.6565 5.18773 20.2477 5.35705 19.8214 5.35705H9.10714C7.54426 5.35705 6.04539 5.9779 4.94026 7.08303C3.83514 8.18815 3.21429 9.68702 3.21429 11.2499V40.1785C3.21429 41.7414 3.83514 43.2402 4.94026 44.3454C6.04539 45.4505 7.54426 46.0713 9.10714 46.0713H38.0357C39.5986 46.0713 41.0975 45.4505 42.2026 44.3454C43.3077 43.2402 43.9286 41.7414 43.9286 40.1785V29.4642C43.9286 29.038 44.0979 28.6292 44.3993 28.3278C44.7007 28.0264 45.1095 27.8571 45.5357 27.8571C45.962 27.8571 46.3707 28.0264 46.6721 28.3278C46.9735 28.6292 47.1429 29.038 47.1429 29.4642V40.1785C47.1429 42.5938 46.1834 44.9103 44.4754 46.6182C42.7675 48.3261 40.4511 49.2856 38.0357 49.2856H9.10714C6.69178 49.2856 4.37534 48.3261 2.66742 46.6182C0.9595 44.9103 0 42.5938 0 40.1785V11.2499C0 8.83454 0.9595 6.5181 2.66742 4.81018C4.37534 3.10226 6.69178 2.14276 9.10714 2.14276H19.8214ZM30.9193 0.154191C31.1943 0.0241624 31.5006 -0.0251302 31.8026 0.0120443C32.1045 0.0492187 32.3897 0.171333 32.625 0.364191L50.3036 14.8285C50.4807 14.9733 50.6248 15.1542 50.7263 15.3592C50.8279 15.5642 50.8845 15.7884 50.8924 16.017C50.9003 16.2457 50.8593 16.4733 50.7722 16.6848C50.6851 16.8963 50.5538 17.0868 50.3871 17.2435L32.7086 33.8506C32.48 34.0657 32.1935 34.2092 31.8843 34.2633C31.5751 34.3174 31.2569 34.2799 30.9688 34.1552C30.6808 34.0306 30.4356 33.8243 30.2634 33.5619C30.0912 33.2994 29.9997 32.9923 30 32.6785V24.6642C27.5014 24.7413 24.7221 25.0692 21.7414 26.3828C18.3471 27.8785 14.5629 30.7135 10.6843 36.1906L9.90857 37.3199C9.71723 37.6069 9.43864 37.8247 9.11398 37.9411C8.78933 38.0575 8.43583 38.0664 8.10572 37.9665C7.77561 37.8665 7.48641 37.6631 7.28087 37.3861C7.07532 37.1091 6.96432 36.7734 6.96429 36.4285C6.96429 26.9871 9.83571 20.2285 14.4857 15.8399C18.7243 11.8435 24.2679 9.97705 30 9.68562V1.60705C29.9995 1.30232 30.0857 1.00374 30.2485 0.746122C30.4112 0.488505 30.6439 0.284614 30.9193 0.154191Z" fill="#9C2C0B"/>
+                    <button class="button small-btn" id="btn-compartir" title="Compartir" popovertarget="share-container">                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 14" width="40" height="40" shape-rendering="crispEdges">
+                            <g fill="#F1DCB1">
+                                <!-- Fila 0 -->
+                                <rect x="9" y="0" width="4" height="1" />
+                                
+                                <!-- Fila 1 -->
+                                <rect x="5" y="1" width="4" height="1" />
+                                <rect x="12" y="1" width="1" height="1" />
+                                
+                                <!-- Fila 2 -->
+                                <rect x="2" y="2" width="3" height="1" />
+                                <rect x="11" y="2" width="2" height="1" />
+                                
+                                <!-- Fila 3 -->
+                                <rect x="2" y="3" width="1" height="1" />
+                                <rect x="9" y="3" width="2" height="1" />
+                                <rect x="12" y="3" width="1" height="1" />
+                                
+                                <!-- Fila 4 -->
+                                <rect x="0" y="4" width="2" height="1" />
+                                <rect x="7" y="4" width="2" height="1" />
+                                <rect x="11" y="4" width="1" height="1" />
+                                
+                                <!-- Fila 5 -->
+                                <rect x="0" y="5" width="2" height="1" />
+                                <rect x="7" y="5" width="2" height="1" />
+                                <rect x="11" y="5" width="1" height="1" />
+                                
+                                <!-- Fila 6 -->
+                                <rect x="1" y="6" width="4" height="1" />
+                                <rect x="7" y="6" width="2" height="1" />
+                                <rect x="11" y="6" width="1" height="1" />
+                                
+                                <!-- Fila 7 -->
+                                <rect x="4" y="7" width="5" height="1" />
+                                <rect x="10" y="7" width="1" height="1" />
+                                
+                                <!-- Fila 8 -->
+                                <rect x="6" y="8" width="2" height="1" />
+                                <rect x="10" y="8" width="1" height="1" />
+                                
+                                <!-- Fila 9 -->
+                                <rect x="7" y="9" width="1" height="1" />
+                                <rect x="9" y="9" width="1" height="1" />
+                                
+                                <!-- Fila 10 -->
+                                <rect x="7" y="10" width="1" height="1" />
+                                <rect x="9" y="10" width="1" height="1" />
+                                
+                                <!-- Fila 11 -->
+                                <rect x="7" y="11" width="3" height="1" />
+                                
+                                <!-- Fila 12 -->
+                                <rect x="8" y="12" width="1" height="1" />
+                                
+                                <!-- Fila 13 -->
+                                <rect x="8" y="13" width="1" height="1" />
+                            </g>
                             </svg>
                         </button>
-                        <div class="share-popup" id="popup-compartir">
+                        <section popover id="share-container">
+                            <button class="close-btn" popovertarget="share-container" popovertargetaction="hide" aria-label="Cerrar ventana">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 44 44" fill="none">
+                                    <path d="M35.2002 44H8.80078V39.5996H35.2002V44Z" fill="#4F2D1C"/>
+                                    <path d="M8.80078 39.5996H4.40039V35.2002H8.80078V39.5996Z" fill="#4F2D1C"/>
+                                    <path d="M4.40039 35.2002H0V8.7998H4.40039V35.2002Z" fill="#4F2D1C"/>
+                                    <path d="M44 35.2002H39.6006V8.7998H44V35.2002Z" fill="#4F2D1C"/>
+                                    <path d="M8.80078 8.7998H4.40039V4.40039H8.80078V8.7998Z" fill="#4F2D1C"/>
+                                    <path d="M39.6006 8.7998H35.2002V4.40039H39.6006V8.7998Z" fill="#4F2D1C"/>
+                                    <path d="M35.2002 4.40039H8.80078V0H35.2002V4.40039Z" fill="#4F2D1C"/>
+                                    <path d="M39.6006 39.5996H35.2002V35.2002H39.6006V39.5996Z" fill="#4F2D1C"/>
+                                    <path d="M24.8682 24.2012H20.4678V19.8018H24.8682V24.2012Z" fill="#4F2D1C"/>
+                                    <path d="M29.2686 19.8018H24.8682V15.4023H29.2686V19.8018Z" fill="#4F2D1C"/>
+                                    <path d="M33.6689 15.4023H29.2686V11.0029H33.6689V15.4023Z" fill="#4F2D1C"/>
+                                    <path d="M20.4678 28.6006H16.0674V24.2012H20.4678V28.6006Z" fill="#4F2D1C"/>
+                                    <path d="M16.0674 33H11.667V28.6006H16.0674V33Z" fill="#4F2D1C"/>
+                                    <path d="M29.2686 28.6006H24.8682V24.2012H29.2686V28.6006Z" fill="#4F2D1C"/>
+                                    <path d="M33.6689 33H29.2686V28.6006H33.6689V33Z" fill="#4F2D1C"/>
+                                    <path d="M20.4678 19.8018H16.0674V15.4023H20.4678V19.8018Z" fill="#4F2D1C"/>
+                                    <path d="M16.0674 15.4023H11.667V11.0029H16.0674V15.4023Z" fill="#4F2D1C"/>
+                                </svg>
+                            </button>
                             <span class="share-title">Compartir vía</span>
-                        
-                            <div class="share-icons">
-                                <button>
-                                    <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18.5 0C8.28183 0 0 8.28337 0 18.5C0 28.7166 8.28183 37 18.5 37C28.7166 37 37 28.7166 37 18.5C37 8.28337 28.7166 0 18.5 0ZM18.7158 29.3194C12.7527 29.3194 7.92417 24.4786 7.92417 18.5C7.92417 12.5214 12.7527 7.68058 18.7158 7.68058C21.6296 7.68058 24.0654 8.75513 25.9339 10.5003L22.8907 13.5497V13.5435C21.7575 12.4613 20.3207 11.9063 18.7158 11.9063C15.1546 11.9063 12.2609 14.9218 12.2609 18.4938C12.2609 22.0628 15.1546 25.0875 18.7158 25.0875C21.9472 25.0875 24.1456 23.2345 24.5988 20.6907H18.7158V16.4712H28.8677C29.0054 17.1947 29.0748 17.9522 29.0758 18.7436C29.0758 24.9257 24.9488 29.3194 18.7158 29.3194Z" fill="black"/>
-                                    </svg>
-                                </button>
+                                <div class="share-icons">
+                                    <button>
+                                        <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M18.5 0C8.28183 0 0 8.28337 0 18.5C0 28.7166 8.28183 37 18.5 37C28.7166 37 37 28.7166 37 18.5C37 8.28337 28.7166 0 18.5 0ZM18.7158 29.3194C12.7527 29.3194 7.92417 24.4786 7.92417 18.5C7.92417 12.5214 12.7527 7.68058 18.7158 7.68058C21.6296 7.68058 24.0654 8.75513 25.9339 10.5003L22.8907 13.5497V13.5435C21.7575 12.4613 20.3207 11.9063 18.7158 11.9063C15.1546 11.9063 12.2609 14.9218 12.2609 18.4938C12.2609 22.0628 15.1546 25.0875 18.7158 25.0875C21.9472 25.0875 24.1456 23.2345 24.5988 20.6907H18.7158V16.4712H28.8677C29.0054 17.1947 29.0748 17.9522 29.0758 18.7436C29.0758 24.9257 24.9488 29.3194 18.7158 29.3194Z" fill="black"/>
+                                        </svg>
+                                    </button>
 
-                                <button>
-                                    <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0 18.6033C0 27.8024 6.68004 35.4491 15.4167 37V23.6384H10.7917V18.5H15.4167V14.3884C15.4167 9.76338 18.3967 7.19496 22.6116 7.19496C23.9467 7.19496 25.3866 7.4 26.7217 7.60504V12.3333H24.3583C22.0967 12.3333 21.5833 13.4634 21.5833 14.9033V18.5H26.5167L25.695 23.6384H21.5833V37C30.32 35.4491 37 27.8024 37 18.6033C37 8.37125 28.675 0 18.5 0C8.325 0 0 8.37125 0 18.6033Z" fill="black"/>
-                                    </svg>
-                                </button>
+                                    <button>
+                                        <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M0 18.6033C0 27.8024 6.68004 35.4491 15.4167 37V23.6384H10.7917V18.5H15.4167V14.3884C15.4167 9.76338 18.3967 7.19496 22.6116 7.19496C23.9467 7.19496 25.3866 7.4 26.7217 7.60504V12.3333H24.3583C22.0967 12.3333 21.5833 13.4634 21.5833 14.9033V18.5H26.5167L25.695 23.6384H21.5833V37C30.32 35.4491 37 27.8024 37 18.6033C37 8.37125 28.675 0 18.5 0C8.325 0 0 8.37125 0 18.6033Z" fill="black"/>
+                                        </svg>
+                                    </button>
 
-                                <button>
-                                    <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M2.09091 0H39.7273V2.09091H41.8182V31.3636H39.7273V33.4545H8.36364V35.5455H6.27273V37.6364H4.18182V39.7273H2.09091V41.8182H0V2.09091H2.09091V0ZM4.18182 4.18182V31.3636H6.27273V29.2727H37.6364V4.18182H4.18182ZM8.36364 10.4545H33.4545V14.6364H8.36364V10.4545ZM8.36364 18.8182H27.1818V23H8.36364V18.8182Z" fill="#664333"/>
-                                    </svg>
-                                </button>
-                                <button>
-                                    <svg width="46" height="38" viewBox="0 0 46 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M43.8006 4.38438H46V32.8469H43.8006V4.38438ZM41.6156 32.8469H43.8006V35.0463H41.6156V32.8469ZM41.6156 2.185H43.8006V4.38438H41.6156V2.185ZM39.4306 6.56937H41.6156V10.9537H39.4306V6.56937ZM4.38438 35.0463H41.6156V37.2313H4.38438V35.0463ZM37.2313 28.4769H39.4306V30.6619H37.2313V28.4769ZM37.2313 10.9537H39.4306V13.1387H37.2313V10.9537ZM35.0462 26.2775H37.2313V28.4769H35.0462V26.2775ZM35.0462 13.1387H37.2313V15.3237H35.0462V13.1387ZM32.8469 24.0925H35.0462V26.2775H32.8469V24.0925ZM32.8469 15.3237H35.0462V17.5231H32.8469V15.3237ZM30.6619 21.9075H32.8469V24.0925H30.6619V21.9075ZM30.6619 17.5231H32.8469V19.7081H30.6619V17.5231ZM26.2775 19.7081H30.6619V21.9075H26.2775V19.7081ZM19.7081 21.9075H26.2775V24.0925H19.7081V21.9075ZM15.3237 19.7081H19.7081V21.9075H15.3237V19.7081ZM13.1388 21.9075H15.3237V24.0925H13.1388V21.9075ZM13.1388 17.5231H15.3237V19.7081H13.1388V17.5231ZM10.9537 24.0925H13.1388V26.2775H10.9537V24.0925ZM10.9537 15.3237H13.1388V17.5231H10.9537V15.3237ZM8.75438 26.2775H10.9537V28.4769H8.75438V26.2775ZM8.75438 13.1387H10.9537V15.3237H8.75438V13.1387ZM6.56938 28.4769H8.75438V30.6619H6.56938V28.4769ZM6.56938 10.9537H8.75438V13.1387H6.56938V10.9537ZM4.38438 0H41.6156V2.185H4.38438V0ZM4.38438 6.56937H6.56938V10.9537H4.38438V6.56937ZM2.185 32.8469H4.38438V35.0463H2.185V32.8469ZM2.185 2.185H4.38438V4.38438H2.185V2.185ZM0 4.38438H2.185V32.8469H0V4.38438Z" fill="#664333"/>
-                                    </svg>
-                                </button>
+                                    <button>
+                                        <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2.09091 0H39.7273V2.09091H41.8182V31.3636H39.7273V33.4545H8.36364V35.5455H6.27273V37.6364H4.18182V39.7273H2.09091V41.8182H0V2.09091H2.09091V0ZM4.18182 4.18182V31.3636H6.27273V29.2727H37.6364V4.18182H4.18182ZM8.36364 10.4545H33.4545V14.6364H8.36364V10.4545ZM8.36364 18.8182H27.1818V23H8.36364V18.8182Z" fill="#664333"/>
+                                        </svg>
+                                    </button>
+                                    <button>
+                                        <svg width="46" height="38" viewBox="0 0 46 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M43.8006 4.38438H46V32.8469H43.8006V4.38438ZM41.6156 32.8469H43.8006V35.0463H41.6156V32.8469ZM41.6156 2.185H43.8006V4.38438H41.6156V2.185ZM39.4306 6.56937H41.6156V10.9537H39.4306V6.56937ZM4.38438 35.0463H41.6156V37.2313H4.38438V35.0463ZM37.2313 28.4769H39.4306V30.6619H37.2313V28.4769ZM37.2313 10.9537H39.4306V13.1387H37.2313V10.9537ZM35.0462 26.2775H37.2313V28.4769H35.0462V26.2775ZM35.0462 13.1387H37.2313V15.3237H35.0462V13.1387ZM32.8469 24.0925H35.0462V26.2775H32.8469V24.0925ZM32.8469 15.3237H35.0462V17.5231H32.8469V15.3237ZM30.6619 21.9075H32.8469V24.0925H30.6619V21.9075ZM30.6619 17.5231H32.8469V19.7081H30.6619V17.5231ZM26.2775 19.7081H30.6619V21.9075H26.2775V19.7081ZM19.7081 21.9075H26.2775V24.0925H19.7081V21.9075ZM15.3237 19.7081H19.7081V21.9075H15.3237V19.7081ZM13.1388 21.9075H15.3237V24.0925H13.1388V21.9075ZM13.1388 17.5231H15.3237V19.7081H13.1388V17.5231ZM10.9537 24.0925H13.1388V26.2775H10.9537V24.0925ZM10.9537 15.3237H13.1388V17.5231H10.9537V15.3237ZM8.75438 26.2775H10.9537V28.4769H8.75438V26.2775ZM8.75438 13.1387H10.9537V15.3237H8.75438V13.1387ZM6.56938 28.4769H8.75438V30.6619H6.56938V28.4769ZM6.56938 10.9537H8.75438V13.1387H6.56938V10.9537ZM4.38438 0H41.6156V2.185H4.38438V0ZM4.38438 6.56937H6.56938V10.9537H4.38438V6.56937ZM2.185 32.8469H4.38438V35.0463H2.185V32.8469ZM2.185 2.185H4.38438V4.38438H2.185V2.185ZM0 4.38438H2.185V32.8469H0V4.38438Z" fill="#664333"/>
+                                        </svg>
+                                    </button>
                             </div>
-                        </div>
+                        </section>
+                    </div>
+                    
+                    <div class="opinion-container">
+                        <!-- BOTÓN ME GUSTA -->
+                        <button class="icon-btn" id="btn-like" title="Me gusta">
+                            <!-- Mano de líneas (Outline) -->
+                            <svg class="svg-outline" xmlns="http://w3.org" viewBox="0 0 40 40" fill="none">
+                                <g transform="translate(-8, -11)">
+                                    <path d="M37.694 26.8V24.95H33.9668V21.25H35.7849V13.85H33.9668V12H30.3304V13.85H28.5122V19.4H26.694V23.1H24.8758V24.95H23.0577V26.8H21.2395V43.45H23.0577V45.3H24.8758V47.15H28.5122V49H41.2395V47.15H43.0577V41.6H44.8758V36.05H46.694V30.5H48.5122V26.8H46.694ZM41.2395 36.05V41.6H39.4213V45.3H30.3304V43.45H26.694V41.6H24.8758V28.65H26.694V26.8H28.5122V24.95H30.3304V26.8H32.1486V28.65H43.0577V36.05H41.2395ZM17.6031 24.95V49H10.3304V47.15H8.5122V26.8H10.3304V24.95H17.6031Z" fill="#F1DCB1"/>
+                                </g>
+                            </svg>
+                            <!-- Mano rellena (Filled) -->
+                            <svg class="svg-filled" xmlns="http://w3.org" viewBox="0 0 40 40" fill="none">
+                                <g transform="translate(0, 1)">
+                                    <path d="M40 14.8V18.5H38.1818V24.05H36.3636V29.6H34.5455V35.15H32.7273V37H20V35.15H16.3636V33.3H14.5455V31.45H12.7273V14.8H14.5455V12.95H16.3636V11.1H18.1818V7.4H20V1.85H21.8182V0H25.4545V1.85H27.2727V9.25H25.4545V12.95H38.1818V14.8H40ZM9.09091 12.95V37H1.81818V35.15H0V14.8H1.81818V12.95H9.09091Z" fill="#F1DCB1"/>
+                                </g>
+                            </svg>
+                        </button>
 
-                    </div>
-                    <div class="opinion-btn">
-                        <button class="icon-btn" title="Me gusta">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="60" viewBox="0 0 80 60" fill="none">
-                                <path d="M0 15C0 6.71573 6.71573 0 15 0H80V60H15C6.71573 60 0 53.2843 0 45V15Z" fill="#9C2C0B"/>
-                                <path d="M57.694 26.8V24.95H44.9668V21.25H46.7849V13.85H44.9668V12H41.3304V13.85H39.5122V19.4H37.694V23.1H35.8758V24.95H34.0577V26.8H32.2395V43.45H34.0577V45.3H35.8758V47.15H39.5122V49H52.2395V47.15H54.0577V41.6H55.8758V36.05H57.694V30.5H59.5122V26.8H57.694ZM52.2395 36.05V41.6H50.4213V45.3H41.3304V43.45H37.694V41.6H35.8758V28.65H37.694V26.8H39.5122V24.95H41.3304V26.8H43.1486V28.65H54.0577V36.05H52.2395ZM28.6031 24.95V49H21.3304V47.15H19.5122V26.8H21.3304V24.95H28.6031Z" fill="#F1DCB1"/>
-                            </svg>                    
+                        <!-- BOTÓN NO ME GUSTA -->
+                        <button class="icon-btn" id="btn-dislike" title="No me gusta">
+                            <!-- Mano de líneas (Outline) -->
+                            <svg class="svg-outline" xmlns="http://w3.org" viewBox="0 0 40 40" fill="none">
+                                <g transform="translate(-1, -10)">
+                                    <path d="M31.9091 12V35.4H39.1818V33.6H41V13.8H39.1818V12H31.9091ZM2.81818 30V24.6H4.63636V19.2H6.45455V13.8H8.27273V12H21V13.8H24.6364V15.6H26.4545V17.4H28.2727V33.6H26.4545V35.4H24.6364V37.2H22.8182V40.8H21V46.2H19.1818V48H15.5455V46.2H13.7273V39H15.5455V35.4H2.81818V33.6H1V30H2.81818ZM6.45455 31.8H17.3545V33.6H19.1818V35.4H21V33.6H22.8182V31.8H24.6364V19.2H22.8182V17.4H19.1818V15.6H10.0909V19.2H8.27273V24.6H6.45455V31.8Z" fill="#F1DCB1"/>
+                                </g>
+                            </svg>
+                            <!-- Mano rellena (Filled) -->
+                            <svg class="svg-filled" xmlns="http://w3.org" viewBox="0 0 40 40" fill="none">
+                                <g transform="translate(1, 2)">
+                                    <path d="M29.5034 0V22.5614H36.4454V20.8259H38.1809V1.73549H36.4454V0H29.5034ZM4.95911e-05 17.3549V20.8259H1.73554V22.5614H13.884V26.0324H12.1485V32.9744H13.884V34.7099H17.355V32.9744H19.0905V27.7679H20.826V24.2969H22.5615V22.5614H24.297V20.8259H26.0325V5.20648H24.297V3.47099H22.5615V1.73549H19.0905V0H6.94202V1.73549H5.20653V6.94197H3.47104V12.1485H1.73554V17.3549H4.95911e-05Z" fill="#F1DCB1"/>
+                                </g>
+                            </svg>
                         </button>
-                        <button class="icon-btn" title="No me gusta">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="60" viewBox="0 0 80 60" fill="none">
-                                <path d="M0 0H65C73.2843 0 80 6.71573 80 15V45C80 53.2843 73.2843 60 65 60H0V0Z" fill="#9C2C0B"/>
-                                <path d="M50.9091 12V35.4H58.1818V33.6H60V13.8H58.1818V12H50.9091ZM21.8182 30V24.6H23.6364V19.2H25.4545V13.8H27.2727V12H40V13.8H43.6364V15.6H45.4545V17.4H47.2727V33.6H45.4545V35.4H43.6364V37.2H41.8182V40.8H40V46.2H38.1818V48H34.5455V46.2H32.7273V39H34.5455V35.4H21.8182V33.6H20V30H21.8182ZM25.4545 31.8H36.3636V33.6H38.1818V35.4H40V33.6H41.8182V31.8H43.6364V19.2H41.8182V17.4H38.1818V15.6H29.0909V19.2H27.2727V24.6H25.4545V31.8Z" fill="#F1DCB1"/>
-                            </svg>                    
-                        </button>
                     </div>
-                    <button class="button small-btn">Controles</button>
+
+
+                    <div class="controls-wrapper" style="position: relative; display: inline-block;">
+                    <button class="button small-btn" title="Controles" popovertarget="controls-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 11" width="80" height="60" shape-rendering="crispEdges">
+                        <g fill="#F1DCB1">
+                            <!-- Borde superior -->
+                            <rect x="2" y="0" width="9" height="1" />
+                            
+                            <!-- Hombros -->
+                            <rect x="1" y="1" width="1" height="2" />
+                            <rect x="11" y="1" width="1" height="2" />
+                            
+                            <!-- Bordes laterales -->
+                            <rect x="0" y="3" width="1" height="7" />
+                            <rect x="12" y="3" width="1" height="7" />
+                            
+                            <!-- D-pad (Cruz) -->
+                            <rect x="3" y="4" width="1" height="3" />
+                            <rect x="2" y="5" width="3" height="1" />
+                            
+                            <!-- Botones (Diamante) -->
+                            <rect x="9" y="4" width="1" height="1" />
+                            <rect x="8" y="5" width="1" height="1" />
+                            <rect x="10" y="5" width="1" height="1" />
+                            <rect x="9" y="6" width="1" height="1" />
+                            
+                            <!-- Recorte inferior -->
+                            <rect x="1" y="10" width="3" height="1" />
+                            <rect x="4" y="9" width="1" height="1" />
+                            <rect x="5" y="8" width="3" height="1" />
+                            <rect x="8" y="9" width="1" height="1" />
+                            <rect x="9" y="10" width="3" height="1" />
+                        </g>
+                        </svg>
+                    </button>
+
+                    <!-- El Popover de los controles -->
+                    <section popover id="controls-container">
+                        <!-- Botón de cerrar (X) -->
+                        <button class="close-btn" popovertarget="controls-container" popovertargetaction="hide" aria-label="Cerrar ventana">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 44 44" fill="none">
+                                <path d="M35.2002 44H8.80078V39.5996H35.2002V44Z" fill="#4F2D1C"/>
+                                <path d="M8.80078 39.5996H4.40039V35.2002H8.80078V39.5996Z" fill="#4F2D1C"/>
+                                <path d="M4.40039 35.2002H0V8.7998H4.40039V35.2002Z" fill="#4F2D1C"/>
+                                <path d="M44 35.2002H39.6006V8.7998H44V35.2002Z" fill="#4F2D1C"/>
+                                <path d="M8.80078 8.7998H4.40039V4.40039H8.80078V8.7998Z" fill="#4F2D1C"/>
+                                <path d="M39.6006 8.7998H35.2002V4.40039H39.6006V8.7998Z" fill="#4F2D1C"/>
+                                <path d="M35.2002 4.40039H8.80078V0H35.2002V4.40039Z" fill="#4F2D1C"/>
+                                <path d="M39.6006 39.5996H35.2002V35.2002H39.6006V39.5996Z" fill="#4F2D1C"/>
+                                <path d="M24.8682 24.2012H20.4678V19.8018H24.8682V24.2012Z" fill="#4F2D1C"/>
+                                <path d="M29.2686 19.8018H24.8682V15.4023H29.2686V19.8018Z" fill="#4F2D1C"/>
+                                <path d="M33.6689 15.4023H29.2686V11.0029H33.6689V15.4023Z" fill="#4F2D1C"/>
+                                <path d="M20.4678 28.6006H16.0674V24.2012H20.4678V28.6006Z" fill="#4F2D1C"/>
+                                <path d="M16.0674 33H11.667V28.6006H16.0674V33Z" fill="#4F2D1C"/>
+                                <path d="M29.2686 28.6006H24.8682V24.2012H29.2686V28.6006Z" fill="#4F2D1C"/>
+                                <path d="M33.6689 33H29.2686V28.6006H33.6689V33Z" fill="#4F2D1C"/>
+                                <path d="M20.4678 19.8018H16.0674V15.4023H20.4678V19.8018Z" fill="#4F2D1C"/>
+                                <path d="M16.0674 15.4023H11.667V11.0029H16.0674V15.4023Z" fill="#4F2D1C"/>
+                            </svg>
+                        </button>
+
+                        <h2 class="controls-title">Controles</h2>
+                        
+                        <!-- Ejemplo de lista de controles -->
+                        <div class="controls-list">
+                            <p><strong>Click Izquierdo:</strong> <span>Seleccionar ficha</span></p>
+                            <p><strong>Arrastrar:</strong> <span>Mover ficha</span></p>
+                            <p><strong>R:</strong> <span>Reiniciar nivel</span></p>
+                            <p><strong>P / Esc:</strong> <span>Pausar juego</span></p>
+                        </div>
+                    </section>
                 </div>
             </div>
         </section>
@@ -273,7 +450,7 @@
             </div>
         </section>
 
-        <section class="comments">
+                <section class="comments">
             <h3 class="comments__subtitle">Deja tu comentario</h3>
             <div class="comment-form">
                 <div class="comment-avatar">
@@ -301,10 +478,38 @@
                         </svg>
                     </div>
                     <div class="comment-content">
-                        <strong>HelloKittyFan</strong>
-                        <p>Nunca me divertí tanto con un juego de este estilo.</p>
-                    </div>
+                        <strong>notSoIntelligent</strong>
+                        <p>Malisimo, no pude hacer ni un nivel</p>
+                        <div class="comment-likes">
+                        <button class="heart-btn" title="Me gusta este comentario">
+                            <!-- Corazón Pixel Art VACÍO -->
+                            <svg class="heart-outline" viewBox="0 0 15 15" width="30" height="30" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Borde marrón -->
+                                <path d="M3 2 H6 V3 H9 V2 H12 V4 H13 V8 H12 V10 H11 V12 H9 V14 H6 V12 H4 V10 H3 V8 H2 V4 H3 Z" fill="#4A2E15"/>
+                                <!-- Relleno interior color fondo -->
+                                <path d="M4 3 H6 V4 H9 V3 H11 V4 H12 V8 H11 V9 H10 V11 H8 V13 H7 V11 H5 V9 H4 V8 H3 V4 H4 Z" fill="#F1DCB1"/>
+                            </svg>
+                            
+                            <!-- Corazón Pixel Art RELLENO -->
+                            <svg class="heart-filled" viewBox="0 0 15 15" width="30" height="30" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 2 H6 V3 H9 V2 H12 V4 H13 V8 H12 V10 H11 V12 H9 V14 H6 V12 H4 V10 H3 V8 H2 V4 H3 Z" fill="#4A2E15"/>
+                                <!-- Relleno interior rojo -->
+                                <path d="M4 3 H6 V4 H9 V3 H11 V4 H12 V8 H11 V9 H10 V11 H8 V13 H7 V11 H5 V9 H4 V8 H3 V4 H4 Z" fill="#9C2C0B"/>
+                            </svg>
+                            
+                            <!-- Corazón Pixel Art QUEBRADO -->
+                            <svg class="heart-broken" viewBox="0 0 15 15" width="30" height="30" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 2 H6 V3 H9 V2 H12 V4 H13 V8 H12 V10 H11 V12 H9 V14 H6 V12 H4 V10 H3 V8 H2 V4 H3 Z" fill="#4A2E15"/>
+                                <path d="M4 3 H6 V4 H9 V3 H11 V4 H12 V8 H11 V9 H10 V11 H8 V13 H7 V11 H5 V9 H4 V8 H3 V4 H4 Z" fill="#9C2C0B"/>
+                                <!-- Línea de quiebre estilo píxel color fondo -->
+                                <path d="M7 3 H8 V5 H7 V7 H8 V10 H7 V13 H6 V11 H7 V8 H6 V6 H7 Z" fill="#F1DCB1"/>
+                            </svg>
+                        </button>
+                        <span class="likes-count">6</span> <!-- Número de likes ficticio -->
+                    </div>    
                 </div>
+            </div>    
+
                 <!-- Comentario 2 -->
                 <div class="comment-item">
                     <div class="comment-avatar">
@@ -315,12 +520,40 @@
                         </svg>
                     </div>
                     <div class="comment-content">
-                        <strong>PepeGamer23</strong>
-                        <p>Muy bonito, se ve re lindo todo adorable.</p>
+                        <strong>ultraHardcore157_iQ</strong>
+                        <p>ufff, gran desafio, me gusto mucho!</p>
+                        <div class="comment-likes">
+                        <button class="heart-btn" title="Me gusta este comentario">
+                            <!-- Corazón Pixel Art VACÍO -->
+                            <svg class="heart-outline" viewBox="0 0 15 15" width="30" height="30" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Borde marrón -->
+                                <path d="M3 2 H6 V3 H9 V2 H12 V4 H13 V8 H12 V10 H11 V12 H9 V14 H6 V12 H4 V10 H3 V8 H2 V4 H3 Z" fill="#4A2E15"/>
+                                <!-- Relleno interior color fondo -->
+                                <path d="M4 3 H6 V4 H9 V3 H11 V4 H12 V8 H11 V9 H10 V11 H8 V13 H7 V11 H5 V9 H4 V8 H3 V4 H4 Z" fill="#F1DCB1"/>
+                            </svg>
+                            
+                            <!-- Corazón Pixel Art RELLENO -->
+                            <svg class="heart-filled" viewBox="0 0 15 15" width="30" height="30" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 2 H6 V3 H9 V2 H12 V4 H13 V8 H12 V10 H11 V12 H9 V14 H6 V12 H4 V10 H3 V8 H2 V4 H3 Z" fill="#4A2E15"/>
+                                <!-- Relleno interior rojo -->
+                                <path d="M4 3 H6 V4 H9 V3 H11 V4 H12 V8 H11 V9 H10 V11 H8 V13 H7 V11 H5 V9 H4 V8 H3 V4 H4 Z" fill="#9C2C0B"/>
+                            </svg>
+                            
+                            <!-- Corazón Pixel Art QUEBRADO -->
+                            <svg class="heart-broken" viewBox="0 0 15 15" width="30" height="30" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 2 H6 V3 H9 V2 H12 V4 H13 V8 H12 V10 H11 V12 H9 V14 H6 V12 H4 V10 H3 V8 H2 V4 H3 Z" fill="#4A2E15"/>
+                                <path d="M4 3 H6 V4 H9 V3 H11 V4 H12 V8 H11 V9 H10 V11 H8 V13 H7 V11 H5 V9 H4 V8 H3 V4 H4 Z" fill="#9C2C0B"/>
+                                <!-- Línea de quiebre estilo píxel color fondo -->
+                                <path d="M7 3 H8 V5 H7 V7 H8 V10 H7 V13 H6 V11 H7 V8 H6 V6 H7 Z" fill="#F1DCB1"/>
+                            </svg>
+                        </button>
+                        <span class="likes-count">7</span> <!-- Número de likes ficticio -->
                     </div>
                 </div>
             </div>
+        </div>    
         </section>
+
 
         <section class="verticalCaroussel shelf">
             <p class="vertical-title">Basado en lo que juegas</>
