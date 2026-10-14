@@ -1,7 +1,6 @@
 .breadcrumbs {
     padding: 16px 0; 
-    font-size: 24px; 
-    margin-bottom: 16px;
+    font-size: 16px; 
 }
 
 .breadcrumbs ol {
@@ -92,7 +91,7 @@
 
 .gameScreen__viewport {
     width: 100%;
-    aspect-ratio: 16 / 9; /* Mantiene proporción de pantalla ancha */
+    aspect-ratio: 18 / 9; /* Mantiene proporción de pantalla ancha */
     background: #2c231c;
 }
 
@@ -140,11 +139,11 @@
 
 /* Modificador para botones chiquitos como el de "Controles" */
 .button.small-btn {
-    width: auto;
-    height: auto;
+    width: 80px;
+    height: 60px;
     font-size: 16px;
     padding: 8px 16px;
-    border-radius: 6px;
+    border-radius: 15px;
 }
 
 /* =========================
@@ -371,65 +370,59 @@ section.gameDescription ul.gallery-track div.card__thumb {
     border-bottom: none;
 }
 
-
 /* =========================================================
    CARRUSEL VERTICAL (API)
    ========================================================= */
 
-/* Obligamos a la lista a ser una columna vertical */
+/* Contenedor de la lista */
 section.verticalCaroussel ul.vertical-track {
     display: grid;
-    grid-template-columns: 1fr; /* Una sola columna que ocupa todo el ancho */
-    grid-auto-flow: row; /* Los elementos caen hacia abajo */
+    grid-template-columns: 1fr;
+    grid-auto-flow: row; 
     gap: 16px;
     padding: 0;
     margin: 0;
     
-    /* Le damos una altura máxima y habilitamos el scroll vertical nativo */
-    max-height: 60vh;
+    /* Sugerencia: Usar píxeles fijos suele ser más estable que vh para evitar roturas */
+    max-height: 480px; 
     overflow-y: auto; 
     overflow-x: hidden;
     scroll-snap-type: y proximity;
-}
-
-/* Las cards hacen "snap" (frenan prolijo) al hacer scroll vertical */
-section.verticalCaroussel ul.vertical-track > li {
-    scroll-snap-align: start;
-}
-
-/* Ocultamos la barra de scroll para que se vea como en la imagen de diseño */
-section.verticalCaroussel ul.vertical-track {
-    scrollbar-width: none; /* Firefox */
+    scrollbar-width: none; 
 }
 
 section.verticalCaroussel ul.vertical-track::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
+    display: none; 
 }
 
-/* Nos aseguramos de que las cards de la API llenen bien el espacio */
+/* Centramos el contenido dentro de cada fila del grid */
+section.verticalCaroussel ul.vertical-track > li {
+    scroll-snap-align: start;
+    display: flex;
+    justify-content: center; /* Esto evita que la tarjeta flote hacia un costado */
+}
+
+/* Tamaño de la tarjeta */
 section.verticalCaroussel ul.vertical-track .card {
     width: 100%;
+    max-width: 150px; 
 }
 
-/* Posicionamiento de las flechas verticales */
+/* --- Posicionamiento de las flechas verticales --- */
 .vertical__viewport .carousel-btn {
+    position: absolute; /* CLAVE para que no empuje el contenido de la página */
     left: 50%;
-    translate: -50% 0; /* Centrado exacto horizontal */
-    top: auto; /* Anulamos el centrado vertical que traen del home */
+    translate: -50% 0;
+    z-index: 2;
 }
 
-.carousel-btn--up { 
-    top: -12px; 
+.vertical__viewport .carousel-btn--up {
+    top: -22px; 
 }
 
-.carousel-btn--down { 
-    bottom: -12px; 
-}
-
-/* Achica solo las cards de la columna derecha */
-section.verticalCaroussel ul.vertical-track .card {
-    max-width: 150px; /* Ajusta este valor (ej. 160px o 200px) según prefieras */
-    margin: 0 auto; /* Mantiene la tarjeta perfectamente centrada en su columna */
+.vertical__viewport .carousel-btn--down {
+    bottom: -22px; 
+    top: auto; 
 }
 
 /* =========================================================
