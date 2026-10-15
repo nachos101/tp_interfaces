@@ -45,6 +45,12 @@
     font-weight: 700;
 }
 
+
+.description__text span{
+    font-weight: 900;
+    font-style: italic;
+}
+
 /* =========================================================
    ESTRUCTURA DE LA PÁGINA DE JUEGO (GRID)
    ========================================================= */
@@ -106,6 +112,14 @@
     background: #000;
 }
 
+.game-cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / 0.4);
+    z-index: 1;
+}
+
 .gameScreen__img {
     position: absolute;
     inset: 0;
@@ -113,6 +127,52 @@
     height: 100%;
     object-fit: cover;
     z-index: 0;
+}
+
+/* Botón principal de Jugar */
+.play-game-btn {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 36px;
+    font-size: 1.6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 50px;
+    background: var(--play);
+    color: var(--text);
+    cursor: pointer;
+    
+    /* Efecto 3D de tecla */
+    --btn-borde: #5e1a06;
+    box-shadow: 0 0.25em 0 var(--btn-borde), 0 0.5em 1em rgb(0 0 0 / 0.6);
+    transition: scale 0.15s, translate 0.1s, box-shadow 0.1s, background 0.2s;
+}
+
+.play-game-btn:hover {
+    background: var(--play-hover);
+    scale: 1.05;
+}
+
+.play-game-btn:active {
+    translate: 0 0.25em; /* Se hunde al hacer click */
+    box-shadow: 0 0 0 var(--btn-borde), 0 0.2em 0.5em rgb(0 0 0 / 0.5);
+}
+
+/* Contenedor del juego en sí */
+.game-container {
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+.game-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 .gameScreen__toolbar {

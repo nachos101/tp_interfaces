@@ -76,4 +76,19 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    //logica boton jugar en frame
+const btnPlay = document.getElementById('btn-play-game');
+    const gameCover = document.getElementById('game-cover');
+    const gameContainer = document.getElementById('game-container');
+
+    if (btnPlay && gameCover && gameContainer) {
+        btnPlay.addEventListener('click', () => {
+            // 1. Ocultamos la portada y el botón
+            gameCover.style.display = 'none';
+            
+            // 2. Mostramos el contenedor con tu juego
+            gameContainer.style.display = 'block';
+        });
+    }
 });
