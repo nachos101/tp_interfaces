@@ -109,6 +109,7 @@ class BlockaGame {
     this.timerDisplay = document.getElementById('timer-display');
     this.levelDisplay = document.getElementById('level-display');
     this.filterDisplay = document.getElementById('filter-display');
+    this.playArea = this.boardContainer ? this.boardContainer.parentElement.parentElement : null;
     
     this.initUI();
   }
@@ -131,6 +132,7 @@ class BlockaGame {
     if (piecesSelect) {
       piecesSelect.addEventListener('change', (e) => {
         this.pieceCount = parseInt(e.target.value);
+        this.updatePlayAreaLayout();
         this.setupLevel();
       });
     }
@@ -199,6 +201,10 @@ class BlockaGame {
       if (counter > totalCycles) {
         clearInterval(interval);
         this.currentImage = IMAGE_BANK[selectedIndex];
+        thumbElements.forEach(t => t.classList.remove('active'));
+        if (thumbElements[selectedIndex]) {
+          thumbElements[selectedIndex].classList.add('active');
+        }
         setTimeout(() => {
           this.startGamePlay();
         }, 300);
@@ -241,6 +247,12 @@ class BlockaGame {
     }
   }
 
+  updatePlayAreaLayout() {
+    if (this.playArea) {
+      this.playArea.classList.toggle('wide-board', this.pieceCount > 4);
+    }
+  }
+
   startGamePlay() {
     this.isPlaying = true;
     const btnStart = document.getElementById('btn-start');
@@ -255,6 +267,7 @@ class BlockaGame {
 
   renderBoard(removeFilters = false) {
     if (!this.boardContainer) return;
+    this.updatePlayAreaLayout();
     this.boardContainer.innerHTML = '';
     this.pieces = [];
 
@@ -267,25 +280,29 @@ class BlockaGame {
     this.boardContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
     this.boardContainer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
 
-    const pieceWidth = CANVAS_SIZE / cols;
-    const pieceHeight = CANVAS_SIZE / rows;
+    const pieceSize = CANVAS_SIZE / 2;
+    const sourcePieceWidth = CANVAS_SIZE / cols;
+    const sourcePieceHeight = CANVAS_SIZE / rows;
+    this.boardContainer.style.width = '100%';
+    this.boardContainer.style.height = 'auto';
+    this.boardContainer.style.aspectRatio = `${cols} / ${rows}`;
 
     let index = 0;
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
         const pieceCanvas = document.createElement('canvas');
-        pieceCanvas.width = pieceWidth;
-        pieceCanvas.height = pieceHeight;
+        pieceCanvas.width = pieceSize;
+        pieceCanvas.height = pieceSize;
         pieceCanvas.className = 'blocka-piece';
 
         const ctx = pieceCanvas.getContext('2d');
-        ctx.drawImage(this.currentImage, c * pieceWidth, r * pieceHeight, pieceWidth, pieceHeight, 0, 0, pieceWidth, pieceHeight);
+        ctx.drawImage(this.currentImage, c * sourcePieceWidth, r * sourcePieceHeight, sourcePieceWidth, sourcePieceHeight, 0, 0, pieceSize, pieceSize);
 
         if (!removeFilters) {
-          if (this.level === 1) Filters.grayscale(ctx, pieceWidth, pieceHeight);
-          else if (this.level === 2) Filters.brightness(ctx, pieceWidth, pieceHeight);
-          else if (this.level === 3) Filters.negative(ctx, pieceWidth, pieceHeight);
-          else Filters.mixed(ctx, pieceWidth, pieceHeight, index);
+          if (this.level === 1) Filters.grayscale(ctx, pieceSize, pieceSize);
+          else if (this.level === 2) Filters.brightness(ctx, pieceSize, pieceSize);
+          else if (this.level === 3) Filters.negative(ctx, pieceSize, pieceSize);
+          else Filters.mixed(ctx, pieceSize, pieceSize, index);
         }
 
         const angles = [90, 180, 270];
