@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/login.css">
+    <title>OneGame</title>
+</head>
+<body class="layout-login">
+
+    <section class="formContainer">
+        <div class="logoContainer">
+            <img src="images/logo.png" alt="Palabras One Game con un sobrero de paja por encima.">
+        </div>
+        <h1>Inicia Sesión</h1>
+        <form id="loginForm" class="form">
+            <div class="field">
+                <label for="username">Nombre de usuario</label>
+                <input type="text" id="username" placeholder="luffy147">
+            </div>
+            <div class="field">
+                <label for="password">Contraseña</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password" placeholder="******">
+                    <button type="button" class="eye-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none">
+                            <path d="M0 12.0833H2.41667V16.9166H0V12.0833ZM29 12.0833H26.5833V16.9166H29V12.0833ZM19.3333 12.0833H16.9167V14.4999H19.3333V12.0833ZM12.0833 12.0833H9.66667V16.9166H12.0833V12.0833ZM2.41667 9.66659H4.83333V12.0833H2.41667V9.66659ZM2.41667 19.3333H4.83333V16.9166H2.41667V19.3333ZM26.5833 9.66659H24.1667V12.0833H26.5833V9.66659ZM26.5833 19.3333H24.1667V16.9166H26.5833V19.3333ZM4.83333 7.24992H9.66667V9.66659H4.83333V7.24992ZM4.83333 21.7499H9.66667V19.3333H4.83333V21.7499ZM24.1667 7.24992H19.3333V9.66659H24.1667V7.24992ZM12.0833 4.83325H19.3333V7.24992H12.0833V4.83325ZM9.66667 24.1666H19.3333V21.7499H9.66667V24.1666ZM14.5 9.66659H16.9167V12.0833H14.5V9.66659ZM12.0833 16.9166H16.9167V19.3333H12.0833V16.9166ZM9.66667 9.66659H12.0833V12.0833H9.66667V9.66659ZM12.0833 12.0833H14.5V16.9166H12.0833V12.0833ZM14.5 14.4999H16.9167V16.9166H14.5V14.4999Z" fill="#311E14"/>
+                            <path d="M7.24996 7.24996H9.66663V9.66663H7.24996V7.24996ZM4.83329 4.83329H7.24996V7.24996H4.83329V4.83329ZM2.41663 2.41663H4.83329V4.83329H2.41663V2.41663ZM16.9166 16.9166H19.3333V19.3333H16.9166V16.9166ZM19.3333 19.3333H21.75V21.75H19.3333V19.3333ZM21.75 21.75H24.1666V24.1666H21.75V21.75ZM24.1666 24.1666H26.5833V26.5833H24.1666V24.1666Z" fill="#311E14"/>
+                        </svg>
+                    </button>
+                    <button type="button" class="eye-btn open">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none">
+                            <path d="M19.3333 24.1667H9.66667V21.75H19.3333V24.1667ZM9.66667 21.75H4.83333V19.3334H9.66667V21.75ZM24.1667 21.75H19.3333V19.3334H24.1667V21.75ZM4.83333 19.3334H2.41667V16.9167H4.83333V19.3334ZM16.9167 12.0834H14.5V14.5H16.9167V12.0834ZM16.9167 12.0834H19.3333V16.9167H16.9167V19.3334H12.0833V16.9167H9.66667V12.0834H12.0833V9.66671H16.9167V12.0834ZM26.5833 19.3334H24.1667V16.9167H26.5833V19.3334ZM2.41667 16.9167H0V12.0834H2.41667V16.9167ZM29 16.9167H26.5833V12.0834H29V16.9167ZM4.83333 12.0834H2.41667V9.66671H4.83333V12.0834ZM26.5833 12.0834H24.1667V9.66671H26.5833V12.0834ZM9.66667 9.66671H4.83333V7.25004H9.66667V9.66671ZM24.1667 9.66671H19.3333V7.25004H24.1667V9.66671ZM19.3333 7.25004H9.66667V4.83337H19.3333V7.25004Z" fill="#311E14"/>
+                        </svg>
+                    </button>
+                </div>
+                <a href="#" class="linkCaption"><span class="link">Olvidé mi contraseña</span></a>
+            </div>
+            <p id="error-message" class="error-text"></p>
+            <button class="button login" id="logbtn">Iniciar Sesión</button>
+        </form>
+
+        <hr>
+        <div class="socialLogin">
+            <button class="button app google">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <g clip-path="url(#clip0_659_42)">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M19.6 10.2273C19.6 9.51819 19.5364 8.83637 19.4182 8.18182H10V12.05H15.3818C15.15 13.3 14.4455 14.3591 13.3864 15.0682V17.5773H16.6182C18.5091 15.8364 19.6 13.2727 19.6 10.2273Z" fill="#4285F4"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10 20C12.7 20 14.9636 19.1045 16.6182 17.5773L13.3864 15.0682C12.4909 15.6682 11.3455 16.0227 10 16.0227C7.39546 16.0227 5.19092 14.2636 4.40455 11.9H1.06364V14.4909C2.7091 17.7591 6.09092 20 10 20Z" fill="#34A853"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.40455 11.9C4.20455 11.3 4.09091 10.6591 4.09091 10C4.09091 9.34091 4.20455 8.7 4.40455 8.1V5.50909H1.06364C0.386364 6.85909 0 8.38637 0 10C0 11.6136 0.386364 13.1409 1.06364 14.4909L4.40455 11.9Z" fill="#FBBC05"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10 3.97727C11.4682 3.97727 12.7864 4.48182 13.8227 5.47273L16.6909 2.60455C14.9591 0.990909 12.6955 0 10 0C6.09092 0 2.7091 2.24091 1.06364 5.50909L4.40455 8.1C5.19092 5.73636 7.39546 3.97727 10 3.97727Z" fill="#EA4335"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_659_42">
+                    <rect width="20" height="20" fill="white"/>
+                    </clipPath>
+                    </defs>
+                </svg>
+                Continue with Google
+            </button>
+
+            <button class="button app facebook"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M14.3447 11.1068L14.863 7.69417H11.621V5.48058C11.621 4.54672 12.0731 3.63592 13.5251 3.63592H15V0.730583C15 0.730583 13.6621 0.5 12.3836 0.5C9.71233 0.5 7.96804 2.13483 7.96804 5.0932V7.69417H5V11.1068H7.96804V19.357C8.56393 19.4516 9.17352 19.5 9.79452 19.5C10.4155 19.5 11.0251 19.4516 11.621 19.357V11.1068H14.3447Z" fill="white"/>
+                </svg>
+                Continue with Facebook
+            </button>
+       
+        </div>
+        
+        <div> 
+            <a href="pages/register.html" class="linkCaption">No tienes una cuenta en One Game? <span class="link">Registrate aquí</span> </a>
+        </div>
+        
+    </section>
+
+    <script src="js/script.js"></script>
+    <script src="js/login-register.js"></script>
+
+</body>
+</html>

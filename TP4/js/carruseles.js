@@ -1,0 +1,300 @@
+// =========================================================
+// CARRUSELES: flechas para avanzar y retroceder
+// =========================================================
+
+// =========================================================
+// CARRUSELES: flechas para avanzar y retroceder
+// =========================================================
+
+function conectarFlechas(prev, next, onPrev, onNext) {
+  prev.addEventListener("click", onPrev);
+  next.addEventListener("click", onNext);
+}
+
+function iniciarCarruseles() {
+
+  // ---------- "Destacados de la semana" ----------
+  document.querySelectorAll(".featured").forEach((featured) => {
+    const track = featured.querySelector(".featured__track");
+    const prev = featured.querySelector(".carousel-btn--prev");
+    const next = featured.querySelector(".carousel-btn--next");
+    const slides = [...track.children];
+    if (!slides.length) return;
+
+    // Ocultar flechas si no hay scroll
+    const checkScrollable = () => {
+      const needsScroll = track.scrollWidth > track.clientWidth;
+      prev.style.display = needsScroll ? "" : "none";
+      next.style.display = needsScroll ? "" : "none";
+    };
+    checkScrollable();
+    window.addEventListener("resize", checkScrollable);
+
+    const centerOf = (slide) => slide.offsetLeft - (track.clientWidth - slide.clientWidth) / 2;
+
+    const currentIndex = () => {
+      let best = 0;
+      slides.forEach((slide, i) => {
+        if (Math.abs(centerOf(slide) - track.scrollLeft) <
+            Math.abs(centerOf(slides[best]) - track.scrollLeft)) {
+          best = i;
+        }
+      });
+      return best;
+    };
+
+    const goTo = (i, behavior = "smooth") => {
+      let index = i;
+      if (index < 0) index = slides.length - 1; 
+      if (index >= slides.length) index = 0;    
+      track.scrollTo({ left: centerOf(slides[index]), behavior });
+    };
+
+    conectarFlechas(prev, next, () => goTo(currentIndex() - 1), () => goTo(currentIndex() + 1));
+
+    const marcarActiva = () => {
+      const activa = currentIndex();
+      slides.forEach((slide, i) => slide.classList.toggle("is-active", i === activa));
+    };
+    track.addEventListener("scroll", marcarActiva, { passive: true });
+    window.addEventListener("resize", marcarActiva);
+
+    const inicial = slides.findIndex((slide) => slide.classList.contains("featured__slide--inicio"));
+    goTo(inicial >= 0 ? inicial : 1, "instant");
+    marcarActiva();
+    track.classList.add("con-foco");
+    
+    slides.forEach((slide, i) => {
+      slide.addEventListener("click", (e) => {
+        if (!slide.classList.contains("is-active") && track.scrollWidth > track.clientWidth) {
+          e.preventDefault(); 
+          goTo(i); 
+        }
+      });
+    });
+  });
+
+  // ---------- Filas de juegos (Shelf) ----------
+  document.querySelectorAll(".shelf").forEach((shelf) => {
+    const track = shelf.querySelector(".shelf__track");
+    const prev = shelf.querySelector(".carousel-btn--prev");
+    const next = shelf.querySelector(".carousel-btn--next");
+    const first = track.firstElementChild;
+    if (!first || !prev || !next) return;
+
+    // Ocultar flechas si no hay scroll
+    const checkScrollable = () => {
+      const needsScroll = track.scrollWidth > track.clientWidth;
+      prev.style.display = needsScroll ? "" : "none";
+      next.style.display = needsScroll ? "" : "none";
+    };
+    checkScrollable();
+    window.addEventListener("resize", checkScrollable);
+
+    const pageWidth = () => {
+      const styles = getComputedStyle(track);
+      const gap = parseFloat(styles.columnGap) || 0;
+      const padding = parseFloat(styles.paddingLeft) || 0;
+      const step = first.offsetWidth + gap;
+      const visibles = Math.max(1, Math.floor((track.clientWidth - padding * 2 + gap) / step));
+      return visibles * step;
+    };
+
+    conectarFlechas(
+      prev, next,
+      () => {
+        if (Math.ceil(track.scrollLeft) <= 1) {
+          track.scrollTo({ left: track.scrollWidth, behavior: "smooth" });
+        } else {
+          track.scrollBy({ left: -pageWidth(), behavior: "smooth" });
+        }
+      },
+      () => {
+        const max = track.scrollWidth - track.clientWidth;
+        if (Math.ceil(track.scrollLeft) >= max - 1) {
+          track.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          track.scrollBy({ left: pageWidth(), behavior: "smooth" });
+        }
+      }
+    );
+  });
+
+// ---------- Carruseles Verticales ----------
+  document.querySelectorAll(".verticalCaroussel").forEach((vertical) => {
+      const track = vertical.querySelector(".vertical-track");
+      const btnUp = vertical.querySelector(".carousel-btn--up");
+      const btnDown = vertical.querySelector(".carousel-btn--down");
+      
+      if (!track || !btnUp || !btnDown) return;
+
+      const checkScrollableVertical = () => {
+        const needsScroll = track.scrollHeight > track.clientHeight;
+        btnUp.style.display = needsScroll ? "" : "none";
+        btnDown.style.display = needsScroll ? "" : "none";
+      };
+      
+      checkScrollableVertical();
+      // Si usas una API, dale 1 segundo de changüí para dibujar
+      setTimeout(checkScrollableVertical, 1000); 
+      window.addEventListener("resize", checkScrollableVertical);
+
+      btnUp.addEventListener("click", () => {
+          // Si está a menos de 10px del principio, salta al final
+          if (track.scrollTop <= 10) {
+              track.scrollTo({ top: track.scrollHeight, behavior: "smooth" });
+          } else {
+              // Sube aprox el alto de una tarjeta
+              track.scrollBy({ top: -200, behavior: "smooth" });
+          }
+      });
+      
+      btnDown.addEventListener("click", () => {
+          // Si está a menos de 10px del final absoluto, salta al principio
+          if (track.scrollTop + track.clientHeight >= track.scrollHeight - 10) {
+              track.scrollTo({ top: 0, behavior: "smooth" });
+          } else {
+              // Baja aprox el alto de una tarjeta
+              track.scrollBy({ top: 200, behavior: "smooth" });
+          }
+      });
+  });
+
+}
+
+// Muestra u oculta cada flecha según haya lugar hacia donde moverse
+/* function conectarFlechas(track, prev, next, onPrev, onNext) {
+  const updateButtons = () => {
+    const max = track.scrollWidth - track.clientWidth;
+    prev.disabled = track.scrollLeft <= 1;
+    next.disabled = track.scrollLeft >= max - 1;
+  };
+
+  prev.addEventListener("click", onPrev);
+  next.addEventListener("click", onNext);
+  track.addEventListener("scroll", updateButtons, { passive: true });
+  window.addEventListener("resize", updateButtons);
+
+  return updateButtons;
+}
+
+// Se llama DESPUÉS de cargar los juegos (desde juegos.js), porque necesita
+// que las slides y las cards ya existan para calcular posiciones.
+function iniciarCarruseles() {
+
+// ---------- "Destacados de la semana": de a un juego, siempre centrado ----------
+document.querySelectorAll(".featured").forEach((featured) => {
+  const track = featured.querySelector(".featured__track");
+  const prev = featured.querySelector(".carousel-btn--prev");
+  const next = featured.querySelector(".carousel-btn--next");
+  const slides = [...track.children];
+  if (!slides.length) return;
+
+  // Posición de scroll que deja una slide centrada
+  const centerOf = (slide) =>
+    slide.offsetLeft - (track.clientWidth - slide.clientWidth) / 2;
+
+  // Índice de la slide que está más cerca del centro ahora
+  const currentIndex = () => {
+    let best = 0;
+    slides.forEach((slide, i) => {
+      if (Math.abs(centerOf(slide) - track.scrollLeft) <
+          Math.abs(centerOf(slides[best]) - track.scrollLeft)) {
+        best = i;
+      }
+    });
+    return best;
+  };
+
+  const goTo = (i, behavior = "smooth") => {
+    const index = Math.max(0, Math.min(i, slides.length - 1));
+    track.scrollTo({ left: centerOf(slides[index]), behavior });
+  };
+
+  const updateButtons = conectarFlechas(
+    track, prev, next,
+    () => goTo(currentIndex() - 1),
+    () => goTo(currentIndex() + 1)
+  );
+
+  // Efecto de foco: marca con .is-active la slide que está en el centro.
+  // Se recalcula mientras se scrollea, así el cambio acompaña al deslizamiento.
+  const marcarActiva = () => {
+    const activa = currentIndex();
+    slides.forEach((slide, i) => slide.classList.toggle("is-active", i === activa));
+  };
+  track.addEventListener("scroll", marcarActiva, { passive: true });
+  window.addEventListener("resize", marcarActiva);
+
+  // Arranca centrado en la slide marcada como inicial (el juego fijo del HTML).
+  // Si no hay ninguna marcada, usa la 2.ª para que asomen juegos a ambos lados.
+  const inicial = slides.findIndex((slide) =>
+    slide.classList.contains("featured__slide--inicio")
+  );
+  goTo(inicial >= 0 ? inicial : 1, "instant");
+  marcarActiva();
+
+  // Recién ahora se activa el efecto (antes, mientras carga la API, todo se ve normal)
+  track.classList.add("con-foco");
+  updateButtons();
+});
+
+// ---------- Filas de juegos: de a una "página" (los que entran en pantalla) ----------
+document.querySelectorAll(".shelf").forEach((shelf) => {
+  const track = shelf.querySelector(".shelf__track");
+  const prev = shelf.querySelector(".carousel-btn--prev");
+  const next = shelf.querySelector(".carousel-btn--next");
+  const first = track.firstElementChild;
+  if (!first || !prev || !next) return;
+
+  // Cuánto avanzar: tantas cards completas como entren en pantalla
+  const pageWidth = () => {
+    const styles = getComputedStyle(track);
+    const gap = parseFloat(styles.columnGap) || 0;
+    const padding = parseFloat(styles.paddingLeft) || 0;
+    const step = first.offsetWidth + gap;
+    const visibles = Math.max(1, Math.floor((track.clientWidth - padding * 2 + gap) / step));
+    return visibles * step;
+  };
+
+  const updateButtons = conectarFlechas(
+    track, prev, next,
+    () => track.scrollBy({ left: -pageWidth(), behavior: "smooth" }),
+    () => track.scrollBy({ left: pageWidth(), behavior: "smooth" })
+  );
+
+  updateButtons();
+});
+
+// ---------- Carruseles Verticales ----------
+document.querySelectorAll(".verticalCaroussel").forEach((vertical) => {
+    const track = vertical.querySelector(".vertical-track");
+    const btnUp = vertical.querySelector(".carousel-btn--up");
+    const btnDown = vertical.querySelector(".carousel-btn--down");
+    
+    if (!track || !btnUp || !btnDown) return;
+
+    // Deshabilita la flecha si llegamos al tope o al fondo
+    const updateButtonsVertical = () => {
+        const max = track.scrollHeight - track.clientHeight;
+        btnUp.disabled = track.scrollTop <= 1;
+        btnDown.disabled = track.scrollTop >= max - 1;
+    };
+
+    // Al hacer clic, scrollea 300px hacia arriba o abajo
+    btnUp.addEventListener("click", () => {
+        track.scrollBy({ top: -300, behavior: "smooth" });
+    });
+    
+    btnDown.addEventListener("click", () => {
+        track.scrollBy({ top: 300, behavior: "smooth" });
+    });
+
+    track.addEventListener("scroll", updateButtonsVertical, { passive: true });
+    window.addEventListener("resize", updateButtonsVertical);
+    
+    // Un pequeño delay para dejar que la API dibuje las cards primero
+    setTimeout(updateButtonsVertical, 300);
+});
+
+} // fin de iniciarCarruseles */

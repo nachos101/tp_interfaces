@@ -1,0 +1,718 @@
+.breadcrumbs {
+    padding: 16px 0; 
+    font-size: 16px; 
+}
+
+.breadcrumbs ol {
+    list-style: none; /* Quitamos los números */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /* Si en celular queda muy largo, salta a la línea de abajo */
+    gap: 8px; /* Separación general */
+}
+
+.breadcrumbs li {
+    display: flex;
+    align-items: center;
+    color: #b9a88f; 
+}
+
+/* El truco mágico: Agrega un "/" automáticamente entre cada enlace, excepto al final */
+.breadcrumbs li:not(:last-child)::after {
+    content: '>'; 
+    margin-left: 8px;
+    color: #b9a88f;
+    font-weight: normal;
+}
+
+.breadcrumbs a {
+    color: #b9a88f;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+/* Efecto al pasar el mouse */
+.breadcrumbs a:hover {
+    color: #e0892b; 
+    text-decoration: underline;
+}
+
+/* Estilo para la página actual (el último paso) */
+.breadcrumbs li[aria-current="page"] {
+    color: #f3e9d8; 
+    font-weight: 700;
+}
+
+
+.description__text span{
+    font-weight: 900;
+    font-style: italic;
+}
+
+/* =========================================================
+   ESTRUCTURA DE LA PÁGINA DE JUEGO (GRID)
+   ========================================================= */
+.page-main {
+    display: grid;
+    /* La grilla tiene 2 columnas: la izquierda ocupa todo el espacio que sobra (1fr) y la derecha mide 300px fijos */
+    grid-template-columns: 1fr 300px; 
+    gap: 0px 32px; /* 24px vertical, 32px horizontal */
+    
+    /* El mismo margen lateral fluido que tiene tu cabecera */
+    padding: 0 max(clamp(12px, 3vw, 32px), (100% - 1280px) / 2) 64px;
+}
+
+.gameScreen,
+.gameDescription {
+    margin-bottom: 64px; 
+}
+
+.verticalCaroussel,
+.comments {
+    margin-bottom: 0;
+}
+
+/* Hacemos que estas 3 secciones ocupen las dos columnas de ancho completo (de punta a punta) */
+.breadcrumbs,
+.gameScreen,
+.gameDescription {
+    grid-column: 1 / -1; 
+}
+
+/* Comentarios a la izquierda, Carrusel vertical a la derecha */
+.comments { grid-column: 1 / 2; }
+.verticalCaroussel { grid-column: 2 / 3; }
+
+
+/* =========================================================
+   PANTALLA DEL JUEGO (.gameScreen)
+   ========================================================= */
+.gameScreen {
+    background: #F1DCB1; /* Tu color crema */
+    border-radius: 14px;
+    overflow: visible;
+}
+
+.gameScreen__viewport {
+/*     width: 100%; */
+    width: 1280px;
+    height: 640px;
+    /* 1280 x 640 */
+    /* aspect-ratio: 18 / 9;  *//* Mantiene proporción de pantalla ancha */
+    background: #2c231c;
+    position: relative;
+}
+
+/* Contenedor de la portada */
+.game-cover {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center; /* Centra el botón mágicamente en el medio */
+    z-index: 5;
+    background: #000;
+}
+
+.game-cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / 0.4);
+    z-index: 1;
+}
+
+.gameScreen__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+/* Botón principal de Jugar */
+.play-game-btn {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 36px;
+    font-size: 1.6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 50px;
+    background: var(--play);
+    color: var(--text);
+    cursor: pointer;
+    
+    /* Efecto 3D de tecla */
+    --btn-borde: #5e1a06;
+    box-shadow: 0 0.25em 0 var(--btn-borde), 0 0.5em 1em rgb(0 0 0 / 0.6);
+    transition: scale 0.15s, translate 0.1s, box-shadow 0.1s, background 0.2s;
+}
+
+.play-game-btn:hover {
+    background: var(--play-hover);
+    scale: 1.05;
+}
+
+.play-game-btn:active {
+    translate: 0 0.25em; /* Se hunde al hacer click */
+    box-shadow: 0 0 0 var(--btn-borde), 0 0.2em 0.5em rgb(0 0 0 / 0.5);
+}
+
+/* Contenedor del juego en sí */
+.game-container {
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+.game-container canvas {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.gameScreen__toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.gameScreen__title {
+    color: #311E14;
+}
+
+.gameScreen__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.opinion-btn {
+    display: flex;
+    justify-content: flex-start; /* Hace que se apilen uno al lado del otro */
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px; 
+}
+
+
+/* Modificador para botones chiquitos como el de "Controles" */
+.button.small-btn {
+    width: 80px;
+    height: 60px;
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 15px;
+}
+
+/* =========================================================
+   POPUP DE COMPARTIR
+   ========================================================= */
+.share-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.share-title {
+    display: block;
+    text-align: center;
+    color: #4A2E15;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.share-icons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.share-icons button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.share-icons button:hover {
+    transform: scale(1.1);
+}
+
+.share-icons img {
+    width: 48px; 
+    height: auto;
+}
+
+/* ESTILOS BASE DEL POPOVER*/
+#share-container {
+    width: 450px;
+    height: 200px;
+    /* Centrado absoluto */
+    right: 0;
+    left: 0;
+    margin: auto;
+    
+    background-color: #F1DCB1;
+    border-radius: 15px;
+    border: 2px solid #4A2E15; 
+    color: #311E14;
+    padding: 20px;
+    text-align: center;
+}
+
+/* 
+   ESTILOS CUANDO ESTÁ ABIERTO
+   Aquí es donde aplicas Flexbox
+*/
+#share-container:popover-open {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/* EL FONDO OSCURO */
+#share-container::backdrop {
+    background-color: rgba(0, 0, 0, 0.5); /* Sintaxis rgba más estándar */
+    backdrop-filter: blur(2px); /* Opcional: añade un desenfoque sutil al fondo */
+}
+
+/* =========================================================
+   BOTÓN DE CERRAR EN EL POPOVER(X)
+   ========================================================= */
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 32px;
+    font-weight: bold;
+    color: #4A2E15; /* El mismo marrón oscuro de tu título */
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.close-btn:hover {
+    transform: scale(1.1);
+    color: #000; /* Se oscurece un poco al pasar el mouse */
+}
+/* =========================
+   BOTONES LIKE / DISLIKE
+   ========================= */
+/* Contenedor general */
+.opinion-container {
+    display: flex;
+    gap: 4px; /* Pequeña separación entre ambos botones */
+}
+
+/* El botón ahora controla el fondo de forma inamovible */
+.icon-btn {
+    position: relative;
+    width: 80px;
+    height: 60px;
+    background-color: #9C2C0B; /* Tu color rojo exacto */
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+/* Las manitos se posicionan centradas en medio del botón rojo */
+.icon-btn svg {
+    position: absolute;
+    width: 40px;  /* Ancho perfecto y simétrico */
+    height: 40px; /* Alto perfecto y simétrico */
+    transition: opacity 0.1s ease-in-out;
+}
+
+/* Bordes redondeados personalizados imitando tu imagen */
+#btn-like {
+    border-radius: 15px 0 0 15px; /* Redondeado solo a la izquierda */
+}
+#btn-dislike {
+    border-radius: 0 15px 15px 0; /* Redondeado solo a la derecha */
+}
+
+/* Las manitos se posicionan centradas en medio del botón rojo */
+.icon-btn svg {
+    position: absolute;
+    width: 40px;  /* Forzamos un tamaño de icono óptimo para que no ocupe todo el botón */
+    height: 35px;
+    transition: opacity 0.1s ease-in-out;
+}
+
+/* Estados por defecto */
+.icon-btn .svg-filled {
+    opacity: 0;
+    pointer-events: none;
+}
+.icon-btn .svg-outline {
+    opacity: 1;
+}
+
+/* Intercambio de iconos cuando tiene la clase .active */
+.icon-btn.active .svg-filled {
+    opacity: 1;
+}
+.icon-btn.active .svg-outline {
+    opacity: 0;
+}
+
+/* Animación de rebote (afecta al botón entero o solo al SVG) */
+@keyframes pop-animation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.18); }
+    100% { transform: scale(1); }
+}
+
+.pop-animation svg {
+    animation: pop-animation 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* =========================
+   POPOVER DE CONTROLES
+   ========================= */
+
+#controls-container {
+    width: fit-content; /* Novedad: Se ajusta al ancho de tu lista de controles */
+    min-width: 320px; /* Para que no se vea demasiado angosto si hay poco texto */
+    max-width: 90vw; /* Para que no se rompa en celulares */
+    height: fit-content; /* Novedad: Crece según la cantidad de controles */
+    /* ELIMINAMOS EL min-height: 250px; */
+    
+    /* Centrado absoluto en la pantalla */
+    right: 0;
+    left: 0;
+    margin: auto;
+    
+    background-color: #F1DCB1;
+    border-radius: 15px;
+    border: 2px solid #4A2E15;
+    color: #311E14;
+    padding: 25px 35px;
+    text-align: left;
+}
+
+/* Solo aplicamos Flexbox cuando está abierto */
+#controls-container:popover-open {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#controls-container::backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px); /* Oscurece y desenfoca ligeramente el fondo */
+}
+
+.controls-title {
+    text-align: center;
+    color: #4A2E15;
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.controls-list {
+    width: 100%; /* Asegura que la lista ocupe todo el ancho disponible */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Separación entre cada atajo */
+}
+
+.controls-list p {
+    font-size: 18px;
+    margin: 10px 0;
+    border-bottom: 1px dashed #d4bc8f; /* Una línea sutil para separar cada control */
+    padding-bottom: 8px;
+    display: flex;
+    justify-content: space-between; /* Pone la tecla a la izquierda y la acción a la derecha */
+    gap: 15px;
+}
+
+.controls-list strong {
+    color: #9C2C0B; /* Usamos el color rojizo de tus botones para resaltar las teclas */
+}
+
+
+/* =========================================================
+   DESCRIPCIÓN (.gameDescription)
+   ========================================================= */
+.gameDescription {
+    background: #F1DCB1;
+    border-radius: 14px;
+    padding: 32px;
+    color: #311E14;
+}
+
+.description__subtitle {
+    font-size: 1.1rem;
+    margin-top: 32px;
+    margin-bottom: 12px;
+}
+
+.description__text {
+    font-size: 16px;
+    font-weight: normal; /* Sobrescribimos el negrita global del body */
+    line-height: 1.6;
+    margin: 0;
+}
+
+.placeholder-carousel {
+    height: auto; /* Dejamos que crezca según el tamaño de las fotos */
+    background: transparent; /* Quitamos el fondo marrón de prueba */
+    display: block;
+    margin: 16px 0;
+}
+
+
+/* =========================================================
+   CARRUSEL DE CAPTURAS DE PANTALLA 
+   ========================================================= */
+
+section.gameDescription ul.gallery-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: clamp(200px, 25vw, 260px); 
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Oculta la barra nativa */
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+section.gameDescription ul.gallery-track::-webkit-scrollbar {
+    display: none;
+}
+
+section.gameDescription ul.gallery-track div.card__thumb {
+    aspect-ratio: 16 / 9; 
+}
+
+/* =========================================================
+   COMENTARIOS (.comments)
+   ========================================================= */
+.comments {
+    background: #F1DCB1;
+    border-radius: 14px;
+    padding: 32px;
+    color: #311E14;
+}
+
+.comments__subtitle {
+    font-size: 1.1rem;
+    margin-top: 0;
+    margin-bottom: 24px;
+}
+
+.comment-form {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.comment-avatar {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+}
+
+.comment-input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.comment-input-group input {
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(49, 30, 20, 0.3);
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-family: inherit;
+    font-size: 16px;
+    color: inherit;
+}
+
+.comment-input-group input:focus {
+    outline: 2px solid #e0892b;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.comment-item {
+    display: flex;
+    gap: 16px;
+}
+
+.comment-content {
+    display: flex;
+    flex-direction: column; /* Esto fuerza a que el nombre, el texto y el like queden uno abajo del otro */
+    width: 100%;
+    
+    /* Movemos la línea separadora al contenedor completo */
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(49, 30, 20, 0.1);
+}
+
+.comment-content strong {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.comment-content p {
+    font-size: 15px;
+    font-weight: normal;
+    margin: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.comment-item:last-child .comment-content {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+
+/* =========================
+   COMENTARIOS: LIKES
+   ========================= */
+.comment-likes {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px; /* Separación del texto del comentario */
+}
+
+.heart-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    position: relative; 
+    width: 30px; /* Más grande para que se vea bien el pixel art */
+    height: 30px;
+    display: inline-block;
+}
+
+.heart-btn svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+}
+
+/* Lógica visual: Vacío, Lleno y Quebrado */
+.heart-btn .heart-outline { opacity: 1; }
+.heart-btn .heart-filled { opacity: 0; pointer-events: none; }
+.heart-btn .heart-broken { opacity: 0; pointer-events: none; }
+
+/* Efecto al tocar: se llena */
+.heart-btn.active .heart-outline { opacity: 0; }
+.heart-btn.active .heart-filled { opacity: 1; }
+
+/* Efecto al pasar el mouse por encima cuando YA está lleno: se quiebra */
+.heart-btn.active:hover .heart-filled { opacity: 0; }
+.heart-btn.active:hover .heart-broken { opacity: 1; }
+.likes-count {
+    font-size: 14px;
+    color: #4A2E15;
+    font-weight: bold;
+}
+
+/* =========================================================
+   CARRUSEL VERTICAL (API)
+   ========================================================= */
+
+/* Contenedor de la lista */
+section.verticalCaroussel ul.vertical-track {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-flow: row; 
+    gap: 16px;
+    padding: 0;
+    margin: 0;
+    
+    /* Sugerencia: Usar píxeles fijos suele ser más estable que vh para evitar roturas */
+    max-height: 480px; 
+    overflow-y: auto; 
+    overflow-x: hidden;
+    scroll-snap-type: y proximity;
+    scrollbar-width: none; 
+}
+
+section.verticalCaroussel ul.vertical-track::-webkit-scrollbar {
+    display: none; 
+}
+
+/* Centramos el contenido dentro de cada fila del grid */
+section.verticalCaroussel ul.vertical-track > li {
+    scroll-snap-align: start;
+    display: flex;
+    justify-content: center; /* Esto evita que la tarjeta flote hacia un costado */
+}
+
+/* Tamaño de la tarjeta */
+section.verticalCaroussel ul.vertical-track .card {
+    width: 100%;
+    max-width: 150px; 
+}
+
+/* --- Posicionamiento de las flechas verticales --- */
+.vertical__viewport .carousel-btn {
+    position: absolute; /* CLAVE para que no empuje el contenido de la página */
+    left: 50%;
+    translate: -50% 0;
+    z-index: 2;
+}
+
+.vertical__viewport .carousel-btn--up {
+    top: -22px; 
+}
+
+.vertical__viewport .carousel-btn--down {
+    bottom: -22px; 
+    top: auto; 
+}
+
+/* =========================================================
+   RESPONSIVE (Rompe la grilla a 1 sola columna en pantallas chicas)
+   ========================================================= */
+@media (max-width: 900px) {
+    .page-main {
+        grid-template-columns: 1fr; /* Pasa a 1 columna */
+    }
+    
+    .comments,
+    .verticalCaroussel {
+        grid-column: 1 / -1; /* Ocupan todo el ancho ahora */
+    }
+}
