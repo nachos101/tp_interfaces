@@ -57,7 +57,8 @@
 .page-main {
     display: grid;
     /* La grilla tiene 2 columnas: la izquierda ocupa todo el espacio que sobra (1fr) y la derecha mide 300px fijos */
-    grid-template-columns: 1fr 300px; 
+    grid-template-columns: minmax(0, 1fr) 300px; /* minmax(0, ...) deja que la columna se achique sin desbordar */
+    min-width: 0;
     gap: 0px 32px; /* 24px vertical, 32px horizontal */
     
     /* El mismo margen lateral fluido que tiene tu cabecera */
@@ -96,11 +97,10 @@
 }
 
 .gameScreen__viewport {
-/*     width: 100%; */
-    width: 1280px;
-    height: 640px;
+    width: 100%;
+    max-width: 1280px;
     /* 1280 x 640 */
-    /* aspect-ratio: 18 / 9;  *//* Mantiene proporción de pantalla ancha */
+    aspect-ratio: 2 / 1; /* Mantiene la proporción del canvas si la pantalla es más chica */
     background: #2c231c;
     position: relative;
 }
@@ -167,15 +167,48 @@
 
 /* Contenedor del juego en sí */
 .game-container {
-    width: 100%;
-    height: 100%;
+    /* Absoluto para que el canvas no estire la caja: la define el viewport */
+    position: absolute;
+    inset: 0;
     z-index: 10;
 }
 
 .game-container canvas {
+    display: block;
     width: 100%;
     height: 100%;
     border: none;
+}
+
+/* Timer y reinicio, flotando sobre la esquina del canvas */
+.game-hud {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.game-hud__timer {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--text);
+}
+
+.game-hud__btn {
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 15px;
+    background: var(--play);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.game-hud__btn:hover {
+    background: var(--play-hover);
 }
 
 .gameScreen__toolbar {
@@ -708,7 +741,7 @@ section.verticalCaroussel ul.vertical-track .card {
    ========================================================= */
 @media (max-width: 900px) {
     .page-main {
-        grid-template-columns: 1fr; /* Pasa a 1 columna */
+        grid-template-columns: minmax(0, 1fr); /* Pasa a 1 columna */
     }
     
     .comments,

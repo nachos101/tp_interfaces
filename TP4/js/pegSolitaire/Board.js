@@ -1,4 +1,4 @@
-import {CELL, BOARD_SIZE} from 'constants.js';
+import {CELL, BOARD_SIZE} from './constants.js';
 
 export class Board {
     constructor(canvasWidth, canvasHeight, cellSize) {
@@ -36,13 +36,20 @@ this.grid = [
     //dibuja el tablero vacio
     draw(ctx, bgImage) {
         if (bgImage) {
-            ctx.drawImage(bgImage, this.offsetX, this.offsetY, this.cellSize * BOARD_SIZE, this.cellSize * 7);
+            ctx.drawImage(bgImage, this.offsetX, this.offsetY, this.cellSize * BOARD_SIZE, this.cellSize * BOARD_SIZE);
         }
-        
+
         for (let r = 0; r < BOARD_SIZE; r++) {
             for (let c = 0; c < BOARD_SIZE; c++) {
-                if (this.grid[r][c] === CELL.EMPTY) {
+                if (this.grid[r][c] !== CELL.NON_PLAYABLE) {
                     const pos = this.getPixelPosition(r, c);
+
+                    //sin imagen de fondo, la cruz se dibuja celda por celda
+                    if (!bgImage) {
+                        ctx.fillStyle = "#F1DCB1";
+                        ctx.fillRect(pos.x, pos.y, this.cellSize, this.cellSize);
+                    }
+
                     const radius = (this.cellSize / 2) - 4; // con un margen
                     const centerX = pos.x + (this.cellSize / 2);
                     const centerY = pos.y + (this.cellSize / 2);

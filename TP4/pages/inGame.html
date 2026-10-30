@@ -126,7 +126,11 @@
                 
                 <!-- 2. JUEGO: Contenedor oculto donde cargará el canvas -->
                 <div class="game-container" id="game-container" style="display: none;">
-                    <canvas id="pegCanva"> </canvas>
+                    <canvas id="pegCanva" width="1280" height="640"> </canvas>
+                    <div class="game-hud">
+                        <span class="game-hud__timer" id="timerDisplay">5:00</span>
+                        <button class="game-hud__btn" id="resetBtn">Reiniciar</button>
+                    </div>
                 </div>
             </div>
             
@@ -627,7 +631,7 @@
     </div>
   </footer>
 
-    <script src="../js/peg.js"></script>  
+    <script type="module" src="../js/pegSolitaire/Main.js"></script>
     <script src="../js/script.js"></script> 
     <script src="../js/api_games.js"></script>
     <script src="../js/inGame.js"></script>

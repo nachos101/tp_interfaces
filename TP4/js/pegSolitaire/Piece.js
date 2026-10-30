@@ -1,11 +1,11 @@
-class Piece{
-    constructor(x, y, size, image){
+export class Piece{
+    constructor(x, y, size, character){
         this.x = x;
         this.y = y;
         this.size = size;
-        this.image = image;
-        this.bgColor = bgColor;
-        this.borderColor = borderColor;
+        this.image = character.image;
+        this.bgColor = character.bgColor;
+        this.borderColor = character.borderColor;
         this.selected = false;
     }
 
@@ -22,13 +22,16 @@ class Piece{
         ctx.fillStyle = this.bgColor;
         ctx.fill();
 
-        ctx.drawImage(
-            this.image,
-            this.x,
-            this.y,
-            this.size,
-            this.size
-        );
+        //drawImage tira error si la imagen no se pudo cargar
+        if (this.image.complete && this.image.naturalWidth > 0) {
+            ctx.drawImage(
+                this.image,
+                this.x,
+                this.y,
+                this.size,
+                this.size
+            );
+        }
 
         if (this.selected) {
             ctx.beginPath();

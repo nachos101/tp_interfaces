@@ -1,4 +1,7 @@
-import {CELL, BOARD_SIZE} from 'constants.js';
+import {CELL, BOARD_SIZE} from './constants.js';
+import {Board} from './Board.js';
+import {Piece} from './Piece.js';
+
 export class Game {
     constructor(canvasWidth, canvasHeight, cellSize) {
         this.board = new Board(canvasWidth, canvasHeight, cellSize);
@@ -6,20 +9,20 @@ export class Game {
         this.draggedPiece = null;
         this.validMovesForDrag = []; // Guarda las celdas destino válidas para los hints
         this.isGameOver = false;
+        this.endMessage = "";
     }
 
     // inicializa las fichas leyendo el tablero.
-    init(imagesConfig) {
+    init(characters) {
         this.pieces = [];
         for (let r = 0; r < BOARD_SIZE; r++) {
             for (let c = 0; c < BOARD_SIZE; c++) {
                 if (this.board.grid[r][c] === CELL.TOKEN) {
                     const pos = this.board.getPixelPosition(r, c);
-                    // Requisito 9: Diferentes tipos de fichas. 
-                    // Podés intercalar imágenes de Kitty, Keroppi, etc., según la fila o random
-                    let charImage = imagesConfig.kitty; 
-                    
-                    let piece = new Piece(pos.x, pos.y, this.board.cellSize, charImage);
+                    // Requisito 9: Diferentes tipos de fichas, intercaladas según la fila
+                    let character = characters[r % characters.length];
+
+                    let piece = new Piece(pos.x, pos.y, this.board.cellSize, character);
                     piece.row = r;
                     piece.col = c;
                     this.pieces.push(piece);
@@ -30,11 +33,14 @@ export class Game {
 
     // Lógica del Drag & Drop
     onMouseDown(x, y) {
+        if (this.isGameOver) return;
+
         // Buscar si clickeó una ficha (de la última a la primera para respetar el z-index visual)
         for (let i = this.pieces.length - 1; i >= 0; i--) {
             let p = this.pieces[i];
             if (x >= p.x && x <= p.x + p.size && y >= p.y && y <= p.y + p.size) {
                 this.draggedPiece = p;
+                p.selected = true;
                 // Guardamos posición original por si el movimiento es inválido
                 p.startX = p.x; 
                 p.startY = p.y;
@@ -59,8 +65,8 @@ export class Game {
 
         const dropPos = this.board.getGridPosition(x, y);
         
-        // Verificar si dropPos está dentro de validMovesForDrag
-        const isValid = this.validMovesForDrag.find(m => m.row === dropPos.row && m.col === dropPos.col);
+        // Verificar si dropPos está dentro de validMovesForDrag (si se acabó el tiempo arrastrando, ya no vale)
+        const isValid = !this.isGameOver && this.validMovesForDrag.find(m => m.row === dropPos.row && m.col === dropPos.col);
 
         if (isValid) {
             // Movimiento válido: Actualizar grilla
@@ -87,6 +93,7 @@ export class Game {
         }
 
         // Soltar ficha y limpiar hints
+        this.draggedPiece.selected = false;
         this.draggedPiece = null;
         this.validMovesForDrag = [];
     }
@@ -124,7 +131,10 @@ export class Game {
         }
         if (!hasMoves) {
             this.isGameOver = true;
-            console.log(this.pieces.length === CELL.TOKEN ? "¡Ganaste!" : "Juego Terminado. Sin movimientos.");
+            // Se gana solo si la última ficha queda en el centro del tablero
+            const center = Math.floor(BOARD_SIZE / 2);
+            const won = this.pieces.length === 1 && this.pieces[0].row === center && this.pieces[0].col === center;
+            this.endMessage = won ? "¡Ganaste!" : "Sin movimientos";
         }
     }
 
