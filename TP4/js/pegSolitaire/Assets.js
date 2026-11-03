@@ -31,3 +31,10 @@ export const characters = [
         borderColor: "#2E9BD6" // Celeste fuerte
     }
 ];
+
+export const bgImage = {
+    general : new Image()
+}
+
+bgImage.general.src = 
+    "../images/peg/background.jpg";

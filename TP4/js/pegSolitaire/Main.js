@@ -44,10 +44,13 @@ class Main {
         this.canvas = document.getElementById('pegCanva');
         this.ctx = this.canvas.getContext('2d');
         this.game = new Game(this.canvas.width, this.canvas.height, CELL_SIZE);
+
+        this.selectedCharacter = characters[0]; //hello kitty por defecto
+        
         this.images = {}; // Acá iría boardBg si se agrega una imagen de fondo
 
         // Timer
-        this.timeLeft = 300; // 5 minutos en segundos
+        this.difficulty = 'principiante';
         this.timerInterval = null;
         this.timerDisplay = document.getElementById('timerDisplay');
 
@@ -55,15 +58,31 @@ class Main {
         this.startLoop();
     }
 
-    start() {
-        this.game.init(characters);
-        this.startTimer();
+    start(difficulty = this.difficulty) {
+        this.difficulty = difficulty;
+        this.game.init(selectedCharacter);
+        this.startTimer(this.difficulty);
     }
 
     startTimer() {
         clearInterval(this.timerInterval);
-        this.timeLeft = 300;
+
+        const timeLimits = {
+            principiante: null,
+            casual: 600,
+            speedrun: 180
+        }
+
+        this.timeLeft = timeLimits[difficulty];
+
+        if (this.timeLeft === null){
+            this.timerDisplay.innerText = 'Sin limite';
+            return;
+        }
+
         this.timerDisplay.innerText = this.formatTime(this.timeLeft);
+
+
         this.timerInterval = setInterval(() => {
             if (this.game.isGameOver) {
                 clearInterval(this.timerInterval);
@@ -73,7 +92,7 @@ class Main {
             this.timeLeft--;
             this.timerDisplay.innerText = this.formatTime(this.timeLeft);
 
-            if (this.timeLeft === 0) {
+            if (this.timeLeft <= 0) {
                 this.game.isGameOver = true;
                 this.game.endMessage = "Se acabó el tiempo";
                 clearInterval(this.timerInterval);
@@ -91,7 +110,20 @@ class Main {
     }
 
     setupEvents() {
-        // Requisito 6: Clic de mouse y soltar
+        /* se buscan los elementos con atributo data-character.
+          si se actualiza la seleccion de personaje se actualiza la variable.*/
+        
+        document.querySelectorAll('[data-character]').forEach(button => {
+            button.addEventListener('click', () => {
+                const characterName = button.dataset.character;
+
+                this.selectedCharacter = characters.find(
+                    character => character.image === pieceImages[characterName]
+                )
+            })
+        })
+
+        //click de mouse y soltar
         this.canvas.addEventListener('mousedown', (e) => {
             e.preventDefault(); // Evita seleccionar texto de la página al arrastrar
             const pos = this.getMousePos(e);
@@ -109,11 +141,18 @@ class Main {
             this.game.onMouseUp(pos.x, pos.y);
         });
 
-        // Requisito 7: Botón de reinicio
+        // boton de reinicio
         document.getElementById('resetBtn').addEventListener('click', () => {
+            this.game.clearHint();
             this.game = new Game(this.canvas.width, this.canvas.height, CELL_SIZE);
             this.start();
         });
+
+        //boton de pistas
+        document.getElementById('hintsBtn').addEventListener('click', () => {
+            this.game.showHints();
+        });
+
     }
 
     // El corazón visual del juego

@@ -10,21 +10,33 @@ export class Game {
         this.validMovesForDrag = []; // Guarda las celdas destino válidas para los hints
         this.isGameOver = false;
         this.endMessage = "";
+        //variables de las ayudas
+        this.showHint = false;
+        this.hintPiece = null;
+        this.hintMove = null;
+        this.hintTimeout = null;
+        this.animationFrame = null;
     }
 
     // inicializa las fichas leyendo el tablero.
-    init(characters) {
+    init(selectedCharacter) {
         this.pieces = [];
+
         for (let r = 0; r < BOARD_SIZE; r++) {
             for (let c = 0; c < BOARD_SIZE; c++) {
                 if (this.board.grid[r][c] === CELL.TOKEN) {
                     const pos = this.board.getPixelPosition(r, c);
-                    // Requisito 9: Diferentes tipos de fichas, intercaladas según la fila
-                    let character = characters[r % characters.length];
 
-                    let piece = new Piece(pos.x, pos.y, this.board.cellSize, character);
+                    let piece = new Piece(
+                        pos.x,
+                        pos.y,
+                        this.board.cellSize,
+                        selectedCharacter
+                    );
+
                     piece.row = r;
                     piece.col = c;
+                    
                     this.pieces.push(piece);
                 }
             }
@@ -53,7 +65,7 @@ export class Game {
 
     onMouseMove(x, y) {
         if (this.draggedPiece) {
-            // Requisito 3 y 6: El usuario arrastra la ficha
+            // El usuario arrastra la ficha
             // Centramos la ficha en el cursor
             this.draggedPiece.x = x - (this.draggedPiece.size / 2);
             this.draggedPiece.y = y - (this.draggedPiece.size / 2);
@@ -111,7 +123,7 @@ export class Game {
             const midRow = piece.row + (dir.r / 2);
             const midCol = piece.col + (dir.c / 2);
 
-            // Si el destino está dentro de la grilla, está vacío (2), y hay una ficha (1) en el medio
+            // Si el destino está dentro de la grilla, está vacío, y hay una ficha en el medio
             if (destRow >= 0 && destRow < BOARD_SIZE && destCol >= 0 && destCol < BOARD_SIZE) {
                 if (this.board.grid[destRow][destCol] === CELL.EMPTY && this.board.grid[midRow][midCol] === CELL.TOKEN) {
                     moves.push({ row: destRow, col: destCol, middleRow: midRow, middleCol: midCol });
@@ -138,34 +150,135 @@ export class Game {
         }
     }
 
+    showHints() {
+        /* Este metodo busca una ficha que pueda moverse y elige uno de sus movimientos posibles */
+        //limpiar una pista anterior    
+        this.clearHint();
+
+        //buscar fichas con movimientos vlaidos
+        for (const piece of this.pieces){
+            const moves = this.calculateValidMoves(piece);
+
+            if (moves.length > 0){
+            /*  showHint indica si hay pista visible
+                hintPiece guarda la ficha a resaltar
+                hintMove guarda el movimiento sugerido*/
+                this.hintPiece = piece;
+                this.hintMove = moves[0];
+                this.showHint = true;
+                break;
+            }
+        }
+        //redibujar para mostrar la pista
+        this.startHintAnimation();
+
+        //ocultar la pista luego de 3 segundos
+        this.hintTimeout = setTimeout(() =>{
+            this.clearHint();
+            this.draw();
+        }, 3000);
+    }
+
+    clearHint() {
+        this.showHint = false;
+        this.hintPiece = null;
+        this.hintMove = null;
+
+        clearTimeout(this.hintTimeout);
+
+        if (this.animationFrame) {
+            cancelAnimationFrame(this.animationFrame);
+            this.animationFrame = null;
+        }
+    }
+
+    startHintAnimation() {
+        const animate = () => {
+            if (!this.showHint) return;
+
+            this.draw(this.ctx);
+
+            this.animationFrame = requestAnimationFrame(animate);
+        };
+
+        animate();
+    }
+
     draw(ctx, bgImage) {
         this.board.draw(ctx, bgImage);
 
-        // Dibujar las piezas inactivas
+        //Dibujar fichas que no estan activas
         this.pieces.forEach(p => {
-            if (p !== this.draggedPiece) p.draw(ctx);
+            if (p !== this.draggedPiece){
+                const wasSelected = p.selected;
+
+                //resaltar la ficha sugerida por la pista
+                if (this.showHint && p === this.hintPiece){
+                    p.selected = true;
+                }
+            }
+
+            p.draw(ctx);
+
+            //restaurar el estado origiinal
+            p.selected = was.selected;
         });
 
-        // Requisito 3: Hints Animados
-        if (this.draggedPiece && this.validMovesForDrag.length > 0) {
-            // Usamos Date.now() y Math.sin para generar un efecto de "latido" (pulsing)
-            const pulse = Math.abs(Math.sin(Date.now() / 200)); 
-            
-            this.validMovesForDrag.forEach(move => {
-                const pos = this.board.getPixelPosition(move.row, move.col);
-                ctx.save();
-                ctx.globalAlpha = 0.4 + (pulse * 0.6); // Oscila entre 0.4 y 1.0
-                ctx.fillStyle = "#FF0000"; // Color del hint
-                ctx.beginPath();
-                ctx.arc(pos.x + this.board.cellSize/2, pos.y + this.board.cellSize/2, 15 + (pulse * 5), 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-            });
+        //dibujar el destino sugerido por la pista
+        if (this.showHint && this.hintMove){
+            this.drawHint(ctx);
         }
 
-        // Dibujar la ficha arrastrada al final para que quede por encima de todo (z-index)
+        //dibujar la ficha arrastrada por encima de todo
         if (this.draggedPiece) {
             this.draggedPiece.draw(ctx);
         }
     }
+
+    drawHint(ctx){
+        const move = this.hintMove;
+
+        const pos = this.board.getPixelPosition(
+            move.row,
+            move.col
+        );
+
+        const centerX = pos.x + this.board.cellSize / 2;
+        const centerY = pos.y + this.board.cellSize / 2;
+
+        //resaltar el casillero destino
+        ctx.save();
+
+        ctx.beginPath();
+        ctx.arc(
+            centerX,
+            centerY,
+            this.board.cellSize * 0.35,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.strokeStyle = "#FF4F91";
+        ctx.lineWidth = 4;
+        ctx.stroke();
+
+        // circulo rojo animado
+        const pulse = Math.abs(Math.sin(Date.now() / 200));
+
+        ctx.globalAlpha = 0.4 + pulse * 0.6;
+        ctx.fillStyle = "#FF0000";
+
+        ctx.beginPath();
+        ctx.arc(
+            centerX,
+            centerY,
+            12 + pulse * 7,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+        ctx.restore();
+    }
+    
 }

@@ -24,12 +24,16 @@ export class Piece{
 
         //drawImage tira error si la imagen no se pudo cargar
         if (this.image.complete && this.image.naturalWidth > 0) {
+            //como achico la imagen calculo el offset para centrarla
+            const imgSize = this.size * 0.8;
+            const offset = (this.size - imgSize) / 2;
+            
             ctx.drawImage(
                 this.image,
-                this.x,
-                this.y,
-                this.size,
-                this.size
+                this.x + offset,
+                this.y + offset,
+                imgSize,
+                imgSize
             );
         }
 
