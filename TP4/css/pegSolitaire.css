@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css?family=Unkempt:regular,700');
+
+body {
+    font-family: 'Unkempt', cursive;
+    color: #FFFFFF;
+    margin: 0; /* Quita los margenes por defecto */
+}
+
+/* Fondo del juego */
+.game {
+    background-image: url("../images/peg/bgConfig.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+}
+
+/* Fondo de la portada */
+.portada {
+    background-image: url("../images/peg/portada.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    
+    /* Flexbox para centrar y distribuir los elementos */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around; /* Reparte el espacio entre el título y el botón */
+}
+
+/* Contenedor del título */
+.title {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+h1.game-title {
+    font-weight: 700;
+    color: #FF69B4;
+    font-size: 8rem; /* Tamaño muy grande */
+    margin: 0;
+    
+    /*delineado de texto */
+    -webkit-text-stroke: 4px #FFFFFF; 
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3); /* Sombra para que resalte más */
+}
+
+h2 {
+    /* Listo para cuando lo necesites */
+}
+
+/* Configuración del Botón */
+.playBtn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.3s ease; /* Transición fluida para el hover */
+}
+
+/* Tamaño del SVG (Icono) */
+.playBtn svg {
+    width: 200px; 
+    height: 200px;
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2)); /* Sombra para el botón */
+}
+
+/* Efecto de agrandarse en Hover */
+.playBtn:hover {
+    transform: scale(1.2); /* Aumenta su tamaño un 20% */
+}
+
