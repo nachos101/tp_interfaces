@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Unkempt:regular,700');
 
-body {
+.game,
+.portada {
     font-family: 'Unkempt', cursive;
     color: #FFFFFF;
     margin: 0; /* Quita los margenes por defecto */
@@ -51,6 +52,131 @@ h2 {
     /* Listo para cuando lo necesites */
 }
 
+.character-select,
+.difficulty-select {
+    text-align: center;
+}
+
+.peg-config {
+    display: grid;
+    justify-items: center;
+    gap: 1.25rem;
+    min-height: 100%;
+    padding: 2rem;
+    box-sizing: border-box;
+    color: #311E14;
+    background-color: #F1DCB1;
+    overflow: auto;
+}
+
+.peg-config h2 {
+    margin: 0.5rem 0;
+}
+
+.character-select {
+    width: min(100% - 2rem, 42rem);
+    margin: 0 auto;
+}
+
+.token-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    min-height: 7rem;
+    margin: 0 auto 1rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 1rem;
+    background-color: rgb(255 255 255 / 0.2);
+}
+
+.token-preview img {
+    width: 7rem;
+    height: 7rem;
+    object-fit: contain;
+}
+
+.token-preview span {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.token-selection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.token-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.75rem;
+    border: 2px solid transparent;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.token-option:hover {
+    transform: translateY(-0.2rem);
+    background-color: rgb(255 255 255 / 0.15);
+}
+
+.token-option:has(input:checked),
+.token-option:focus-within {
+    border-color: #FF69B4;
+    background-color: rgb(255 255 255 / 0.25);
+}
+
+.token-option input {
+    position: absolute;
+    opacity: 0;
+}
+
+.token-option img {
+    width: 5rem;
+    height: 5rem;
+    object-fit: contain;
+}
+
+.token-option:focus-within {
+    outline: 2px solid #FFFFFF;
+    outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+    .token-preview {
+        min-height: 5.5rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .token-preview img {
+        width: 5.5rem;
+        height: 5.5rem;
+    }
+
+    .token-preview span {
+        font-size: 1.2rem;
+    }
+
+    .token-selection {
+        gap: 0.5rem;
+    }
+
+    .token-option {
+        flex: 1 1 7rem;
+        padding: 0.5rem;
+    }
+
+    .token-option img {
+        width: 4rem;
+        height: 4rem;
+    }
+}
+
 /* Configuración del Botón */
 .playBtn {
     background: transparent;
@@ -71,4 +197,3 @@ h2 {
 .playBtn:hover {
     transform: scale(1.2); /* Aumenta su tamaño un 20% */
 }
-

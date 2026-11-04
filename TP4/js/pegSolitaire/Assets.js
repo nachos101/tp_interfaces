@@ -1,40 +1,68 @@
-export const pieceImages = {
-    helloKitty: new Image(),
-    keroppi: new Image(),
-    hangyodon: new Image()
-};
+const assetUrl = (fileName) =>
+    new URL(`../../images/peg/${fileName}`, import.meta.url).href;
 
-// Las rutas de Image se resuelven desde el HTML (pages/inGame.html), no desde este archivo
-pieceImages.helloKitty.src =
-    "../images/peg/helloKittyToken.png";
-
-pieceImages.keroppi.src =
-    "../images/peg/keroppiToken.png";
-
-pieceImages.hangyodon.src =
-    "../images/peg/hangyodonToken.png";
-
-export const characters = [
+export const TOKEN_DEFINITIONS = [
     {
-        image: pieceImages.helloKitty,
-        bgColor: "#FFD1DC", // Rosa pastel
-        borderColor: "#FF6699" // Rosa fuerte
+        id: "helloKitty",
+        label: "Hello Kitty",
+        fileName: "hellokittyToken.png",
+        bgColor: "#FFD1DC",
+        borderColor: "#FF6699"
     },
     {
-        image: pieceImages.keroppi,
-        bgColor: "#C1E1C1", // Verde pastel
-        borderColor: "#4CBB17" // Verde fuerte
+        id: "keroppi",
+        label: "Keroppi",
+        fileName: "keroppiToken.png",
+        bgColor: "#C1E1C1",
+        borderColor: "#4CBB17"
     },
     {
-        image: pieceImages.hangyodon,
-        bgColor: "#BFE3F5", // Celeste pastel
-        borderColor: "#2E9BD6" // Celeste fuerte
+        id: "hangyodon",
+        label: "Hangyodon",
+        fileName: "hangyodonToken.png",
+        bgColor: "#BFE3F5",
+        borderColor: "#2E9BD6"
     }
 ];
 
-export const bgImage = {
-    general : new Image()
+const allowedTokenFiles = new Set([
+    "hellokittyToken.png",
+    "keroppiToken.png",
+    "hangyodonToken.png"
+]);
+const invalidTokenDefinition = TOKEN_DEFINITIONS.find(
+    ({id, label, fileName}) =>
+        !id || !label || !allowedTokenFiles.has(fileName)
+);
+
+if (invalidTokenDefinition) {
+    throw new Error(`Configuración de Token inválida: ${invalidTokenDefinition.id || "sin id"}`);
 }
 
-bgImage.general.src = 
-    "../images/peg/background.jpg";
+export const pieceImages = Object.fromEntries(
+    TOKEN_DEFINITIONS.map(({id, fileName}) => {
+        const image = new Image();
+        image.src = assetUrl(fileName);
+        return [id, image];
+    })
+);
+
+Object.entries(pieceImages).forEach(([id, image]) => {
+    image.addEventListener("error", () => {
+        console.error(`No se pudo cargar el recurso del Token "${id}".`);
+    });
+});
+
+export const characters = TOKEN_DEFINITIONS.map(({id, label, bgColor, borderColor}) => ({
+    id,
+    label,
+    image: pieceImages[id],
+    bgColor,
+    borderColor
+}));
+
+export const bgImage = {
+    general: new Image()
+};
+
+bgImage.general.src = assetUrl("background.jpg");

@@ -10,18 +10,12 @@
     <!-- Selección de personaje y dificultad -->
     <section id="configScreen">
         <div class="character-select">
-            <h2>Elige tu personaje</h1>
-            <label><input type="radio" name="character" value="kitty" checked> Hello Kitty
-                <img src="../../images/peg/hellokittyToken.png" alt="hello kitty">
-            </label>
-            <label><input type="radio" name="character" value="keroppi"> 
-                Keroppi
-                <img src="../../images/peg/keroppiToken.png" alt="keroppi">
-            </label>
-            <label><input type="radio" name="character" value="hangyodon"> 
-                Hangyodon
-                <img src="../../images/peg/hangyodonToken.png" alt="hello kitty">
-            </label>
+            <h2>Elige tu personaje</h2>
+            <div class="token-preview" id="token-preview" aria-live="polite">
+                <img id="token-preview-image" alt="">
+                <span id="token-preview-name"></span>
+            </div>
+            <div id="token-selection" class="token-selection"></div>
         </div>
 
         <!-- Selección de Dificultad -->

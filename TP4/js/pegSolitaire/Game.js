@@ -209,9 +209,9 @@ export class Game {
 
         //Dibujar fichas que no estan activas
         this.pieces.forEach(p => {
-            if (p !== this.draggedPiece){
-                const wasSelected = p.selected;
+            const wasSelected = p.selected;
 
+            if (p !== this.draggedPiece){
                 //resaltar la ficha sugerida por la pista
                 if (this.showHint && p === this.hintPiece){
                     p.selected = true;
@@ -221,7 +221,7 @@ export class Game {
             p.draw(ctx);
 
             //restaurar el estado origiinal
-            p.selected = was.selected;
+            p.selected = wasSelected;
         });
 
         //dibujar el destino sugerido por la pista

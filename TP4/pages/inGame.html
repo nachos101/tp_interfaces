@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/layout_home.css">
     <link rel="stylesheet" href="../css/inGame.css">
+    <link rel="stylesheet" href="../css/pegSolitaire.css">
     
 </head>
 <body>
@@ -51,7 +52,6 @@
                         <path d="M9 37H34V44H41V47H3V44H9V37Z" fill="#F1DCB1"/>
                         <path d="M10 21V10L16 10V3L28 3.00002V10H34V21H27V28H16V21H10Z" fill="#F1DCB1"/>
                     </svg>
-                </div>
             </div>
         </div>
     </header>
@@ -126,6 +126,35 @@
                 
                 <!-- 2. JUEGO: Contenedor oculto donde cargará el canvas -->
                 <div class="game-container" id="game-container" style="display: none;">
+                    <section id="configScreen" class="peg-config">
+                        <div class="character-select">
+                            <h2>Elige tu personaje</h2>
+                            <div class="token-preview" id="token-preview" aria-live="polite">
+                                <img id="token-preview-image" alt="">
+                                <span id="token-preview-name"></span>
+                            </div>
+                            <div id="token-selection" class="token-selection"></div>
+                        </div>
+
+                        <div class="difficulty-select">
+                            <h2>Elige la dificultad:</h2>
+                            <label><input type="radio" name="difficulty" value="0" checked> Principiante (Sin límite)</label>
+                            <label><input type="radio" name="difficulty" value="600"> Casual (10 minutos)</label>
+                            <label><input type="radio" name="difficulty" value="180"> Speedrun (3 minutos)</label>
+                        </div>
+
+                        <button id="startGameBtn" type="button">Comenzar</button>
+                    </section>
+
+                    <section id="gameScreen" hidden>
+                        <div class="game-hud">
+                            <span class="game-hud__timer" id="timerDisplay">Sin límite</span>
+                            <button class="game-hud__btn" id="resetBtn" type="button">Reiniciar</button>
+                            <button class="game-hud_hints" id="hintsBtn" type="button">Ayuda</button>
+                        </div>
+                        <canvas id="pegCanva" width="1280" height="640"></canvas>
+                    </section>
+                </div>
                 </div>
             </div>
             

@@ -35,7 +35,7 @@
     */
 
 import {Game} from './Game.js';
-import {characters} from './Assets.js';
+import {characters, pieceImages, TOKEN_DEFINITIONS} from './Assets.js';
 
 const CELL_SIZE = 80; // 7 celdas de 80px = tablero de 560px, entra en los 640px de alto
 
@@ -45,7 +45,8 @@ class Main {
         this.ctx = this.canvas.getContext('2d');
         this.game = new Game(this.canvas.width, this.canvas.height, CELL_SIZE);
 
-        this.selectedCharacter = characters[0]; //hello kitty por defecto
+        this.isStandalone = Boolean(document.getElementById('configScreen'));
+        this.selectedCharacterId = characters[0].id;
         
         this.images = {}; // Acá iría boardBg si se agrega una imagen de fondo
 
@@ -54,17 +55,108 @@ class Main {
         this.timerInterval = null;
         this.timerDisplay = document.getElementById('timerDisplay');
 
+        this.renderTokenSelection();
         this.setupEvents();
         this.startLoop();
     }
 
-    start(difficulty = this.difficulty) {
-        this.difficulty = difficulty;
-        this.game.init(selectedCharacter);
-        this.startTimer(this.difficulty);
+    renderTokenSelection() {
+        const tokenSelection = document.getElementById('token-selection');
+
+        if (!tokenSelection) {
+            return;
+        }
+
+        TOKEN_DEFINITIONS.forEach((token, index) => {
+            const label = document.createElement('label');
+            const input = document.createElement('input');
+            const image = document.createElement('img');
+            const name = document.createElement('span');
+
+            label.className = 'token-option';
+            input.type = 'radio';
+            input.name = 'character';
+            input.value = token.id;
+            input.checked = index === 0;
+            input.setAttribute('aria-label', token.label);
+            image.src = pieceImages[token.id].src;
+            image.alt = `${token.label} seleccionado`;
+            name.textContent = token.label;
+
+            label.append(input, image, name);
+            tokenSelection.append(label);
+        });
+
+        this.updateTokenPreview();
+
+        tokenSelection.addEventListener('change', (event) => {
+            if (event.target.name === 'character') {
+                this.selectedCharacterId = event.target.value;
+                this.updateTokenPreview();
+            }
+        });
     }
 
-    startTimer() {
+    updateTokenPreview() {
+        const previewImage = document.getElementById('token-preview-image');
+        const previewName = document.getElementById('token-preview-name');
+        const selectedToken = TOKEN_DEFINITIONS.find(
+            token => token.id === this.selectedCharacterId
+        );
+
+        if (!previewImage || !previewName || !selectedToken) {
+            return;
+        }
+
+        previewImage.src = pieceImages[selectedToken.id].src;
+        previewImage.alt = selectedToken.label;
+        previewName.textContent = selectedToken.label;
+    }
+
+    getSelectedCharacter() {
+        const character = characters.find(
+            character => character.id === this.selectedCharacterId
+        );
+
+        if (!character) {
+            console.error(`No existe el Token seleccionado "${this.selectedCharacterId}".`);
+            return null;
+        }
+
+        return character;
+    }
+
+    getSelectedDifficulty() {
+        const selectedDifficulty = document.querySelector(
+            'input[name="difficulty"]:checked'
+        );
+        const difficultyNames = {
+            '0': 'principiante',
+            '600': 'casual',
+            '180': 'speedrun'
+        };
+
+        return selectedDifficulty
+            ? difficultyNames[selectedDifficulty.value] || 'principiante'
+            : 'principiante';
+    }
+
+    start(difficulty = this.difficulty) {
+        this.difficulty = difficulty;
+        const selectedCharacter = this.getSelectedCharacter();
+
+        if (!selectedCharacter ||
+            (selectedCharacter.image.complete && selectedCharacter.image.naturalWidth === 0)) {
+            console.error("La partida no puede comenzar porque el Token seleccionado no está disponible.");
+            return false;
+        }
+
+        this.game.init(selectedCharacter);
+        this.startTimer(this.difficulty);
+        return true;
+    }
+
+    startTimer(difficulty = this.difficulty) {
         clearInterval(this.timerInterval);
 
         const timeLimits = {
@@ -110,18 +202,11 @@ class Main {
     }
 
     setupEvents() {
-        /* se buscan los elementos con atributo data-character.
-          si se actualiza la seleccion de personaje se actualiza la variable.*/
-        
-        document.querySelectorAll('[data-character]').forEach(button => {
-            button.addEventListener('click', () => {
-                const characterName = button.dataset.character;
+        const startGameButton = document.getElementById('startGameBtn');
 
-                this.selectedCharacter = characters.find(
-                    character => character.image === pieceImages[characterName]
-                )
-            })
-        })
+        if (startGameButton) {
+            startGameButton.addEventListener('click', () => this.startStandaloneGame());
+        }
 
         //click de mouse y soltar
         this.canvas.addEventListener('mousedown', (e) => {
@@ -155,6 +240,28 @@ class Main {
 
     }
 
+    startStandaloneGame() {
+        const selectedCharacterInput = document.querySelector(
+            'input[name="character"]:checked'
+        );
+        const configScreen = document.getElementById('configScreen');
+        const gameScreen = document.getElementById('gameScreen');
+
+        this.selectedCharacterId = selectedCharacterInput
+            ? selectedCharacterInput.value
+            : characters[0].id;
+        if (!this.start(this.getSelectedDifficulty())) {
+            return;
+        }
+
+        if (configScreen) {
+            configScreen.hidden = true;
+        }
+        if (gameScreen) {
+            gameScreen.hidden = false;
+        }
+    }
+
     // El corazón visual del juego
     startLoop() {
         const loop = () => {
@@ -186,4 +293,8 @@ class Main {
 const main = new Main();
 
 // La portada la oculta inGame.js; acá arranca la partida y el timer
-document.getElementById('btn-play-game').addEventListener('click', () => main.start());
+const playButton = document.getElementById('btn-play-game');
+
+if (playButton && !main.isStandalone) {
+    playButton.addEventListener('click', () => main.start());
+}
