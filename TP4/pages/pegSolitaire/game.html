@@ -9,42 +9,41 @@
 <body class="game">
     <!-- Selección de personaje y dificultad -->
     <section id="configScreen">
+        <h2>Configura tu partida</h2>
+        <h3>Elige tu personaje</h3>
+
         <div class="character-select">
-            <h2>Elige tu personaje</h1>
-            <label><input type="radio" name="character" value="kitty" checked> Hello Kitty
+            <label><input type="radio" name="character" value="kitty" checked > 
                 <img src="../../images/peg/hellokittyToken.png" alt="hello kitty">
+                Hello kitty
             </label>
             <label><input type="radio" name="character" value="keroppi"> 
-                Keroppi
                 <img src="../../images/peg/keroppiToken.png" alt="keroppi">
+                Keroppi
             </label>
             <label><input type="radio" name="character" value="hangyodon"> 
+                <img src="../../images/peg/hangyodonToken.png" alt="hangyodon">
                 Hangyodon
-                <img src="../../images/peg/hangyodonToken.png" alt="hello kitty">
             </label>
         </div>
 
         <!-- Selección de Dificultad -->
+        <h3>Elige la dificultad:</h3>
+
         <div class="difficulty-select">
-            <h2>Elige la dificultad:</h2>
             <label><input type="radio" name="difficulty" value="0" checked> Principiante (Sin límite)</label>
             <label><input type="radio" name="difficulty" value="600"> Casual (10 minutos)</label>
             <label><input type="radio" name="difficulty" value="180"> Speedrun (3 minutos)</label>
         </div>
 
         <button id="btnJugar">¡Jugar!</button>
-
-        <!-- Acá van los personajes -->
-        <!-- Acá van las dificultades -->
-
-        <button id="startGameBtn">Comenzar</button>
     </section>
 
 
     <!-- Pantalla de juego -->
     <section id="gameScreen" hidden>
         <div class="game-hud">
-            <span class="game-hud__timer" id="timerDisplay">5:00</span>
+            <span class="game-hud__timer" id="timerDisplay"></span>
             <button class="game-hud__btn" id="resetBtn">Reiniciar</button>
             <button class="game-hud_hints" id="hintsBtn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">

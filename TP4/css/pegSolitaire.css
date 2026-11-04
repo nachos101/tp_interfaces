@@ -2,8 +2,14 @@
 
 body {
     font-family: 'Unkempt', cursive;
-    color: #FFFFFF;
+    font-weight: 700;
+    color: #FF69B4;
+    -webkit-text-stroke: 1px #FFFFFF; 
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
     margin: 0; /* Quita los margenes por defecto */
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 /* Fondo del juego */
@@ -11,7 +17,7 @@ body {
     background-image: url("../images/peg/bgConfig.jpg");
     background-size: cover;
     background-position: center;
-    min-height: 100vh;
+    height: 100%;
 }
 
 /* Fondo de la portada */
@@ -36,6 +42,7 @@ body {
     text-align: center;
 }
 
+
 h1.game-title {
     font-weight: 700;
     color: #FF69B4;
@@ -48,7 +55,23 @@ h1.game-title {
 }
 
 h2 {
-    /* Listo para cuando lo necesites */
+    font-weight: 700;
+    color: #FF69B4;
+    font-size: 5rem;
+    margin: 0;
+    /*delineado de texto */
+    -webkit-text-stroke: 3px #FFFFFF; 
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3); /* Sombra para que resalte más */
+}
+
+h3{
+    font-weight: 700;
+    color: #FF69B4;
+    font-size: 3rem;
+    margin: 0;
+    /*delineado de texto */
+    -webkit-text-stroke: 1px #FFFFFF; 
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 }
 
 /* Configuración del Botón */
@@ -70,5 +93,212 @@ h2 {
 /* Efecto de agrandarse en Hover */
 .playBtn:hover {
     transform: scale(1.2); /* Aumenta su tamaño un 20% */
+}
+
+
+/* seccion de config */
+input[type="radio"]{
+    display: none;
+}
+
+#configScreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* seleccion de personajes */
+.character-select{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.character-select label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.character-select img {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+
+    border: 5px solid transparent;
+    border-radius: 50%;
+
+    padding: 5px;
+    box-sizing: border-box;
+
+    transition: transform 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+/* colores caracteristicos de cada personaje al hacer hover o seleccionar*/
+/* Hello Kitty (Rosa) */
+.character-select label:has(input[value="kitty"]:checked) img,
+.character-select label:has(input[value="kitty"]):hover img {
+    transform: scale(1.15);
+    border-color: #FF69B4;
+    box-shadow: 0 0 15px #FF69B4;
+}
+
+/* Keroppi (Verde) */
+.character-select label:has(input[value="keroppi"]:checked) img,
+.character-select label:has(input[value="keroppi"]):hover img {
+    transform: scale(1.15);
+    border-color: #88C928;
+    box-shadow: 0 0 15px #88C928;
+}
+
+/* Hangyodon (Celeste) */
+.character-select label:has(input[value="hangyodon"]:checked) img,
+.character-select label:has(input[value="hangyodon"]):hover img {
+    transform: scale(1.15);
+    border-color: #63C1D0;
+    box-shadow: 0 0 15px #63C1D0;
+}
+
+/* --- SELECCIÓN DE TIEMPO / DIFICULTAD --- */
+.difficulty-select {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.difficulty-select label {
+    background-color: #FFB6C1; /* Rosa claro base */
+    color: #FFFFFF;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: 3px solid #FFFFFF;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+.difficulty-select label:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+/* Botón activo (seleccionado) cambia a rosa intenso */
+.difficulty-select label:has(input:checked) {
+    background-color: #FF1493; /* Deep Pink organico */
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(255, 20, 147, 0.5);
+}
+
+
+/* --- BOTÓN JUGAR (GRANDE Y CENTRADO) --- */
+#btnJugar, #startGameBtn {
+    background-color: #FF69B4;
+    color: #FFFFFF;
+    font-family: 'Unkempt', cursive;
+    font-size: 3.5rem;
+    font-weight: 700;
+    padding: 15px 60px;
+    border: 6px solid #FFFFFF;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+}
+
+#btnJugar:hover, #startGameBtn:hover {
+    transform: scale(1.2);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+    background-color: #FF1493;
+}
+
+/* Contenedor del HUD alineado a la derecha */
+.game-hud {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Alinea todo a la derecha */
+    gap: 15px;
+    z-index: 100;
+}
+
+/* 1. Temporizador */
+.game-hud__timer {
+    order: 1; /* Fuerza a que aparezca primero */
+    font-size: 2rem;
+    font-weight: 700;
+    color: #FF69B4; /* Rosa oscuro para contraste */
+    background-color: #FFFFFF; /* Fondo blanco para máxima legibilidad */
+    border: 4px solid #FF69B4;
+    border-radius: 30px;
+    padding: 5px 25px;
+    min-width: 120px;
+    text-align: center;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+    -webkit-text-stroke: 1px #FF1493; 
+}
+
+/* Estilo base compartido para ambos botones del HUD */
+.game-hud__btn, .game-hud_hints {
+    font-family: 'Unkempt', cursive;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    background-color: #FF69B4;
+    border: 3px solid #FFFFFF;
+    border-radius: 25px;
+    padding: 10px 25px;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px; /* Separación entre el SVG y el texto */
+    min-width: 160px; /* Para que ambos botones tengan el mismo ancho */
+}
+
+/* Hover compartido */
+.game-hud__btn:hover, .game-hud_hints:hover {
+    transform: scale(1.1);
+    background-color: #FF1493; /* Rosa más intenso al hacer hover */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 2. Botón de Ayuda */
+.game-hud_hints {
+    order: 2; /* Fuerza a que aparezca segundo */
+}
+
+/* Asegura que el SVG que pongas se vuelva blanco puro */
+.game-hud_hints svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* 3. Botón de Reinicio */
+.game-hud__btn {
+    order: 3; /* Fuerza a que aparezca tercero */
 }
 

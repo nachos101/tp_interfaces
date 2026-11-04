@@ -89,6 +89,17 @@ const btnPlay = document.getElementById('btn-play-game');
             
             // 2. Mostramos el contenedor con tu juego
             gameContainer.style.display = 'block';
+            gameContainer.style.width = '100%';
+            gameContainer.style.height = '100%';
+
+            //3. inyectamos el game.html usando iframe
+            gameContainer.innerHTML = `
+            <iframe 
+                src="pegSolitaire/index.html" 
+                style="width: 100%; height: 100%; border: none; display: block;" 
+                allowfullscreen>
+            </iframe>
+            `;
         });
     }
 });

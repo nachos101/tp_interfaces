@@ -170,12 +170,12 @@ export class Game {
             }
         }
         //redibujar para mostrar la pista
-        this.startHintAnimation();
+        //this.startHintAnimation();
 
         //ocultar la pista luego de 3 segundos
         this.hintTimeout = setTimeout(() =>{
             this.clearHint();
-            this.draw();
+            //this.draw();
         }, 3000);
     }
 
@@ -207,29 +207,31 @@ export class Game {
     draw(ctx, bgImage) {
         this.board.draw(ctx, bgImage);
 
-        //Dibujar fichas que no estan activas
+        // Dibujar todas las fichas, excepto la que se está arrastrando
         this.pieces.forEach(p => {
-            if (p !== this.draggedPiece){
-                const wasSelected = p.selected;
 
-                //resaltar la ficha sugerida por la pista
-                if (this.showHint && p === this.hintPiece){
-                    p.selected = true;
-                }
+            if (p === this.draggedPiece) return;
+
+            // Guardar el estado original de selección
+            const wasSelected = p.selected;
+
+            // Resaltar la ficha sugerida por la ayuda
+            if (this.showHint && p === this.hintPiece) {
+                p.selected = true;
             }
 
             p.draw(ctx);
 
-            //restaurar el estado origiinal
-            p.selected = was.selected;
+            // Restaurar el estado original
+            p.selected = wasSelected;
         });
 
-        //dibujar el destino sugerido por la pista
-        if (this.showHint && this.hintMove){
+        // Dibujar el destino sugerido
+        if (this.showHint && this.hintMove) {
             this.drawHint(ctx);
         }
 
-        //dibujar la ficha arrastrada por encima de todo
+        // Dibujar la ficha arrastrada por encima de todo
         if (this.draggedPiece) {
             this.draggedPiece.draw(ctx);
         }

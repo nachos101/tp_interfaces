@@ -40,17 +40,20 @@ import {characters} from './Assets.js';
 const CELL_SIZE = 80; // 7 celdas de 80px = tablero de 560px, entra en los 640px de alto
 
 class Main {
-    constructor() {
+    //recibe el personaje y la dificultad elegida al intanciarse
+    constructor(characterValue, difficultyValue) {
         this.canvas = document.getElementById('pegCanva');
         this.ctx = this.canvas.getContext('2d');
         this.game = new Game(this.canvas.width, this.canvas.height, CELL_SIZE);
 
-        this.selectedCharacter = characters[0]; //hello kitty por defecto
+        //busca el personaje en el arreglo segun el value del html.
+        //hello kitty poor defecto
+        this.selectedCharacter = characters.find(c => c.id === characterValue) || characters[0]; 
         
         this.images = {}; // Acá iría boardBg si se agrega una imagen de fondo
 
         // Timer
-        this.difficulty = 'principiante';
+        this.difficulty = difficultyValue;
         this.timerInterval = null;
         this.timerDisplay = document.getElementById('timerDisplay');
 
@@ -58,30 +61,24 @@ class Main {
         this.startLoop();
     }
 
-    start(difficulty = this.difficulty) {
-        this.difficulty = difficulty;
-        this.game.init(selectedCharacter);
-        this.startTimer(this.difficulty);
+    start() {
+        this.game.init(this.selectedCharacter);
+        this.startTimer();
     }
 
     startTimer() {
         clearInterval(this.timerInterval);
 
-        const timeLimits = {
-            principiante: null,
-            casual: 600,
-            speedrun: 180
-        }
-
-        this.timeLeft = timeLimits[difficulty];
-
-        if (this.timeLeft === null){
+        //html ya manda los segundos en el value del input
+        const timeLimit = parseInt(this.difficulty, 10);
+        
+        if (timeLimit === 0){
             this.timerDisplay.innerText = 'Sin limite';
             return;
         }
-
-        this.timerDisplay.innerText = this.formatTime(this.timeLeft);
-
+        
+        this.timeLeft = timeLimit
+        this.timerDisplay.innerHTML = `${this.formatTime(this.timeLeft)}<br><span>Tiempo restante</span>`;
 
         this.timerInterval = setInterval(() => {
             if (this.game.isGameOver) {
@@ -90,8 +87,7 @@ class Main {
             }
 
             this.timeLeft--;
-            this.timerDisplay.innerText = this.formatTime(this.timeLeft);
-
+            this.timerDisplay.innerHTML = `${this.formatTime(this.timeLeft)}<br><span>Tiempo restante</span>`;
             if (this.timeLeft <= 0) {
                 this.game.isGameOver = true;
                 this.game.endMessage = "Se acabó el tiempo";
@@ -110,18 +106,6 @@ class Main {
     }
 
     setupEvents() {
-        /* se buscan los elementos con atributo data-character.
-          si se actualiza la seleccion de personaje se actualiza la variable.*/
-        
-        document.querySelectorAll('[data-character]').forEach(button => {
-            button.addEventListener('click', () => {
-                const characterName = button.dataset.character;
-
-                this.selectedCharacter = characters.find(
-                    character => character.image === pieceImages[characterName]
-                )
-            })
-        })
 
         //click de mouse y soltar
         this.canvas.addEventListener('mousedown', (e) => {
@@ -183,7 +167,27 @@ class Main {
     }
 }
 
-const main = new Main();
+//configuracion paraa game.html
+const btnJugar = document.getElementById('btnJugar');
+const configScreen = document.getElementById('configScreen');
+const gameScreen = document.getElementById('gameScreen');
 
-// La portada la oculta inGame.js; acá arranca la partida y el timer
-document.getElementById('btn-play-game').addEventListener('click', () => main.start());
+if (btnJugar) {
+    btnJugar.addEventListener('click', () => {
+        // 1. leer opciones seleccionadas por el usuario
+        const selectedCharValue = document.querySelector('input[name="character"]:checked').value;
+        const selectedDiffValue = document.querySelector('input[name="difficulty"]:checked').value;
+
+        // 2. ocultar pantalla de configuración
+        configScreen.hidden = true;
+        configScreen.style.display = 'none';
+        
+        // 3. mostrar juego
+        gameScreen.hidden = false;
+        gameScreen.style.display = 'block'; 
+        
+        // 4. iniciar juego pasando los datos
+        const main = new Main(selectedCharValue, selectedDiffValue);
+        main.start();
+    });
+}
