@@ -4,9 +4,10 @@ export const pieceImages = {
     hangyodon: new Image()
 };
 
-// Las rutas de Image se resuelven desde el HTML (pages/inGame.html), no desde este archivo
+// Las rutas de Image se resuelven desde el HTML (pages/pegSolitaire/game.html), no desde este archivo.
+// Ojo con mayúsculas: en Linux / GitHub Pages "hellokitty" y "helloKitty" son archivos distintos.
 pieceImages.helloKitty.src =
-    "../../images/peg/helloKittyToken.png";
+    "../../images/peg/hellokittyToken.png";
 
 pieceImages.keroppi.src =
     "../../images/peg/keroppiToken.png";
@@ -39,5 +40,9 @@ export const bgImage = {
     general : new Image()
 }
 
-bgImage.general.src = 
+bgImage.general.src =
     "../../images/peg/background.jpg";
+
+// Fondo de la cruz del tablero (mismo color crema que antes: #F1DCB1)
+export const boardImage = new Image();
+boardImage.src = "../../images/peg/boardBg.png";
