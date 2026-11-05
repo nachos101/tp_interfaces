@@ -137,6 +137,13 @@ class Main {
             this.game.showHints();
         });
 
+        //boton return a la configuracion de la partida
+        const backBtn = document.getElementById('backBtn');
+
+        backBtn.addEventListener('click', () => {
+            window.location.href = 'game.html';
+        });
+
     }
 
     // El corazón visual del juego
