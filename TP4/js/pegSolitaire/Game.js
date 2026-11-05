@@ -96,6 +96,9 @@ export class Game {
             this.draggedPiece.x = newPos.x;
             this.draggedPiece.y = newPos.y;
 
+            // El tablero cambió: la pista anterior ya no aplica
+            this.clearHint();
+
             // Requisito 5: Chequear fin del juego
             this.checkGameOver();
         } else {

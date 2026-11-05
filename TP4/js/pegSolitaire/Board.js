@@ -1,5 +1,15 @@
 import {CELL, BOARD_SIZE} from './constants.js';
 
+const BOARD_COLOR = "#F1DCB1";   // color de respaldo si la imagen del tablero no cargó
+const BOARD_CORNER_RADIUS = 20;  // redondeo de las esquinas de la cruz (px)
+
+// Contorno de la cruz en unidades de celda (col, fila), en sentido horario.
+// Corresponde al tablero inglés de 7x7 definido en this.grid.
+const BOARD_OUTLINE = [
+    [2, 0], [5, 0], [5, 2], [7, 2], [7, 5], [5, 5],
+    [5, 7], [2, 7], [2, 5], [0, 5], [0, 2], [2, 2]
+];
+
 export class Board {
     constructor(canvasWidth, canvasHeight, cellSize) {
         this.cellSize = cellSize;
@@ -33,22 +43,46 @@ this.grid = [
         };
     }
 
+    //traza el contorno de la cruz con las esquinas redondeadas (las de afuera y las de adentro)
+    traceShape(ctx, cornerRadius) {
+        const points = BOARD_OUTLINE.map(([col, row]) => ({
+            x: this.offsetX + col * this.cellSize,
+            y: this.offsetY + row * this.cellSize
+        }));
+
+        ctx.beginPath();
+        //arrancamos a mitad del primer lado para que todas las esquinas pasen por arcTo
+        ctx.moveTo((points[0].x + points[1].x) / 2, (points[0].y + points[1].y) / 2);
+
+        for (let i = 1; i <= points.length; i++) {
+            const corner = points[i % points.length];
+            const next = points[(i + 1) % points.length];
+            ctx.arcTo(corner.x, corner.y, next.x, next.y, cornerRadius);
+        }
+        ctx.closePath();
+    }
+
     //dibuja el tablero vacio
     draw(ctx, bgImage) {
-        if (bgImage) {
-            ctx.drawImage(bgImage, this.offsetX, this.offsetY, this.cellSize * BOARD_SIZE, this.cellSize * BOARD_SIZE);
-        }
+        //fondo: la imagen recortada con la forma de la cruz
+        ctx.save();
+        this.traceShape(ctx, BOARD_CORNER_RADIUS);
 
+        if (bgImage && bgImage.complete && bgImage.naturalWidth > 0) {
+            ctx.clip();
+            ctx.drawImage(bgImage, this.offsetX, this.offsetY, this.cellSize * BOARD_SIZE, this.cellSize * BOARD_SIZE);
+        } else {
+            //si la imagen todavía no cargó (o falló), se pinta el mismo color
+            ctx.fillStyle = BOARD_COLOR;
+            ctx.fill();
+        }
+        ctx.restore();
+
+        //hoyos de cada casilla jugable
         for (let r = 0; r < BOARD_SIZE; r++) {
             for (let c = 0; c < BOARD_SIZE; c++) {
                 if (this.grid[r][c] !== CELL.NON_PLAYABLE) {
                     const pos = this.getPixelPosition(r, c);
-
-                    //sin imagen de fondo, la cruz se dibuja celda por celda
-                    if (!bgImage) {
-                        ctx.fillStyle = "#F1DCB1";
-                        ctx.fillRect(pos.x, pos.y, this.cellSize, this.cellSize);
-                    }
 
                     const radius = (this.cellSize / 2) - 4; // con un margen
                     const centerX = pos.x + (this.cellSize / 2);

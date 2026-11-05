@@ -87,6 +87,13 @@
 .verticalCaroussel { grid-column: 2 / 3; }
 
 
+/* En las páginas de juego el header NO queda fijo arriba: se va con el scroll
+   para no tapar el juego. (Pisa el position: sticky de styles.css / layout_home.css;
+   relative mantiene su z-index para que los menús desplegables queden encima.) */
+.site-header {
+    position: relative;
+}
+
 /* =========================================================
    PANTALLA DEL JUEGO (.gameScreen)
    ========================================================= */
@@ -103,6 +110,9 @@
     aspect-ratio: 2 / 1; /* Mantiene la proporción del canvas si la pantalla es más chica */
     background: #2c231c;
     position: relative;
+    /* Contexto de apilamiento propio: los z-index de adentro (portada, juego)
+       no compiten con el header sticky ni con el menú lateral al scrollear */
+    isolation: isolate;
 }
 
 /* Contenedor de la portada */

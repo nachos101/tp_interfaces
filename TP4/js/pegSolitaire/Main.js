@@ -35,7 +35,7 @@
     */
 
 import {Game} from './Game.js';
-import {characters} from './Assets.js';
+import {characters, boardImage} from './Assets.js';
 
 const CELL_SIZE = 80; // 7 celdas de 80px = tablero de 560px, entra en los 640px de alto
 
@@ -50,7 +50,7 @@ class Main {
         //hello kitty poor defecto
         this.selectedCharacter = characters.find(c => c.id === characterValue) || characters[0]; 
         
-        this.images = {}; // Acá iría boardBg si se agrega una imagen de fondo
+        this.images = { boardBg: boardImage }; // fondo de la cruz del tablero
 
         // Timer
         this.difficulty = difficultyValue;
