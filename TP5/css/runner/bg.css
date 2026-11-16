@@ -1,0 +1,30 @@
+@keyframes scroll {
+    0% {background-position-x: 0px;}
+    100% {background-position-x: -1920px;}
+}
+
+.layer {
+    min-height: 500px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-repeat: repeat-x;
+    background-size: 1920px 100%;
+}
+
+.layer-3 {      
+  background-image: url("../../images/runner/bg/layer-3.png"); 
+  animation: scroll 15s infinite linear;
+}
+
+.layer-2 {      
+  background-image: url("../../images/runner/bg/layer-2.png"); 
+  animation: scroll 10s infinite linear;
+}
+
+.layer-1 {      
+  background-image: url("../../images/runner/bg/layer-1.png"); 
+  animation: scroll 5s infinite linear;
+}

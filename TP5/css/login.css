@@ -1,0 +1,342 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic);
+@import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+/* login-register design */
+
+.formContainer{
+    /*border box para quitar espacios innecesarios*/
+    box-sizing: border-box;
+    width: 600px;
+    height: auto;
+    border-radius: 50px;
+    background: #F1DCB1;
+    padding: 16px 50px;
+    margin: auto;
+ 
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* flex start para que empiece arriba del todo */
+    justify-content: flex-start; 
+}
+
+.logoContainer{
+    /* porcentaje porque el contenedor del form es fijo */
+    width:80%;
+    height: auto;
+}
+
+.logoContainer img{
+    /* ancho del 100% para que ocupe todo el espacio del contenedor */
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.socialLogin {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    margin-bottom: 32px;
+}
+
+
+/*form e inputs*/
+.form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.field {
+    width: 80%;
+    max-width: 370px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el label y el input/wrapper horizontalmente */
+    gap: 8px; /* Separación entre el label y el input */
+}
+
+.form input{
+    width: 100%; /* toma el 100% de su padre field */
+    height: 38px;
+    background-color:#F1DCB1;
+    border: 3px solid #A4936F;
+    border-radius: 8px;
+    color:#A4936F;
+    font-size: 24px;
+    box-sizing: border-box;
+}
+
+.form input:focus {
+    outline: none;
+    border: 2px solid #311E14;
+    color:#311E14;
+}
+
+.form input.successMode{
+    border-color: #009E5F;
+    color: #009E5F;
+    background-color: #f0fdf4;
+    transition: all 0.3s ease;
+}
+
+
+/* link olvide la contraseña */
+.linkCaption {
+    align-self: flex-end; /* Lo empuja a la derecha */
+    margin-top: 4px;
+}
+
+/* contenedor especial para el input contraseña con la foto del ojo*/
+.input-wrapper {
+    position: relative; /* Permite posicionar el botón del ojo adentro */
+    width: 100%; 
+}
+
+/* mensaje oculto que sale si no coinciden credeciales del formulario */
+.error-text {
+    color: #9C2C0B;
+    font-size: 16px;
+    font-weight: 600;
+    margin: -4px 0 0 0; /* Lo acerca un poco a los inputs */
+    display: none; /* Oculto por defecto, el JS lo mostrará */
+}
+
+/* captcha del registro */
+.captcha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 370px; 
+    height: 74px;
+    background-color: #FAFAFA;
+    border: 1px solid #D3D3D3;
+    border-radius: 3px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.05); /* Sutil sombra típica de reCAPTCHA */
+}   
+
+/* Grupo izquierdo: Checkbox y texto */
+.captchaLeft {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* El cuadro del checkbox */
+.captchaCheckbox {
+    width: 28px;
+    height: 28px;
+    background-color: #FFF;
+    border: 2px solid #C1C1C1;
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.captchaCheckbox:hover {
+    border-color: #A1A1A1;
+}
+
+.captchaText {
+    font-family: 'Lato';
+    font-size: 12px;
+    color: #000;
+}
+
+/* Grupo derecho: Logo y marca */
+.captchaRight {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- ESTADOS DEL CAPTCHA --- */
+
+/* 1. Estado Pensando/Cargando (Caja gris) */
+.captchaCheckbox.loading {
+    background-color: #999999; 
+    border-color: #999999;
+    cursor: wait; /* Cambia el cursor para indicar que está procesando */
+}
+
+/* 2. Estado Resuelto (Sin caja, solo SVG) */
+.captchaCheckbox.checked {
+    background-color: transparent;
+    border-color: transparent;
+    cursor: default;
+}
+
+/* Ocultar el SVG por defecto y en estado de carga */
+.captchaCheckbox .checkmark {
+    display: none;
+    width: 24px;
+    height: 24px;
+}
+
+/* Mostrar el SVG solo cuando está resuelto */
+.captchaCheckbox.checked .checkmark {
+    display: block;
+}
+
+/* 3. Animación (Keyframe) para que el tilde se dibuje solo */
+.captchaCheckbox.checked .checkmark polyline {
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    animation: drawCheck 0.4s ease forwards;
+}
+
+@keyframes drawCheck {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* botones */
+.eye-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);/*mueve el ojo al cento horizontal exacto del input*/
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    /* Usamos flex para centrar el SVG adentro del botón de forma perfecta */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.eye-btn.open{
+    display: none;
+}
+
+.eye-btn svg {
+    width: 29px;
+    height: 29px;
+    display: block; /* Quita el comportamiento de texto que causa el desnivel */
+}
+
+.button.login {
+    /*relative y overfow hidden: el boton actua como una caja con limites
+    estrictos. Index:1 asegura que el texto quede siempre arriba.  */
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: all .4s;
+}
+
+/* fondo normal del boton*/
+.button.login::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #9C2C0B;
+    border-radius: 8px;
+    /* lo envia al fondo absoluto */
+    z-index: -2;
+}
+
+/* capa animada
+index -1 se ubica entre el fondo y el texto. Nace pegada a la izq(left:0)
+y con un ancho de cero (width: 0%) */
+.button.login::before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%; 
+    height: 100%;
+    background-color: #731A00; /*color de hover*/
+    transition: all .4s;
+    border-radius: 8px;
+    z-index: -1;
+}
+
+/* disparador de la animacion */
+.button.login:hover{
+    color: #F1DCB1;
+}
+
+.button.login:hover::before {
+    width: 100%; /* La capa crece hasta llenar el botón */
+}
+
+/* Cambia el color del fondo cuando el botón es clickeado */
+.button.login:active::after,
+.button.login:active::before {
+    background-color: #C54620; 
+    transition: none; /*cambio instantáneo, sin animación */
+}
+
+/* Estado de éxito para el botón animado */
+.button.login.success-btn {
+    color: #FFF; 
+}
+
+/* Forzamos que ambas capas de fondo pasen a ser verdes */
+.button.login.success-btn::after,
+.button.login.success-btn::before {
+    background-color: #009E5F;
+    transition: all 0.3s ease;
+}
+
+/* botones google y facebook */
+
+.button.app{
+    text-align: center;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: 'Inter';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    gap: 10px;
+}
+
+.button.app.google{
+    color: var(--button-general-text, #121212);
+    background: #FFF;
+    border: 1px solid #e0e0e0;
+}
+
+.button.app.google:hover{
+    background-color: #ABABAB;
+}
+
+.button.app.google:active{
+    background-color: #C9C9C9;
+}
+
+.button.app.facebook{
+    color: var(--button-blue-text, #FFF);
+    border: 1px solid #e0e0e0;
+    background: #4285F4;
+}
+
+.button.app.facebook:hover{
+    background-color: #124EB0;
+}
+
+.button.app.facebook:active{
+    background-color: #124EB0;
+}
+
+/* divisor */
+hr{
+    width: 370px;
+    height: 2px;
+    background-color: #000;
+    border: 0px;
+}

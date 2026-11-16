@@ -1,0 +1,854 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+
+:root {
+  --font: "Lato", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --bg: #130B07;
+  --bg-header: #F1DCB1;
+  --surface: #2c231c;
+  --text: #F1DCB1;
+  --text-muted: #b9a88f;
+  --footer-bg: #F1DCB1;
+  --footer-text: #4F2D1C;
+  --accent: #9C2C0B;
+
+  --content-max: 1280px;
+  --gutter: clamp(12px, 3vw, 32px);
+  --inset: max(var(--gutter), (100% - var(--content-max)) / 2);
+
+  --card-size: clamp(104px, 13vw, 150px);
+  --radius-card: 8px;
+  --radius-hero: 14px;
+  --play: #9c2c0b;
+  --play-hover: #C54620;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* HEADER */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg-header);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px var(--inset);
+}
+
+.search {
+  flex: 1 1 320px;
+  max-width: 520px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  outline: 2px solid var(--footer-text);
+  background: #FFF3DC;
+  color: var(--footer-text);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 0.9rem;
+  color: inherit;
+}
+
+.search input:focus {
+  outline: none;
+}
+
+.search:focus-within {
+  outline: 2px solid var(--footer-text);
+  outline-offset: 2px;
+  background: #D7C39A;
+}
+
+.header-actions {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--avatar);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--footer-text);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* MAIN */
+.home {
+  display: grid;
+  align-content: start;
+  gap: clamp(20px, 3vw, 32px);
+  padding-block: 20px 48px;
+  min-width: 0; 
+  padding: 0 max(clamp(12px, 3vw, 32px), (100% - 1280px) / 2) 64px;
+}
+
+.section-title {
+  margin: 15px 0 15px;
+  padding-inline: var(--inset);
+  font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+  font-weight: 700;
+}
+
+/* DESTACADOS */
+.featured {
+  container-type: inline-size; 
+  min-width: 0;
+}
+
+.featured__track {
+  --slide: min(78cqi, 900px);
+  position: relative; 
+
+  display: grid;
+  grid-auto-flow: column; 
+  grid-auto-columns: var(--slide);
+  gap: clamp(8px, 2cqi, 20px);
+
+  padding-inline: calc((100cqi - var(--slide)) / 2);
+  padding-block: 4px 10px;
+
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  list-style: none;
+  margin: 0;
+}
+
+.featured__track {
+  scrollbar-width: none;
+}
+
+.featured__track::-webkit-scrollbar {
+  display: none;
+}
+
+.featured__slide {
+  scroll-snap-align: center;
+}
+
+
+
+/* Mensaje si la API falla */
+.api-error {
+  padding: 48px 16px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.featured__viewport {
+  position: relative;
+}
+.featured__viewport:hover{
+animation: kf_570_330_opacity_0 0.2s linear;
+
+@keyframes kf_570_330_opacity_0 {
+  0% { animation-timing-function: ease-out; opacity: 0; }
+  100% { opacity: 1; }
+}}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 2;
+
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: #664333;
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.4);
+  transition: background 0.2s, opacity 0.2s, scale 0.2s;
+}
+
+.carousel-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.carousel-btn:hover {
+  background: #8F7163;
+  scale: 1.08;
+}
+
+.carousel-btn:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.carousel-btn--prev {
+  left: calc(var(--inset) - 48px); /* Aleja más la flecha izquierda hacia el borde */}
+
+.carousel-btn--next {
+  right: calc(var(--inset) - 48px); /* Aleja más la flecha derecha hacia el borde */}
+
+.featured__link {
+  display: block;
+  aspect-ratio: 16 / 7;
+  border-radius: var(--radius-hero);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.featured__link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.featured__track.con-foco .featured__link {
+  scale: 0.9;
+  filter: brightness(0.5);
+  transition: scale 0.45s ease, filter 0.45s ease;
+}
+
+.featured__track.con-foco .is-active .featured__link {
+  scale: 1;
+  filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .featured__track.con-foco .featured__link {
+    transition: none;
+  }
+}
+
+/* Juego fijo PEG Solitaire */
+.featured__slide--inicio img {
+  object-position: center 15%;
+}
+
+/* Carrusel de juegos */
+.shelf {
+  min-width: 0;
+}
+
+.shelf__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--card-size);
+  gap: 12px;
+
+  padding-inline: var(--inset);
+  scroll-padding-inline: var(--inset);
+  padding-block: 4px 10px;
+
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  list-style: none;
+  margin: 0;
+}
+
+.shelf__track > li {
+  scroll-snap-align: start;
+}
+
+.shelf__track {
+  scrollbar-width: none;
+}
+
+.shelf__track::-webkit-scrollbar {
+  display: none;
+}
+
+.shelf__viewport {
+  position: relative;
+}
+
+/* Flechas del carrusel */
+.shelf__viewport .carousel-btn {
+  top: calc(4px + var(--card-size) / 2);
+}
+
+.shelf__viewport .carousel-btn--prev {
+  left: max(-16px, var(--inset) - 55px);
+}
+
+.shelf__viewport .carousel-btn--next {
+  right: max(-16px, var(--inset) - 55px);
+}
+
+/* gameCard */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.card__thumb {
+  aspect-ratio: 1;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card__name {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card__thumb {
+  display: grid;
+  container-type: inline-size;
+}
+
+.card__thumb > * {
+  grid-area: 1 / 1;
+}
+
+.card__thumb img {
+  transition: filter 0.2s ease-out;
+}
+
+/* Boton Jugar */
+.card__play,
+.featured__play {
+  /* Color del "borde 3D" de abajo (más oscuro que el botón) */
+  --btn-borde: #5e1a06;
+ 
+  place-self: center;
+  padding: 0.2em 0.6em;
+  border-radius: 0.25em;
+  background: var(--play);
+  color: var(--text);
+  font-weight: 700;
+ 
+  /* Sombra dura abajo = efecto tecla 3D + sombra suave para despegarlo de la imagen */
+  box-shadow:
+    0 0.18em 0 var(--btn-borde),
+    0 0.35em 0.8em rgb(0 0 0 / 0.5);
+ 
+  opacity: 0;
+  scale: 0.8;
+  translate: 0 0;
+ 
+  /* La curva cubic-bezier con valor > 1 hace que se pase un poco y vuelva: el "rebote" 
+  */
+  transition:
+    opacity 0.2s ease-out,
+    scale 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    translate 0.15s ease-out,
+    box-shadow 0.15s ease-out,
+    background 0.2s;
+}
+ 
+/* 1) APARECE al pasar por la card (con rebote) */
+.card:hover .card__play,
+.card:focus-visible .card__play,
+.featured__slide.is-active .featured__link:is(:hover, :focus-visible) .featured__play {
+  opacity: 1;
+  scale: 1;
+}
+ 
+/* 2) Mouse SOBRE el botón: se eleva y se ve más el borde de abajo */
+.card__play:hover,
+.featured__play:hover {
+  background: var(--play-hover);
+  translate: 0 -0.12em;
+  box-shadow:
+    0 0.3em 0 var(--btn-borde),
+    0 0.55em 1em rgb(0 0 0 / 0.55);
+}
+ 
+/* 3) CLIC: se hunde (el borde desaparece, como una tecla apretada) */
+.card__play:active,
+.featured__play:active {
+  translate: 0 0.18em;
+  box-shadow:
+    0 0 0 var(--btn-borde),
+    0 0.15em 0.4em rgb(0 0 0 / 0.5);
+  transition-duration: 0.05s;
+}
+
+/* Carrusel grande (solo el juego del centro) */
+.featured__link {
+  display: grid;
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  container-type: inline-size;
+  text-decoration: none;
+}
+
+.featured__link > * {
+  grid-area: 1 / 1;
+}
+
+.featured__link img {
+  transition: filter 0.2s ease-out;
+}
+
+.featured__play {
+  font-size: clamp(1rem, 4cqi, 2.25rem);
+}
+
+.featured__slide.is-active .featured__link:is(:hover, :focus-visible) img {
+  filter: brightness(0.45);
+}
+
+.featured__slide.is-active .featured__link:is(:hover, :focus-visible) .featured__play {
+  opacity: 1;
+  scale: 1;
+}
+/* Oscurecer la imagen al pasar el mouse (cards y carrusel grande) */
+.card__thumb img,
+.featured__link img {
+  transition: filter 0.2s ease-out;
+}
+
+.card:hover .card__thumb img,
+.card:focus-visible .card__thumb img,
+.featured__slide.is-active .featured__link:is(:hover, :focus-visible) img {
+  filter: brightness(0.45);
+}
+/* JUEGOS PREMIUM */
+/* Corona + precio */
+.badge-premium {
+  place-self: end start;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.4em;
+  margin: 0.7em;
+  font-size: clamp(0.6rem, 7cqi, 0.8rem);
+  pointer-events: none; 
+  position: relative;
+}
+
+.badge-premium__corona {
+  width: 2em;
+  height: auto;
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.6));
+}
+
+.badge-premium__precio {
+  padding: 0.25em 0.6em;
+  border-radius: 0.4em;
+  background: var(--bg-header);
+  color: var(--footer-text);
+  font-weight: 700;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.4);
+}
+
+.featured__link .badge-premium {
+  font-size: clamp(0.8rem, 2.2cqi, 1.25rem);
+  margin: 1em;
+}
+
+/* Boton de los premium */
+.es-premium .card__play,
+.es-premium .featured__play {
+  display: flex;
+  align-items: center;
+  gap: 0.35em;
+  justify-content: center;
+  max-width: 88%;
+  background: var(--bg-header);
+  color: var(--footer-text);
+  font-size: clamp(0.62rem, 7.5cqi, 0.9rem);
+  text-align: center;
+  text-wrap: balance;
+  line-height: 1.15;
+}
+
+.es-premium .featured__play {
+  font-size: clamp(0.9rem, 2.6cqi, 1.6rem);
+}
+
+.es-premium .card__play:hover,
+.es-premium .featured__play:hover {
+  background: #fff3d6;
+}
+
+.btn-carrito__icono {
+  flex: none;
+  width: 1.2em;
+  height: 1.2em;
+}
+
+/* FOOTER  */
+.site-footer {
+  background: var(--footer-bg);
+  color: var(--footer-text);
+}
+ 
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 32px 48px;
+  padding: 32px var(--inset);
+}
+ 
+/* ---------- Columnas de links ---------- */
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  gap: 24px clamp(24px, 4vw, 56px);
+}
+ 
+.footer-col h3 {
+  margin: 0 0 15px;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+ 
+/* "Idiomas" va debajo de "Contacto": separación entre las dos listas */
+.footer-col ul + h3 {
+  margin-top: 20px;
+}
+ 
+.footer-col ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+ 
+.footer-col a {
+  text-decoration: none;
+}
+ 
+.footer-col a:hover {
+  text-decoration: underline;
+}
+ 
+/* ---------- Derecha: redes arriba, logo abajo ---------- */
+.footer-aside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+ 
+.footer-social {
+  display: flex;
+  gap: 12px;
+}
+ 
+.footer-social a {
+  display: block;
+  color: #000; /* los SVG usan currentColor */
+  transition: color 0.2s;
+}
+ 
+.footer-social a:hover {
+  color: var(--play);
+}
+ 
+.footer-social svg {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+ 
+.footer-brand img {
+  display: block;
+  width: 350px;
+  height: auto;
+}
+ 
+/* ---------- Barra marrón inferior ---------- */
+.site-footer__bottom {
+  background: #4F2D1C;
+  color: var(--text);
+  text-align: center;
+}
+ 
+.site-footer__bottom p {
+  margin: 0;
+  padding: 14px var(--inset);
+  font-size: 0.8rem;
+}
+ 
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .site-header__inner {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .search {
+    order: 3;
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .header-actions {
+    margin-left: auto;
+  }
+
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+  }
+ 
+  /* Links en 2 columnas que se acomodan solas */
+  .footer-links {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+ 
+  /* Redes y logo arriba, alineados a la izquierda */
+.footer-aside {
+    order: -1;
+    align-items: center;
+    width: 100%; /* Nos aseguramos de que el contenedor use todo el ancho disponible */
+  }
+
+  .footer-brand {
+    display: flex; 
+    justify-content: center; /* Centra la imagen del logo dentro del enlace */
+    width: 100%;
+  }
+
+  .footer-brand img {
+    width: 200px;
+    margin: 0 auto; /* Refuerza el centrado de la imagen */
+  }
+
+  .carousel-btn {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Barra animada */
+
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1rem;
+  background: #130B07;
+  color: #fff;
+  transition: opacity 0.4s, visibility 0.4s;
+}
+
+.loader.oculto {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* contenedor de la barra */
+.barra {
+  width: min(300px, 80vw);
+  height: 14px;
+  background: #333;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.relleno {
+  height: 100%;
+  width: calc(var(--p, 0) * 1%); 
+  background-color: #8F7163;
+  /* rayas diagonales que se mueven */
+  background-image: linear-gradient(
+    45deg,
+    rgba(255,255,255,.25) 25%, transparent 25%,
+    transparent 50%, rgba(255,255,255,.25) 50%,
+    rgba(255,255,255,.25) 75%, transparent 75%
+  );
+  background-size: 1rem 1rem;
+  animation: rayas 0.6s linear infinite;
+}
+
+@keyframes rayas   { from { background-position: 1rem 0; } to { background-position: 0 0; } }
+
+
+/* Menu hamburguesa */
+:root {
+  --menu-bg: #f1dcb1;
+  --menu-ink: #4f2d1c;
+  --menu-w: min(280px, 80vw);
+}
+
+/* Botón hamburguesa (ahora es un <button>, no un SVG suelto) */
+.menu-toggle {
+  flex: none;
+  display: grid;
+  place-items: center;
+  padding: 2px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.menu-toggle svg {
+  display: block;
+}
+
+.menu-toggle:hover,
+.menu-toggle[aria-expanded="true"] {
+  background: rgb(79 45 28 / 0.12);
+}
+
+.menu-lateral {
+  position: fixed;
+  top: var(--header-h, 80px);
+  bottom: 0;
+  left: 0;
+  z-index: 9;
+  width: var(--menu-w);
+  overflow-y: auto;
+  background: var(--menu-bg);
+  color: var(--menu-ink);
+  border-right: 3px solid var(--menu-ink);
+  box-shadow: 4px 0 16px rgb(0 0 0 / 0.35);
+
+  translate: -100% 0;
+  visibility: hidden;
+  transition: translate 0.3s ease, visibility 0s 0.3s;
+}
+
+.menu-lateral.abierto {
+  translate: 0 0;
+  visibility: visible;
+  transition: translate 0.3s ease;
+}
+
+.menu-lateral ul {
+  margin: 0;
+  padding: 12px 0;
+  list-style: none;
+}
+
+.menu-lateral a {
+  display: block;
+  padding: 14px 24px;
+  border-bottom: 2px solid rgb(79 45 28 / 0.25);
+  color: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s, padding-left 0.2s;
+}
+
+.menu-lateral li:first-child a {
+  border-top: 2px solid rgb(79 45 28 / 0.25);
+}
+
+.menu-lateral a:hover {
+  background: rgb(79 45 28 / 0.12);
+  padding-left: 32px;
+}
+
+.menu-lateral a[aria-current="page"] {
+  background: var(--menu-ink);
+  color: var(--menu-bg);
+}
+
+.menu-lateral a:focus-visible {
+  outline: 3px solid var(--menu-ink);
+  outline-offset: -3px;
+}
+
+.menu-overlay {
+  position: fixed;
+  inset: var(--header-h, 80px) 0 0 0;
+  z-index: 8;
+  background: rgb(0 0 0 / 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0s 0.3s;
+}
+
+.menu-overlay.abierto {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s;
+}
+
+body.menu-abierto {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-lateral,
+  .menu-lateral.abierto,
+  .menu-overlay,
+  .menu-overlay.abierto {
+    transition: none;
+  }
+}

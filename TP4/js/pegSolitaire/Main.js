@@ -162,6 +162,7 @@ class Main {
                 this.ctx.fillText(this.game.endMessage, this.canvas.width/2, this.canvas.height/2);
             }
 
+            //sincroniza canvas con tasa refresco 60 fps
             requestAnimationFrame(loop);
         };
         requestAnimationFrame(loop);
