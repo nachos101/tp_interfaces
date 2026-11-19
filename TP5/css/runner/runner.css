@@ -1,0 +1,38 @@
+hmtl, body{
+    margin: 0;
+    background: #EAEBEB;
+}
+
+/*  --------------------
+    personaje principal
+    --------------------*/
+
+@keyframes flutter {
+    /* primera viñeta*/
+    0% {background-position: 0 0}
+    /*tamaño total de ancho del sprite.
+    negativo para q no camine para atras */
+    100% { background-position: -320px 0}
+
+}
+
+#monster{
+    /* tamaño de la viñeta individual */
+    width: 64px;
+    height: 64px;
+
+    transform: scale(2);
+    transform-origin: center;
+    /* centramos */
+    margin: auto;
+    /* cargamos el sprite sheet */
+    background: url("../../images/runner/monsterSpriteSheet.png")
+                repeat-x;
+    animation: flutter .8s steps(5) infinite;
+    /* posicionamos al personaje en el lugar inicial*/
+    position: relative;
+    top: 500px;
+    right: 500px;
+
+}
+

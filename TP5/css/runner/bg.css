@@ -1,4 +1,4 @@
-@keyframes scroll {
+@keyframes moveBg {
     0% {background-position-x: 0px;}
     100% {background-position-x: -1920px;}
 }
@@ -14,17 +14,22 @@
     background-size: 1920px 100%;
 }
 
+.layer-4 {      
+  background-image: url("../../images/runner/bg/layer-4.png"); 
+  animation: moveBg 15s infinite linear;
+}
+
 .layer-3 {      
   background-image: url("../../images/runner/bg/layer-3.png"); 
-  animation: scroll 15s infinite linear;
+  animation: moveBg 15s infinite linear;
 }
 
 .layer-2 {      
   background-image: url("../../images/runner/bg/layer-2.png"); 
-  animation: scroll 10s infinite linear;
+  animation: moveBg 10s infinite linear;
 }
 
 .layer-1 {      
   background-image: url("../../images/runner/bg/layer-1.png"); 
-  animation: scroll 5s infinite linear;
+  animation: moveBg 5s infinite linear;
 }
