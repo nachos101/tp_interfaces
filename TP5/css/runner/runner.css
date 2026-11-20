@@ -1,5 +1,8 @@
 hmtl, body{
+    width: 100%;
+    height: 100%;
     margin: 0;
+    overflow: hidden;
     background: #EAEBEB;
 }
 
@@ -21,18 +24,26 @@ hmtl, body{
     width: 64px;
     height: 64px;
 
-    transform: scale(2);
+    /* posicionamos al personaje en el lugar inicial, en funcion a la
+    altura del escenario
+    Movemos con transform, no con top/left. De esta manera se usa el gpu
+    y no el cpu que reccalcula el layout en cada cuadro. */
+    position: absolute;
+
+    transform: translateX(200%)
+               translateY(-50%)
+               scale(2);
+
     transform-origin: center;
-    /* centramos */
-    margin: auto;
+
     /* cargamos el sprite sheet */
     background: url("../../images/runner/monsterSpriteSheet.png")
                 repeat-x;
-    animation: flutter .8s steps(5) infinite;
-    /* posicionamos al personaje en el lugar inicial*/
-    position: relative;
-    top: 500px;
-    right: 500px;
-
+    animation: none;
+    
+    z-index: 5;
 }
 
+#monster.is-flapping {
+    animation: flutter 0.4s steps(5) 1;
+}

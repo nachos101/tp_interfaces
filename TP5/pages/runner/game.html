@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,16 +8,28 @@
     <link rel="stylesheet" href="../../css/runner/runner.css">
 </head>
 <body>
-    <section class="bg">
-        <div class="layer layer-4">
-            <div class="layer layer-3">
-                <div class="layer layer-2">
-                    <div class="layer layer-1">
-                        <div id="monster"></div>
-                    </div>   
-                </div>
-            </div>
+
+    <section class="game-world">
+
+        <!-- fondo parallax
+         el anidamiento no es necesario. Se superponen con position:absolute en css-->
+        <div class="bg">
+            <div class="layer layer-4"></div>
+            <div class="layer layer-3"></div>
+            <div class="layer layer-2"></div>
+            <div class="layer layer-1"></div>
         </div>
+
+        <!-- superficie donde se dibujan los obstáculos -->
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- personaje -->
+        <div id="monster"></div>
+
     </section>
+
+    <!-- se usa module por el uso de clases en js (se usa import y export) -->
+    <script type="module" src="../../js/runner/Main.js"></script>
+
 </body>
 </html>
