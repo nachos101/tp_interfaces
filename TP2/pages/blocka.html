@@ -128,37 +128,45 @@
                 <!-- 2. JUEGO: Contenedor oculto donde cargará el iframe/canvas -->
                 <div class="game-container" id="game-container" style="display: none;">
                     <div class="blocka-game" aria-label="Juego Blocka">
-                        <div class="blocka-status-bar">
-                            <span>Nivel: <strong id="level-display">1</strong></span>
-                            <span>Tiempo: <strong id="timer-display">00:00</strong></span>
-                            <span>Filtro: <strong id="filter-display">Escala de Grises</strong></span>
-                        </div>
-
-                        <div class="blocka-selector">
-                            <p>Elegí una imagen:</p>
-                            <div id="thumbnails-grid" class="thumbnails-grid"></div>
-                        </div>
-
-                        <div class="blocka-play-area">
+                        <div class="blocka-stage">
                             <div class="board-scroll">
                                 <div id="board-container" aria-live="polite"></div>
                             </div>
+                        </div>
+
+                        <aside class="blocka-panel">
+                            <div class="blocka-status-bar">
+                                <span>Nivel <strong id="level-display">1</strong></span>
+                                <span><span id="timer-label">Tiempo</span> <strong id="timer-display">00:00</strong></span>
+                                <span>Récord <strong id="record-display">--:--</strong></span>
+                                <span>Filtro <strong id="filter-display">Escala de grises</strong></span>
+                            </div>
+
+                            <div class="blocka-selector">
+                                <p>Imagen del nivel (se sortea al comenzar)</p>
+                                <div id="thumbnails-grid" class="thumbnails-grid"></div>
+                            </div>
 
                             <div class="blocka-config">
-                                <label for="pieces-select">Cantidad de piezas:</label>
+                                <label for="pieces-select">Cantidad de piezas</label>
                                 <select id="pieces-select">
                                     <option value="4">4</option>
                                     <option value="6">6</option>
                                     <option value="8">8</option>
                                 </select>
                             </div>
-                        </div>
 
-                        <div class="blocka-controls">
-                            <button id="btn-start" class="button small-btn" type="button">Comenzar</button>
-                            <button id="btn-reset" class="button small-btn" type="button">Reiniciar</button>
-                            <button id="btn-help" class="button small-btn" type="button" style="display: none;">Ayuda</button>
-                        </div>
+                            <div class="blocka-controls">
+                                <button id="btn-start" class="button small-btn" type="button">Comenzar</button>
+                                <button id="btn-reset" class="button small-btn" type="button">Reiniciar</button>
+                                <button id="btn-help" class="button small-btn" type="button" hidden title="Fija una pieza en su lugar (+5 segundos)">Ayudita</button>
+                            </div>
+
+                            <p class="blocka-hint">
+                                <strong>Cómo jugar:</strong> click izquierdo gira la pieza a la izquierda, click derecho a la derecha.
+                                <em>Ayudita</em> acomoda una pieza y suma 5 s.
+                            </p>
+                        </aside>
                     </div>
 
                     <div id="modal-overlay" class="blocka-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -167,7 +175,8 @@
                             <p id="modal-desc"></p>
                             <div class="blocka-modal-actions">
                                 <button id="btn-next-level" class="button small-btn" type="button">Siguiente nivel</button>
-                                <button id="btn-menu" class="button small-btn" type="button">Volver a jugar</button>
+                                <button id="btn-retry" class="button small-btn" type="button">Repetir nivel</button>
+                                <a id="btn-menu" class="button small-btn" href="home.html">Menú principal</a>
                             </div>
                         </div>
                     </div>
@@ -390,7 +399,7 @@
                         <div class="controls-list">
                             <p><strong>Click Izquierdo:</strong> <span>Rotar pieza a la izquierda</span></p>
                             <p><strong>Click Derecho:</strong> <span>Rotar pieza a la derecha</span></p>
-                            <p><strong>Ayuda</strong> <span>Ubica una pieza en su lugar. <br>Suma 5seg. al cronometro</span></p>
+                            <p><strong>Ayudita:</strong> <span>Ubica una pieza en su lugar y la deja fija. <br>Suma 5 seg. al cronómetro</span></p>
                         </div>
                     </section>
                 </div>
@@ -410,7 +419,7 @@
 
             <h3 class="description__subtitle">Controles BLOCKA</h3>
             <p class="description__text">Comienza el nivel con una imagen aleatoria presionando <span>Comenzar</span>. Haz click derecho en tu mouse sobre una pieza para que la imagen rote a la derecha,
-             cliquear el boton izquierdo de tu mouse hara que rote a izquierda. Si necesitas ayuda presiona <span>Ayuda</span>, esta accion sumara <span>5 segundos al cronometro.</span>
+             cliquear el boton izquierdo de tu mouse hara que rote a izquierda. Si necesitas ayuda presiona <span>Ayudita</span>, esta accion sumara <span>5 segundos al cronometro.</span>
             <br> El nivel se completa una vez que hayas logrado rearmar la imagen original!</p>
 
             <h3 class="description__subtitle">Imágenes del juego</h3>

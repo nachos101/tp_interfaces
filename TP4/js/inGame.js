@@ -77,8 +77,42 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // --- JUEGOS DISPONIBLES ---
+    // Cada botón "Jugar" trae un valor en data-game que indica qué juego mostrar.
+    const GAME_PEG = 1;      // Peg Solitaire
+    const GAME_BLOCKA = 2;   // Blocka
+    const GAME_RUNNER = 3;   // Flying Monster (runner)
+
+    function loadInIframe(container, src, title) {
+        container.innerHTML = `
+            <iframe
+                src="${src}"
+                title="${title}"
+                style="width: 100%; height: 100%; border: none; display: block;"
+                allowfullscreen>
+            </iframe>
+        `;
+    }
+
+    // Decide qué se muestra dentro del contenedor según el valor recibido
+    function launchGame(gameId, container) {
+        switch (gameId) {
+            case GAME_PEG:
+                loadInIframe(container, 'pegSolitaire/index.html', 'Hello Kitty Peg Solitaire');
+                break;
+            case GAME_BLOCKA:
+                // Blocka ya viene armado dentro del contenedor (blocka.js lo controla): no hay nada que inyectar
+                break;
+            case GAME_RUNNER:
+                loadInIframe(container, 'runner/index.html', 'Flying Monster');
+                break;
+            default:
+                console.warn('Juego desconocido (data-game):', gameId);
+        }
+    }
+
     //logica boton jugar en frame
-const btnPlay = document.getElementById('btn-play-game');
+    const btnPlay = document.getElementById('btn-play-game');
     const gameCover = document.getElementById('game-cover');
     const gameContainer = document.getElementById('game-container');
 
@@ -86,20 +120,14 @@ const btnPlay = document.getElementById('btn-play-game');
         btnPlay.addEventListener('click', () => {
             // 1. Ocultamos la portada y el botón
             gameCover.style.display = 'none';
-            
-            // 2. Mostramos el contenedor con tu juego
+
+            // 2. Mostramos el contenedor
             gameContainer.style.display = 'block';
             gameContainer.style.width = '100%';
             gameContainer.style.height = '100%';
 
-            //3. inyectamos el game.html usando iframe
-            gameContainer.innerHTML = `
-            <iframe 
-                src="pegSolitaire/index.html" 
-                style="width: 100%; height: 100%; border: none; display: block;" 
-                allowfullscreen>
-            </iframe>
-            `;
+            // 3. Cargamos el juego que indica el valor del botón
+            launchGame(parseInt(btnPlay.dataset.game, 10), gameContainer);
         });
     }
 });
