@@ -1,5 +1,15 @@
 /* Esta clase controla el movimiento vertical del personaje */
 
+/* el piso ocupa el 10% inferior del escenario. Se exporta para que
+los obstaculos usen exactamente el mismo piso */
+export const FLOOR_RATIO = 0.1;
+
+/* caja de colision (px). Es mas chica que el sprite (128px escalado)
+porque el monstruo dibujado no ocupa todo el cuadro: si usaramos el cuadro
+completo se sentiria que chocas con cosas que no tocaste */
+const HITBOX_W = 44;
+const HITBOX_H = 36;
+
 export class Monster{
     
     constructor(element, gameHeight) {
@@ -7,6 +17,14 @@ export class Monster{
 
         /* pos vertical inicial */
         this.y = gameHeight / 2;
+
+        /* pos horizontal del centro. Es fija: la define el translateX del css,
+        el monstruo solo se mueve en vertical. Se lee una vez del DOM */
+        const rect = element.getBoundingClientRect();
+        const worldLeft = element.parentElement
+            ? element.parentElement.getBoundingClientRect().left
+            : 0;
+        this.x = rect.left - worldLeft + rect.width / 2;
 
         /* velocidad vertical (que tan rapido sube/baja) */
         this.velocityY = 0;
@@ -59,7 +77,7 @@ export class Monster{
             this.velocityY = 0;
         }
 
-        const floorHeight = this.gameHeight * 0.1;
+        const floorHeight = this.gameHeight * FLOOR_RATIO;
         const floorY = this.gameHeight - floorHeight;
 
         if (this.y > floorY - halfHeight) {
@@ -67,6 +85,24 @@ export class Monster{
             this.velocityY = 0;
         }
 
+        this.draw();
+    }
+
+    /* rectangulo de colision centrado en el personaje */
+    getHitbox(){
+        return {
+            x: this.x - HITBOX_W / 2,
+            y: this.y - HITBOX_H / 2,
+            w: HITBOX_W,
+            h: HITBOX_H,
+        };
+    }
+
+    /* vuelve a la posicion inicial (reiniciar partida) */
+    reset(){
+        this.y = this.gameHeight / 2;
+        this.velocityY = 0;
+        this.element.classList.remove("is-flapping");
         this.draw();
     }
 
@@ -80,9 +116,13 @@ export class Monster{
     resize(gameHeight){
         this.gameHeight = gameHeight;
 
+        /* mismos limites que en update(): techo y piso */
+        const halfHeight = this.element.getBoundingClientRect().height / 2;
+        const floorY = gameHeight - gameHeight * FLOOR_RATIO;
+
         this.y = Math.min(
-            Math.max(this.y, this.element.offsetHeight),
-            gameHeight - this.element.offsetHeight
+            Math.max(this.y, halfHeight),
+            floorY - halfHeight
         );
 
         this.draw();

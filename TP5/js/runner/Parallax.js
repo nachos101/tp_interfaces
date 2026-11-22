@@ -30,7 +30,7 @@ export class Parallax {
     }
 
     resize(){
-        this.tileWidth = gameWorld.clientHeight * 2;
+        this.tileWidth = this.gameWorld.clientHeight * 2;
         // Evita que el desplazamiento supere el nuevo ancho
         this.layers.forEach(layer => {
             layer.offset %= this.tileWidth;

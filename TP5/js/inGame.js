@@ -92,6 +92,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 allowfullscreen>
             </iframe>
         `;
+        // Le damos el foco al iframe para que el teclado funcione sin hacer click antes
+        const iframe = container.querySelector('iframe');
+        iframe.addEventListener('load', () => iframe.contentWindow.focus());
+        iframe.focus();
     }
 
     // Decide qué se muestra dentro del contenedor según el valor recibido
