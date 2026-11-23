@@ -7,6 +7,11 @@ export const FLOOR_RATIO = 0.1;
 /* caja de colision (px). Es mas chica que el sprite (128px escalado)
 porque el monstruo dibujado no ocupa todo el cuadro: si usaramos el cuadro
 completo se sentiria que chocas con cosas que no tocaste */
+/* segundos que el monstruo no puede ser lastimado despues de un golpe.
+A 180 px/s son 270 px: alcanza de sobra para salir de la columna */
+const TIEMPO_INVULNERABLE = 1.5;
+const VELOCIDAD_PARPADEO = 10;      // cambios de visibilidad por segundo
+
 const HITBOX_W = 44;
 const HITBOX_H = 36;
 
@@ -37,6 +42,9 @@ export class Monster{
 
         this.gameHeight = gameHeight;
 
+        /* segundos de invulnerabilidad que le quedan (0 = vulnerable) */
+        this.invulnerable = 0;
+
         /* dibujamos la posicion inicial */
         this.draw();
 
@@ -58,6 +66,8 @@ export class Monster{
     por eso se multiplica la gravedad y desplazamiento por ese valor. La fisica deja de 
     depender de los fps q ejecua la compu */
     update(dt){
+        this.actualizarInvulnerabilidad(dt);
+
         /* aceleracion, gravedad modifica la velocidad */
         this.velocityY += this.gravity * dt;
 
@@ -88,6 +98,26 @@ export class Monster{
         this.draw();
     }
 
+    /* un golpe lo vuelve invulnerable un rato */
+    herir(){
+        this.invulnerable = TIEMPO_INVULNERABLE;
+    }
+
+    get esInvulnerable(){
+        return this.invulnerable > 0;
+    }
+
+    /* cuenta regresiva y parpadeo: mientras es invulnerable alterna entre
+    transparente y visible para que el jugador lo note */
+    actualizarInvulnerabilidad(dt){
+        if (this.invulnerable <= 0) return;
+
+        this.invulnerable = Math.max(0, this.invulnerable - dt);
+
+        const oculto = Math.floor(this.invulnerable * VELOCIDAD_PARPADEO) % 2 === 1;
+        this.element.style.opacity = this.invulnerable > 0 && oculto ? "0.3" : "1";
+    }
+
     /* rectangulo de colision centrado en el personaje */
     getHitbox(){
         return {
@@ -102,6 +132,8 @@ export class Monster{
     reset(){
         this.y = this.gameHeight / 2;
         this.velocityY = 0;
+        this.invulnerable = 0;
+        this.element.style.opacity = "1";
         this.element.classList.remove("is-flapping");
         this.draw();
     }

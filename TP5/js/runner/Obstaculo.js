@@ -24,6 +24,11 @@ export class Obstaculo {
         this.centro = centro;
         this.hueco = hueco;
         this.ancho = ANCHO_COLUMNA;
+        /* true cuando el monstruo ya lo atraveso y se sumo el punto */
+        this.pasado = false;
+        /* true si ya le quito una vida al monstruo: un mismo obstaculo
+        no puede lastimarlo dos veces */
+        this.golpeado = false;
     }
 
     /* limites del hueco */

@@ -3,6 +3,7 @@ de usuario, ejecuta el gameloop y actualiza todos los elementos en cada fotogram
 import { Monster } from "./Monster.js";
 import { Parallax } from "./Parallax.js";
 import { ObstaculoSpawner } from "./ObstaculoSpawner.js";
+import { HUD } from "./HUD.js";
 
 /* elementos del HTML */
 const gameWorld = document.querySelector(".game-world");
@@ -20,6 +21,7 @@ const GAME_SPEED = 180;
 let monster;
 let parallax;
 let spawner;
+let hud;
 
 /* estado de la partida */
 let gameOver = false;
@@ -42,8 +44,12 @@ function init() {
     // Creamos los obstaculos (usa el tamaño del escenario)
     spawner = new ObstaculoSpawner(
         gameWorld.clientWidth,
-        gameWorld.clientHeight
+        gameWorld.clientHeight,
+        monster.x
     );
+
+    // Puntaje
+    hud = new HUD();
 
     // Configuramos el canvas
     resizeCanvas();
@@ -92,6 +98,7 @@ function restart() {
     tiempoGameOver = 0;
     monster.reset();
     spawner.reset();
+    hud.reset();
 }
 
 
@@ -158,10 +165,34 @@ function update(dt) {
     /* los obstaculos se mueven a la misma velocidad que la capa mas cercana */
     spawner.update(dt, GAME_SPEED);
 
-    if (spawner.colisiona(monster.getHitbox())) {
-        gameOver = true;
-        tiempoGameOver = 0;
+    const hitbox = monster.getHitbox();
+
+    /* Choque con una columna o un enemigo: pierde una vida. Mientras parpadea
+    (invulnerable) los choques no cuentan, y cada peligro lastima una sola vez. */
+    if (!monster.esInvulnerable) {
+        const golpe = spawner.peligroGolpeado(hitbox);
+
+        if (golpe) {
+            golpe.golpeado = true;
+            hud.perderVida();
+
+            if (hud.sinVidas) {
+                gameOver = true;
+                tiempoGameOver = 0;
+                hud.terminarPartida();
+                return;
+            }
+
+            monster.herir();
+        }
     }
+
+    /* un punto por cada obstaculo que quedo completamente atras del monstruo.
+    Va despues del choque: si perdes la ultima vida en este frame no sumas. */
+    hud.sumar(spawner.contarPasados(hitbox.x));
+
+    /* las monedas se recogen al tocarlas */
+    hud.sumarMonedas(spawner.recogerMonedas(hitbox));
 }
 
 
@@ -178,30 +209,15 @@ function draw() {
 
     spawner.draw(ctx);
 
+    hud.draw(ctx, gameWorld.clientWidth);
+
     if (gameOver) {
-        drawGameOver();
+        hud.drawGameOver(
+            ctx,
+            gameWorld.clientWidth,
+            gameWorld.clientHeight
+        );
     }
-}
-
-function drawGameOver() {
-    const cx = gameWorld.clientWidth / 2;
-    const cy = gameWorld.clientHeight / 2;
-
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.lineJoin = "round";
-    ctx.lineWidth = 8;
-    ctx.strokeStyle = "#FFFFFF";
-    ctx.fillStyle = "#4F2D1C";
-
-    ctx.font = "bold 64px sans-serif";
-    ctx.strokeText("Game Over", cx, cy - 20);
-    ctx.fillText("Game Over", cx, cy - 20);
-
-    ctx.font = "bold 24px sans-serif";
-    ctx.lineWidth = 5;
-    ctx.strokeText("Espacio o click para reiniciar", cx, cy + 40);
-    ctx.fillText("Espacio o click para reiniciar", cx, cy + 40);
 }
 
 /* iniciar */
