@@ -1,6 +1,9 @@
-/* Esta clase crea los obstaculos cada cierta distancia, los mueve,
-descarta los que salieron de pantalla, los dibuja en el canvas y
-dice si el monstruo choco con alguno. */
+/* Esta clase maneja todo lo que viene "de frente": columnas (obstaculos),
+monedas y murcielagos (enemigos). Los crea cada cierta distancia, los mueve,
+descarta los que salieron de pantalla, los dibuja en el canvas y responde
+si el monstruo choco con algo (peligroGolpeado), paso una columna
+(contarPasados) o junto monedas (recogerMonedas).
+Explicacion completa en README.md. */
 import { Obstaculo } from "./Obstaculo.js";
 import { Moneda } from "./Moneda.js";
 import { Enemigo, VELOCIDAD_EXTRA_ENEMIGO } from "./Enemigo.js";
