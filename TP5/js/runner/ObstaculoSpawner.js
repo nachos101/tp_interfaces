@@ -6,6 +6,7 @@ si el monstruo choco con algo (peligroGolpeado), paso una columna
 Explicacion completa en README.md. */
 import { Obstaculo } from "./Obstaculo.js";
 import { Moneda } from "./Moneda.js";
+import { Corazon } from "./Corazon.js";
 import { Enemigo, VELOCIDAD_EXTRA_ENEMIGO } from "./Enemigo.js";
 import { FLOOR_RATIO } from "./Monster.js";
 
@@ -36,12 +37,19 @@ const SEPARACION_MONEDAS = 50;      // px entre monedas del mismo grupo
 const VARIACION_ALTURA_MONEDAS = 70; // +- respecto del hueco anterior (alcanzable sin esfuerzo)
 const MARGEN_MONEDAS = 40;          // distancia minima al techo y al piso
 
+
+//corazones
+const TIEMPO_ENTRE_CORAZONES = 10;  // segundos minimos entre un corazon y otro
+const PROB_CORAZON = 0.3;           // chance de aparecer una vez pasado ese tiempo
+
+
 /* --- enemigos ---
 Para que sea justo, cada murcielago sale con la distancia calculada para que cruce
 la posicion del monstruo justo cuando por ahi pasa el tramo libre entre dos columnas */
 const TIEMPO_PRIMER_ENEMIGO = 8;    // segundos de juego antes de que aparezca el primero
 const PROB_ENEMIGOS = 0.3;          // chance de que haya un murcielago en cada tramo
 const MARGEN_ENEMIGOS = 70;         // distancia minima al techo y al piso (incluye el vaiven)
+
 /* El murcielago nunca se pone en el "corredor": la franja de alturas entre un
 hueco y el siguiente, que es por donde vuela el jugador. Esta distancia se
 suma a cada lado de ese corredor (alcanza el radio del murcielago, el alto del
@@ -73,6 +81,9 @@ export class ObstaculoSpawner {
         this.obstaculos = [];
         this.monedas = [];
         this.enemigos = [];
+        this.corazones = [];
+
+        this.ultimoCorazon = 0;
         /* px que faltan recorrer hasta crear el siguiente. En 0 el primero
         aparece enseguida */
         this.distancia = 0;
@@ -105,6 +116,10 @@ export class ObstaculoSpawner {
 
         for (const e of this.enemigos) {
             e.yBase = Math.min(e.yBase, this.pisoY - MARGEN_ENEMIGOS);
+        }
+
+        for (const c of this.corazones) {
+            c.y = Math.min(c.y, this.pisoY - MARGEN_MONEDAS);
         }
     }
 
@@ -147,7 +162,10 @@ export class ObstaculoSpawner {
         const obstaculo = new Obstaculo(this.ancho + adelanto, centro, hueco);
         this.obstaculos.push(obstaculo);
 
-        this.crearMonedas(obstaculo, separacion);
+        if (!this.crearCorazon(obstaculo, separacion)) {
+            this.crearMonedas(obstaculo, separacion);
+        }
+
         this.crearEnemigo(obstaculo, separacion, velocidad);
     }
 
@@ -227,6 +245,26 @@ export class ObstaculoSpawner {
         }
     }
 
+    crearCorazon(obstaculo, separacion) {
+        if (this.tiempo - this.ultimoCorazon < TIEMPO_ENTRE_CORAZONES) return false;
+        if (Math.random() > PROB_CORAZON) return false;
+
+        const y = Math.min(
+            Math.max(
+                obstaculo.centro + azar(-VARIACION_ALTURA_MONEDAS, VARIACION_ALTURA_MONEDAS),
+                MARGEN_MONEDAS
+            ),
+            this.pisoY - MARGEN_MONEDAS
+        );
+
+        const xMedio = obstaculo.x + (obstaculo.ancho + separacion) / 2;
+
+        this.corazones.push(new Corazon(xMedio, y));
+        this.ultimoCorazon = this.tiempo;
+        return true;
+    }
+
+
     update(dt, velocidad) {
         this.tiempo += dt;
 
@@ -257,14 +295,29 @@ export class ObstaculoSpawner {
             e.update(dt, velocidad);
         }
         this.enemigos = this.enemigos.filter(e => !e.estaFuera());
+
+        for (const c of this.corazones) {
+            c.update(dt, velocidad);
+        }
+        this.corazones = this.corazones.filter(c => !c.estaFuera());
     }
 
     /* Devuelve el primer peligro (obstaculo o enemigo) que el hitbox
     ({x, y, w, h}) toca y que todavia no lo habia lastimado, o undefined si
     no hay choque. Todos tienen el flag 'golpeado'. */
-    peligroGolpeado(hitbox) {
-        return this.obstaculos.find(o => !o.golpeado && o.colisiona(hitbox)) ||
-               this.enemigos.find(e => !e.golpeado && e.colisiona(hitbox));
+
+    /* cada objeto tiene su deteccion*/
+
+    columnaGolpeada(hitbox){
+        return this.obstaculos.find(
+            o => !o.golpeado && o.colisiona(hitbox)
+        );
+    }
+
+    enemigoGolpeado(hitbox) {
+        return this.enemigos.find(
+            e => !e.golpeado && e.colisiona(hitbox)
+        );
     }
 
     /* Cuenta los obstaculos que ya quedaron totalmente atras de xCorte
@@ -296,6 +349,20 @@ export class ObstaculoSpawner {
         return cantidad;
     }
 
+    recogerCorazones(hitbox) {
+        let cantidad = 0;
+        for (const c of this.corazones) {
+            if (c.colisiona(hitbox)) {
+                c.recogido = true;
+                cantidad++;
+            }
+        }
+        if (cantidad > 0) {
+            this.corazones = this.corazones.filter(c => !c.recogido);
+        }
+        return cantidad;
+    }
+
     draw(ctx) {
         /* pixel art: sin suavizado. Se setea en cada frame porque cambiar
         el tamaño del canvas reinicia la configuracion del contexto */
@@ -307,6 +374,10 @@ export class ObstaculoSpawner {
 
         for (const m of this.monedas) {
             m.draw(ctx);
+        }
+
+        for (const c of this.corazones) {
+            c.draw(ctx);
         }
 
         /* los murcielagos van al final: vuelan por delante de las columnas */

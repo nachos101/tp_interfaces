@@ -150,14 +150,14 @@ function gameLoop(timestamp) {
 
 /* actualizacion */
 function update(dt) {
-    /* movimiento vertical del personaje */
-    monster.update(dt);
-
-    /* si perdiste, el escenario se congela y el monstruo solo cae */
+    /* si perdiste, el escenario se congela*/
     if (gameOver) {
         tiempoGameOver += dt;
         return;
     }
+
+    /* movimiento vertical del personaje */
+    const tocoPiso = monster.update(dt);
 
     /*movimiento del escenario */
     parallax.update(dt, GAME_SPEED);
@@ -167,24 +167,38 @@ function update(dt) {
 
     const hitbox = monster.getHitbox();
 
-    /* Choque con una columna o un enemigo: pierde una vida. Mientras parpadea
-    (invulnerable) los choques no cuentan, y cada peligro lastima una sola vez. */
+    /* Choque con una columna o piso: pierde una vida.
+    mientras parpadea (invulnerable) los choques no cuentan, y cada peligro lastima una sola vez. */
     if (!monster.esInvulnerable) {
-        const golpe = spawner.peligroGolpeado(hitbox);
+        const columna = spawner.columnaGolpeada(hitbox);
 
-        if (golpe) {
-            golpe.golpeado = true;
-            hud.perderVida();
+        if (columna || tocoPiso) {
+                if (columna) {
+                    columna.golpeado = true;
+                }
 
-            if (hud.sinVidas) {
-                gameOver = true;
-                tiempoGameOver = 0;
-                hud.terminarPartida();
-                return;
-            }
+                hud.perderVida();
 
-            monster.herir();
+                if (hud.sinVidas) {
+                    gameOver = true;
+                    tiempoGameOver = 0;
+
+                    monster.die();
+
+                    hud.terminarPartida();
+                    return;
+                }
+
+                monster.herir();
         }
+    }
+
+    /* choque con murcielago: quita monedas */
+    const enemigo = spawner.enemigoGolpeado(hitbox);
+
+    if (enemigo){
+        enemigo.golpeado = true;
+        hud.restarMonedas(4);
     }
 
     /* un punto por cada obstaculo que quedo completamente atras del monstruo.
@@ -193,6 +207,11 @@ function update(dt) {
 
     /* las monedas se recogen al tocarlas */
     hud.sumarMonedas(spawner.recogerMonedas(hitbox));
+
+    /* los corazones recuperan vida al tocarlos */
+    if (spawner.recogerCorazones(hitbox) > 0) {
+        hud.recuperarVida();
+    }
 }
 
 

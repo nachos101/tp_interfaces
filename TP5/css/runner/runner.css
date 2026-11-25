@@ -19,6 +19,26 @@ html, body{
 
 }
 
+@keyframes hurt {
+    /* segunda viñeta de la tercer tira*/
+    0%, 49% {background-position: -64px -128px }
+    /* tercer viñeta */
+    50%, 100% { background-position: -128px -128px}
+
+}
+
+@keyframes death {
+    /* terecer tira pero completa que desaparece el bicho
+    en -128 empieza la tercera fila.*/
+    from {
+        background-position: 0 -128px;
+    }
+    
+    to {
+        background-position: -448px -128px;
+    }
+}
+
 #monster{
     /* tamaño de la viñeta individual */
     width: 64px;
@@ -48,5 +68,13 @@ html, body{
 }
 
 #monster.is-flapping {
-    animation: flutter 0.4s steps(5) 1;
+    animation: flutter 0.3s steps(5) 1;
+}
+
+#monster.is-hurt {
+    animation: hurt 0.2s steps(1) infinite;
+}
+
+#monster.is-dying {
+    animation: death 1.5s steps(7) forwards;
 }

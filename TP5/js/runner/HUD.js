@@ -56,6 +56,14 @@ export class HUD {
         this.monedas += cantidad;
     }
 
+    restarMonedas(cantidad) {
+        this.monedas = Math.max(0, this.monedas - cantidad);
+    }
+
+    recuperarVida() {
+        this.vidas = Math.min(VIDAS_INICIALES, this.vidas + 1);
+    }
+
     perderVida() {
         this.vidas = Math.max(0, this.vidas - 1);
     }
